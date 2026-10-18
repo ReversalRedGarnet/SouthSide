@@ -1,0 +1,22 @@
+{
+  "id": "NEW-001",
+  "name": "",
+  "alt_names": [],
+  "constituency": "East Are'are | West Are'are | Small Malaita",
+  "place_text": "",
+  "tier": "legal_pa | community_area | community_group",
+  "realm": "land | coast_sea",
+  "location": { "lat": null, "lng": null, "precision": "point | bay | area | unlocated", "note": "", "source_ids": [] },
+  "summary_en": "",
+  "summary_pijin": null,
+  "facts": [
+    { "key": "area", "label": "Area", "value": "", "confidence": "reported | corroborated | conflicting | unknown", "source_ids": [], "note": "how measured, by whom" }
+  ],
+  "visitor": { "access": "unknown | ask_first | guided | open | closed_sensitive", "note": "" },
+  "contact": { "public": null, "note": "Only with the person's agreement" },
+  "consent": { "status": "not_yet_sought | in_progress | given_scoped | declined", "note": "" },
+  "open_questions": [],
+  "verification_status": "draft | desk_sourced | community_checked | source_verified | disputed",
+  "last_reviewed": "YYYY-MM-DD",
+  "public_visibility": "public | generalised | withheld"
+}

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Field Kit - Are'are–Small Malaita Conservation Atlas (prototype)</title>
+<link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="proto"><div class="wrap"><strong>Prototype for teaching.</strong> Nothing typed on this page leaves your browser.</div></div>
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="index.html"><small>Malaita Province, Solomon Islands</small>Are'are–Small Malaita Conservation Atlas</a>
+  <nav aria-label="Main"><a href="index.html">Map</a><a href="about.html">About and method</a><a href="kit.html" aria-current="page">Field Kit</a></nav>
+</div></header>
+
+<main id="main" class="wrap"><div class="prose" style="max-width:none">
+  <h1>Field Kit for student researchers</h1>
+  <p style="max-width:70ch">The atlas only grows through careful first-hand work. This kit walks you from a gap on the map to a record a custodian has agreed to share. Nothing here replaces your university's ethics process or the wishes of the people whose place it is.</p>
+
+  <div class="callout danger" style="max-width:78ch"><p><strong>Rule zero.</strong> The place belongs to its custodians, not to the atlas. Ask first, accept a no, and never publish what you were not given permission to publish.</p></div>
+
+  <h2>1. The research path</h2>
+  <ol class="steps" style="max-width:78ch">
+    <li><strong>Pick a gap.</strong> Open a profile and read "What we still don't know", or choose West Are'are or Small Malaita, where nothing has been recorded yet.</li>
+    <li><strong>Check what is required.</strong> Confirm your university ethics approval and whether any national or provincial research permission applies. This prototype has not verified those requirements, so ask your lecturer and the Malaita Provincial Government.</li>
+    <li><strong>Go through the right door.</strong> Approach chiefs, the association or the site committee first, ideally through someone they trust. Explain what you want to record, who will see it, and that they can say no or withdraw at any point.</li>
+    <li><strong>Record consent and its scope.</strong> What may be shown, to whom, for how long. Use the consent record template below.</li>
+    <li><strong>Log every source.</strong> Interviews, documents and observations each get a row in the source register. Separate what you saw from what you were told from what you read.</li>
+    <li><strong>Handle location carefully.</strong> Take true coordinates only with permission, keep them in a private file, and publish a generalised point or none.</li>
+    <li><strong>Hand back for review.</strong> Show the draft profile to the custodians before anyone else sees it. Record who reviewed it and when.</li>
+  </ol>
+
+  <h2>2. Templates</h2>
+  <p>
+    <a class="btn" href="assets/templates/source-register-template.csv" download>Source register (CSV)</a>
+    <a class="btn" href="assets/templates/consent-record-template.csv" download>Consent record (CSV)</a>
+    <a class="btn" href="assets/templates/site-profile-template.json" download>Blank site profile (JSON)</a>
+  </p>
+  <p class="small muted">Keep consent records and raw field notes in a private, backed-up location, never in the public repository.</p>
+
+  <h2>3. Draft a profile</h2>
+  <p style="max-width:70ch">Fill in what you have. The tool produces a profile in the atlas's data format and applies the location-privacy rules for you. It runs entirely in your browser.</p>
+  <div class="builder">
+    <form id="builder" class="form-grid" onsubmit="return false">
+      <label>Site name<input name="name" required placeholder="As the custodians call it"></label>
+      <div class="row2">
+        <label>Constituency<select name="constituency"><option>East Are'are</option><option>West Are'are</option><option>Small Malaita</option></select></label>
+        <label>Kind of site<select name="tier">
+          <option value="community_group">Community conservation group</option>
+          <option value="community_area">Community-managed area</option>
+          <option value="legal_pa">Legally declared protected area</option></select></label>
+      </div>
+      <label>Place description<input name="place_text" placeholder="Village, ward, landmark"></label>
+      <label>Location sharing
+        <select name="visibility">
+          <option value="withheld">Withheld (publish no map point)</option>
+          <option value="generalised">Generalised (round to about 1 km)</option>
+          <option value="public">Exact point (only if custodians clearly agree)</option></select></label>
+      <div class="row2">
+        <label>Latitude (negative, south)<input name="lat" inputmode="decimal" placeholder="-9.30"></label>
+        <label>Longitude<input name="lng" inputmode="decimal" placeholder="161.24"></label>
+      </div>
+      <label>Plain-language summary (English)<textarea name="summary" placeholder="Why does this place matter, and what does it protect? Two or three sentences."></textarea></label>
+      <div class="row2">
+        <label>Area<input name="area_value" inputmode="decimal" placeholder="e.g. 677"></label>
+        <label>Unit<select name="area_unit"><option value="ha">hectares</option><option value="km2">square km</option><option value="unknown">unknown</option></select></label>
+      </div>
+      <label>Area: how was it measured, and by whom?<input name="area_method" placeholder="e.g. GPS walk by rangers, 2025 (or: not known)"></label>
+      <label>Caretaker or management body<input name="management" placeholder="Name of group, as they wish to be named"></label>
+      <label>Visitor access
+        <select name="visitor"><option value="unknown">Unknown - ask first</option><option value="ask_first">Open by permission only</option><option value="guided">Open with a local guide</option><option value="open">Open to visitors</option><option value="closed_sensitive">Closed - sensitive site</option></select></label>
+      <label>Visitor protocol (who to ask, fees, rules)<input name="visitor_note" placeholder="Only what the custodians have told you"></label>
+      <label>Consent status
+        <select name="consent"><option value="not_yet_sought">Not yet sought</option><option value="in_progress">In progress</option><option value="given_scoped">Given for a stated scope</option><option value="declined">Declined</option></select></label>
+      <label>Consent scope and who gave it (no private details)<input name="consent_note" placeholder="e.g. Committee chair agreed to name, summary and area on the public site, 12 Mar"></label>
+      <label>Source IDs from your register<input name="sources" placeholder="e.g. R01, R02"></label>
+      <label>Open questions (one per line)<textarea name="questions"></textarea></label>
+    </form>
+
+    <div>
+      <h3>Check</h3>
+      <ul id="warnings" class="warn" aria-live="polite"></ul>
+      <h3>Preview on the map</h3>
+      <div id="kitmap" class="mini-map" style="height:240px" role="img" aria-label="Preview map showing where the public point would appear"></div>
+      <p class="small muted" id="kitmap-note">Enter coordinates and choose how they are shared to preview the public point.</p>
+      <h3>Profile data</h3>
+      <pre id="out" class="out" tabindex="0">{}</pre>
+      <p>
+        <button type="button" class="btn" id="copy">Copy</button>
+        <button type="button" class="btn ghost" id="dl">Download JSON</button>
+      </p>
+      <p class="small muted">A new profile starts as <em>draft</em>. It only becomes <em>community-checked</em> after custodians review it and that review is recorded. Send the JSON to the atlas maintainer; do not post it publicly.</p>
+    </div>
+  </div>
+
+  <h2>4. Research questions for tourism students</h2>
+  <p style="max-width:70ch">Conservation sites and tourism pull in different directions. These questions help you document both sides without promoting a place that is not ready or willing.</p>
+  <div class="table-scroll"><table class="plain">
+    <thead><tr><th>Theme</th><th>Questions worth asking (with permission)</th></tr></thead>
+    <tbody>
+      <tr><td>Access and protocol</td><td>Who gives permission to visit? Are there fees, guides or kastom rules? Are there times or places that are off limits?</td></tr>
+      <tr><td>Capacity</td><td>Where could visitors sleep, eat and get water? How would they reach the site? What happens in an emergency, with limited signal?</td></tr>
+      <tr><td>Benefits</td><td>Who earns from visitors now? Who would like to? How are decisions about money made?</td></tr>
+      <tr><td>Pressure and impact</td><td>What would more visitors change for fishing, forest, waste and water? What numbers could the place handle?</td></tr>
+      <tr><td>Culture</td><td>Which stories, practices or sites should not be shared with outsiders? Who decides, and how should that be shown on the atlas?</td></tr>
+      <tr><td>Wants and worries</td><td>Does the community want to be listed at all? What would make a listing useful, and what would make it harmful?</td></tr>
+      <tr><td>Comparison</td><td>How do other community-run places in Solomon Islands manage visitors and conservation together? Compare what worked and what did not.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>5. Where to start reading</h2>
+  <ul class="clean">
+    <li><a href="https://pipap.sprep.org/" rel="noopener">Pacific Islands Protected Area Portal</a> for registered protected areas and the SPREP data pipeline.</li>
+    <li><a href="https://www.iccaregistry.org/" rel="noopener">ICCA Registry</a> to see how communities describe territories they conserve.</li>
+    <li>The sources listed on each profile, which show how much is reported, by whom, and when.</li>
+    <li>The <a href="about.html#existing">What already exists</a> table, with its limits.</li>
+  </ul>
+</div></main>
+
+<footer><div class="wrap"><p>Prototype v0.2 &middot; Templates are starting points. Adapt them with your supervisor and the custodians.</p></div></footer>
+
+<script src="assets/vendor/leaflet/leaflet.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/kit.js"></script>
+</body>
+</html>

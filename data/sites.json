@@ -1,0 +1,232 @@
+{
+  "meta": {
+    "schema_version": "0.2",
+    "prepared": "2026-10-19",
+    "status": "Desk-sourced from published material only. Not reviewed by any custodian or community. Not an official record.",
+    "coordinate_note": "Only one site has a sourced location, and it is a bay-level point, not a boundary. Others are deliberately left unmapped until someone records a location with permission."
+  },
+  "sites": [
+    {
+      "id": "SM-001",
+      "name": "Kira Forest Biodiversity Conservation Area (KFBCA)",
+      "alt_names": ["Kira Protected Area"],
+      "constituency": "East Are'are",
+      "place_text": "Kira tribal land, Takataka Bay; Kira Conservation Centre at Masupa village",
+      "tier": "legal_pa",
+      "realm": "land",
+      "location": {
+        "lat": -9.298,
+        "lng": 161.242,
+        "precision": "bay",
+        "radius_m": 4000,
+        "note": "Point is Takataka Bay, where the sources place Kira tribal land. It is NOT the protected-area boundary.",
+        "source_ids": ["S08", "S01"]
+      },
+      "summary_en": "About 677 hectares of forest on Kira tribal land near Takataka Bay, declared a Protected Area under the national Protected Areas Act 2010. Sources describe it as the first in Malaita Province. Logging and mining are prohibited, and a community committee with rangers manages it.",
+      "summary_pijin": null,
+      "facts": [
+        {"key": "area", "label": "Area", "value": "677 hectares of forest", "confidence": "reported", "source_ids": ["S01", "S02", "S03"], "note": "All three sources report the declaration figure. Measurement method is not stated."},
+        {"key": "legal", "label": "Legal status", "value": "Declared a Protected Area under the Protected Areas Act 2010; registered as Resource Management Area Category 4 (Protected Areas Regulation 2012).", "confidence": "reported", "source_ids": ["S01", "S02"], "note": "Sources cite the Act as both 'Protected Areas Act 2010' and 'Protected Areas Management Act 2010'. Check the certificate."},
+        {"key": "established", "label": "Declared", "value": "Ceremony on 27-28 November at the Kira Conservation Centre. Year not stated.", "confidence": "unknown", "source_ids": ["S01", "S02"], "note": "27 November fell on a Friday in 2015 and 2020, matching 'Friday 27'. S01's page metadata says 2023, which does not match. Confirm from the certificate."},
+        {"key": "first", "label": "Claimed 'first'", "value": "First conservation group in Malaita Province to be declared a Protected Area. S01 also calls it the first forest Protected Area by law in Solomon Islands.", "confidence": "conflicting", "source_ids": ["S01", "S02", "S12"], "note": "The Malaita claim is consistent across sources. The national 'first forest' claim is unchecked: S12 describes Vuri Forest Conservation Area (Choiseul) as the country's 5th legal Protected Area."},
+        {"key": "management", "label": "Management", "value": "Kira Protected Area Management Committee and rangers, working to a management plan. Logging and mining are prohibited.", "confidence": "reported", "source_ids": ["S01"], "note": "The management plan has not been seen."},
+        {"key": "origin", "label": "Origins", "value": "Grew from the Taka' Taka Eco-Village Conservation Foundation, a community non-profit founded in 2014.", "confidence": "reported", "source_ids": ["S02"]},
+        {"key": "partners", "label": "Partners named", "value": "Winrock International (supplied GPS mapping equipment), Mai-Maasina Green Belt, Wai-Hau Conservation Foundation, Ahetaha Water Conservation Association.", "confidence": "reported", "source_ids": ["S02"], "note": "The last partner is called a 'Foundation' in S02 and an 'Association' in S04."},
+        {"key": "priorities", "label": "Stated priorities", "value": "Economic development, kastom education and environmental stewardship.", "confidence": "reported", "source_ids": ["S02"]},
+        {"key": "species", "label": "Species and habitats", "value": "Forest. No species list in the sources read.", "confidence": "unknown", "source_ids": []},
+        {"key": "threats", "label": "Threats and pressures", "value": "Not described in the sources read.", "confidence": "unknown", "source_ids": []}
+      ],
+      "visitor": {
+        "access": "unknown",
+        "note": "A conservation centre exists at Masupa, but no visitor policy was found. Do not assume the area is open to visitors. Ask the Kira committee first."
+      },
+      "contact": {
+        "public": null,
+        "note": "A site coordinator is named in S02. Not republished here until that person agrees to be listed."
+      },
+      "consent": {
+        "status": "not_yet_sought",
+        "note": "Prepared from published sources only. The Kira committee has not seen or approved this profile."
+      },
+      "open_questions": [
+        "In which year was the area declared, and where is the signed certificate?",
+        "Can the committee share its GPS boundary (made with the Winrock equipment) and agree on how it is shown publicly?",
+        "Is the management plan public, and does it say anything about visitors?",
+        "Have any biodiversity surveys been done, and may their findings be shown?",
+        "How are the rangers supported, and what do they need?",
+        "What are the rules and fees for a research or tourism visit, and who gives permission?"
+      ],
+      "verification_status": "desk_sourced",
+      "last_reviewed": "2026-10-19",
+      "public_visibility": "generalised"
+    },
+    {
+      "id": "SM-002",
+      "name": "Ahetaha Water Conservation Association (AWCA)",
+      "alt_names": ["Ahetaha Water Conservation Foundation"],
+      "constituency": "East Are'are",
+      "place_text": "Ahetaha village, Aiaisi ward",
+      "tier": "community_group",
+      "realm": "coast_sea",
+      "location": {
+        "lat": null,
+        "lng": null,
+        "precision": "unlocated",
+        "note": "No sourced coordinates for Ahetaha village. Needs a field location recorded with permission.",
+        "source_ids": []
+      },
+      "summary_en": "A community association at Ahetaha in East Are'are working to protect mangroves, reefs, seagrass, rainforest and freshwater. Chiefs set rules for designated areas in 2016. The group also mentors other conservation groups in East Are'are.",
+      "summary_pijin": null,
+      "facts": [
+        {"key": "area", "label": "Area", "value": "Not stated.", "confidence": "unknown", "source_ids": []},
+        {"key": "legal", "label": "Legal status", "value": "No formal protected-area registration appears in the sources read. S04 notes that the few formal protected areas in Solomon Islands are mostly on tribal customary land with little management capacity.", "confidence": "unknown", "source_ids": ["S04"]},
+        {"key": "origin", "label": "Origins", "value": "A chief formed the association after first persuading relatives to protect the mangroves and reefs along the seafront at Ahetaha.", "confidence": "reported", "source_ids": ["S04"]},
+        {"key": "rules", "label": "Rules", "value": "In 2016 community chiefs set rules to protect designated areas.", "confidence": "reported", "source_ids": ["S04"]},
+        {"key": "focus", "label": "Focus", "value": "Mangrove planting at the river mouth and seafront; dugong and green turtle recovery; seagrass management; rainforest and freshwater species.", "confidence": "reported", "source_ids": ["S04"]},
+        {"key": "cultural", "label": "Customary practice", "value": "Communities temporarily close reefs and fishing grounds, for example before feasts.", "confidence": "reported", "source_ids": ["S04"], "note": "Described by an outside organisation. The community should confirm how it wants this practice described."},
+        {"key": "threats", "label": "Threats and pressures", "value": "Boat strikes, hunting for feasts and nets harm dugong and turtles. Population growth strains water, rainforest, land and mangroves. Overharvesting sometimes causes family and tribal disputes.", "confidence": "reported", "source_ids": ["S04"], "note": "From a 2018 funder profile."},
+        {"key": "funding", "label": "Funding reported", "value": "Keepers of the Earth Fund (2018 profile); GEF Small Grants Programme from 2020; a full UNDP grant in 2022.", "confidence": "reported", "source_ids": ["S04", "S05"]},
+        {"key": "role", "label": "Role", "value": "Mentors other conservation groups in East Are'are.", "confidence": "reported", "source_ids": ["S05"]}
+      ],
+      "visitor": {
+        "access": "unknown",
+        "note": "No visitor information found. Ask the association before any visit."
+      },
+      "contact": {"public": null, "note": "No public contact found in the sources read."},
+      "consent": {"status": "not_yet_sought", "note": "Prepared from published sources only. The association has not reviewed this profile."},
+      "open_questions": [
+        "Where exactly are the protected mangrove, reef and seagrass areas, and what may be shown publicly?",
+        "Are the 2016 rules written down, and have they changed?",
+        "How have dugong and turtle numbers changed since the rules began?",
+        "What is the current relationship with Mai-Maasina Green Belt and Kira?",
+        "Does the group want visitors, and on what terms?"
+      ],
+      "verification_status": "desk_sourced",
+      "last_reviewed": "2026-10-19",
+      "public_visibility": "withheld"
+    },
+    {
+      "id": "SM-003",
+      "name": "Mai-Maasina Green Belt conservation village",
+      "alt_names": [],
+      "constituency": "East Are'are",
+      "place_text": "Manawai Harbour",
+      "tier": "community_group",
+      "realm": "coast_sea",
+      "location": {
+        "lat": null,
+        "lng": null,
+        "precision": "unlocated",
+        "note": "Manawai Harbour is named, but no sourced coordinates were found.",
+        "source_ids": ["S05"]
+      },
+      "summary_en": "A locally run conservation initiative in East Are'are with a conservation village at Manawai Harbour. A 2022 article reports UNDP-GEF funding for a training centre, toilets and hand-wash facilities, site mapping, a coastal no-take zone and a footpath.",
+      "summary_pijin": null,
+      "facts": [
+        {"key": "area", "label": "Area", "value": "Not stated.", "confidence": "unknown", "source_ids": []},
+        {"key": "legal", "label": "Legal status", "value": "Not stated.", "confidence": "unknown", "source_ids": []},
+        {"key": "identity", "label": "Identity", "value": "Described as representing the people of Are'are and run by local individuals, not an overseas organisation.", "confidence": "reported", "source_ids": ["S05"]},
+        {"key": "works", "label": "Funded works reported", "value": "Training centre, two ablution blocks and a hand-wash bay; site landscaping and GIS mapping; a 100-metre coastal no-go, no-take zone; a footpath and footbridge to the conservation village.", "confidence": "reported", "source_ids": ["S05"], "note": "The article does not make clear which works belong to Mai-Maasina Green Belt and which to its partner AWCA."},
+        {"key": "funding", "label": "Funding reported", "value": "UNDP and the GEF Small Grants Programme.", "confidence": "reported", "source_ids": ["S05"]},
+        {"key": "partners", "label": "Partner", "value": "Ahetaha Water Conservation Association.", "confidence": "reported", "source_ids": ["S05", "S02"]}
+      ],
+      "visitor": {
+        "access": "unknown",
+        "note": "A training centre and footpath were funded, which may suggest visitors or trainees. This is not confirmed. Ask first."
+      },
+      "contact": {"public": null, "note": "A project officer is named in S05. Not republished here."},
+      "consent": {"status": "not_yet_sought", "note": "Prepared from published sources only."},
+      "open_questions": [
+        "What land and sea does the initiative look after, and who are the customary owners?",
+        "How does it relate to AWCA: separate groups, or one programme?",
+        "Who uses the training centre, and could it host student or visitor groups?",
+        "Where is the 100-metre no-take zone, and how is it enforced?"
+      ],
+      "verification_status": "desk_sourced",
+      "last_reviewed": "2026-10-19",
+      "public_visibility": "withheld"
+    },
+    {
+      "id": "SM-004",
+      "name": "Roreaita Biodiversity Rainforest Conservation Association",
+      "alt_names": [],
+      "constituency": "East Are'are",
+      "place_text": "Central highlands, south-eastern corner of the Wairaha River Basin, 500-700 m above sea level",
+      "tier": "community_group",
+      "realm": "land",
+      "location": {
+        "lat": null,
+        "lng": null,
+        "precision": "unlocated",
+        "note": "Described only by terrain and river basin. Highland forest locations may need generalising on request.",
+        "source_ids": ["S06"]
+      },
+      "summary_en": "An association of four tribes protecting rainforest on tribal land in the highlands of East Are'are. It was registered in early 2018 and officially launched on 17 January 2023.",
+      "summary_pijin": null,
+      "facts": [
+        {"key": "area", "label": "Area", "value": "Not stated.", "confidence": "unknown", "source_ids": []},
+        {"key": "tribes", "label": "Tribes and communities", "value": "Ro-Rorowera, Re-Renamanu, Ai-Aimauma and Ta-Tawaenupu.", "confidence": "reported", "source_ids": ["S06"]},
+        {"key": "established", "label": "Formed and launched", "value": "Formed and registered in early 2018; official launch on 17 January 2023.", "confidence": "reported", "source_ids": ["S06"]},
+        {"key": "legal", "label": "Legal status", "value": "Not stated. The article credits help with a 'protected area toolkit and application process' but does not say whether an application was made or approved.", "confidence": "unknown", "source_ids": ["S06"]},
+        {"key": "support", "label": "Support named", "value": "A consultant with the Solomon Islands Rangers Association, plus mentoring from NGOs such as SICAN and provincial and national officers.", "confidence": "reported", "source_ids": ["S06"]},
+        {"key": "funding", "label": "Funding", "value": "None named.", "confidence": "unknown", "source_ids": ["S06"]}
+      ],
+      "visitor": {
+        "access": "unknown",
+        "note": "Remote highland tribal land. Treat as closed to visitors unless the four tribes invite you."
+      },
+      "contact": {"public": null, "note": "No public contact found."},
+      "consent": {"status": "not_yet_sought", "note": "Prepared from a single news article. The association has not reviewed this profile."},
+      "open_questions": [
+        "How large is the forest, and what are its boundaries?",
+        "Did the association apply for protected-area status, and what happened?",
+        "Do the four tribes agree on how the area is described and mapped?",
+        "What species and habitats have been recorded?"
+      ],
+      "verification_status": "draft",
+      "last_reviewed": "2026-10-19",
+      "public_visibility": "withheld"
+    },
+    {
+      "id": "SM-005",
+      "name": "Puriasi Management Area",
+      "alt_names": [],
+      "constituency": "East Are'are",
+      "place_text": "Managed by the Mararo Community Based Organization",
+      "tier": "community_area",
+      "realm": "coast_sea",
+      "location": {
+        "lat": null,
+        "lng": null,
+        "precision": "unlocated",
+        "note": "The area includes traditional taboo sites. Location is withheld on the public map until the custodians decide what to show.",
+        "source_ids": ["S07"]
+      },
+      "summary_en": "A community-managed area of forested hillsides, mangrove shorelines and traditional taboo sites in East Are'are, run by the Mararo Community Based Organization. A 2020 article says it is becoming a breeding area for marine life and is threatened by nearby logging.",
+      "summary_pijin": null,
+      "facts": [
+        {"key": "area", "label": "Area", "value": "Size not stated.", "confidence": "unknown", "source_ids": ["S07"]},
+        {"key": "habitats", "label": "Habitats", "value": "Thick forest on hillsides, mangrove shorelines, traditional taboo sites.", "confidence": "reported", "source_ids": ["S07"]},
+        {"key": "rules", "label": "Rules", "value": "Certain catches and methods banned for three years, then a one-week opening for special occasions. Fines of up to SBD 500 for breaches.", "confidence": "reported", "source_ids": ["S07"], "note": "Reported in 2020. Rules may have changed."},
+        {"key": "outcomes", "label": "Reported outcomes", "value": "The area is becoming a breeding area for marine life.", "confidence": "reported", "source_ids": ["S07"], "note": "Qualitative statement; no survey data in the source."},
+        {"key": "threats", "label": "Threats and pressures", "value": "Nearby logging is described as a persistent threat.", "confidence": "reported", "source_ids": ["S07"]},
+        {"key": "support", "label": "Support named", "value": "WorldFish Solomon Islands did most of the site setup; Malaita Province fisheries division also named.", "confidence": "reported", "source_ids": ["S07"], "note": "The sentence names WorldFish for the Manaoba site; confirm it also applies to Puriasi."}
+      ],
+      "visitor": {
+        "access": "closed_sensitive",
+        "note": "Includes taboo sites. Do not visit without explicit permission from the custodians."
+      },
+      "contact": {"public": null, "note": "Contact via the Mararo Community Based Organization once they agree to be listed."},
+      "consent": {"status": "not_yet_sought", "note": "Prepared from one 2020 article. Taboo-site information was deliberately not expanded."},
+      "open_questions": [
+        "Are the 2020 rules still in force, and who enforces them?",
+        "What may be said publicly about the taboo sites, if anything?",
+        "Has the logging threat changed, and what is being done about it?",
+        "Does the organisation want the area on a public map at all?"
+      ],
+      "verification_status": "desk_sourced",
+      "last_reviewed": "2026-10-19",
+      "public_visibility": "withheld"
+    }
+  ]
+}

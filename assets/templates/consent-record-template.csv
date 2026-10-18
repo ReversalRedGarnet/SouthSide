@@ -1,0 +1,2 @@
+record_id,site_or_topic,person_or_group_giving_consent,role_or_authority,date,how_consent_was_given,what_may_be_published,what_must_not_be_published,photos_allowed,quotes_allowed,review_before_publishing,expires_or_review_date,withdrawal_contact,notes
+C01,,,,,verbal|written,,,yes|no,yes|no,yes,,,

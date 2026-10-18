@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "note": "Source register for the prototype. Every claim on a profile points to one or more of these IDs. All entries were read on the 'accessed' date; none are community-held or private documents.",
+    "accessed_default": "2026-10-19"
+  },
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Kira Becomes First Protected Area in Malaita Province",
+      "publisher": "Environment Media (Isles Media)",
+      "type": "news",
+      "date": "Page metadata 8 Nov 2023; ceremony year not stated in text",
+      "url": "https://environment.islesmedia.net/kira-becomes-first-protected-area-in-malaita-province/",
+      "notes": "Ceremony dates (27-28 November) do not match the page's publication metadata, so the year of declaration is unconfirmed."
+    },
+    {
+      "id": "S02",
+      "title": "Protected Area Registration: Kira Forest Biodiversity Conservation Area (KFBCA)",
+      "publisher": "Solomon Islands Government (solomons.gov.sb)",
+      "type": "official",
+      "date": "Not stated",
+      "url": "https://solomons.gov.sb/?p=34002",
+      "notes": "Government news item. Names officials and a site coordinator; individuals are not republished in this prototype."
+    },
+    {
+      "id": "S03",
+      "title": "Kira Forest Biodiversity Conservation Area (portal entry)",
+      "publisher": "Pacific Islands Protected Area Portal (SPREP)",
+      "type": "portal",
+      "date": "Not stated",
+      "url": "https://pipap.sprep.org/node/58583",
+      "notes": "Single news-style entry; no coordinates, boundary or IUCN category shown on the page read."
+    },
+    {
+      "id": "S04",
+      "title": "Ahetaha Water Conservation Association (partner profile)",
+      "publisher": "Cultural Survival (Keepers of the Earth Fund)",
+      "type": "ngo",
+      "date": "29 Jul 2018",
+      "url": "https://www.culturalsurvival.org/node/12285",
+      "notes": "Funder-side description of the group's work. Spelled 'Association' here; S02 writes 'Foundation'."
+    },
+    {
+      "id": "S05",
+      "title": "Mai-Maasina Green Belt Acknowledges UNDP-GEF for Project Funding and Partnership",
+      "publisher": "Environment Media (Isles Media)",
+      "type": "news",
+      "date": "12 Aug 2022",
+      "url": "https://environment.islesmedia.net/mai-maasina-green-belt-acknowledges-undp-gef-for-project-funding-and-partnership/",
+      "notes": "Does not state the size of the area. Unclear which funded works belong to Mai-Maasina Green Belt and which to its partner AWCA."
+    },
+    {
+      "id": "S06",
+      "title": "New Association Launched to Protect East Are'Are Rainforests",
+      "publisher": "Environment Media (Isles Media)",
+      "type": "news",
+      "date": "16 Mar 2023",
+      "url": "https://environment.islesmedia.net/new-association-launched-to-protect-east-are-are-rainforests/",
+      "notes": "Does not state area, office-holders or funders."
+    },
+    {
+      "id": "S07",
+      "title": "Malaitans reap benefits from conserving marine areas",
+      "publisher": "FFA TunaPacific (photos credited to WorldFish)",
+      "type": "ngo",
+      "date": "30 Jun 2020",
+      "url": "https://tunapacific.ffa.int/2020/06/30/malaitans-reap-benefits-from-conserving-marine-areas/",
+      "notes": "Mainly about Manaoba LMMA (Lau Lagoon, outside this atlas); one section covers Puriasi in East Are'are. Figures are 2020 or earlier."
+    },
+    {
+      "id": "S08",
+      "title": "Takataka Bay (location entry)",
+      "publisher": "Pacific Wrecks",
+      "type": "reference",
+      "date": "Not stated",
+      "url": "https://pacificwrecks.com/location/solomons_malaita_takataka_bay.html",
+      "notes": "Source of the bay-level coordinates (about 9.298 S, 161.242 E). Not a survey of any conservation boundary."
+    },
+    {
+      "id": "S09",
+      "title": "Malaita Province (constituencies and 2019 population)",
+      "publisher": "Wikipedia",
+      "type": "reference",
+      "date": "Accessed 2026-10-19",
+      "url": "https://en.wikipedia.org/wiki/Malaita_Province",
+      "notes": "Background only. East Are'are 8,199 people; West Are'are 8,008; Small Malaita 16,146 (2019 census figures as quoted). Check against the census release before citing."
+    },
+    {
+      "id": "S10",
+      "title": "Protected areas of Solomon Islands",
+      "publisher": "Wikipedia",
+      "type": "reference",
+      "date": "Accessed 2026-10-19",
+      "url": "https://en.wikipedia.org/wiki/Protected_areas_of_Solomon_Islands",
+      "notes": "Lists three Key Biodiversity Areas in Malaita Province (Langa Langa Lagoon, Lau Lagoon, Ndai); none in Are'are or Small Malaita."
+    },
+    {
+      "id": "S11",
+      "title": "New conservation areas in Malaita and Bougainville",
+      "publisher": "Australian Museum",
+      "type": "ngo",
+      "date": "7 Feb 2020",
+      "url": "https://australian.museum/learn/news/blog/new-conservation-areas-malaita-and-bougainville/",
+      "notes": "Kwaio conservation areas (Baru Conservation Alliance). Outside this atlas's constituencies; kept as a comparison."
+    },
+    {
+      "id": "S12",
+      "title": "Community conservation areas (tag listing)",
+      "publisher": "Pacific Islands Protected Area Portal (SPREP)",
+      "type": "portal",
+      "date": "Accessed 2026-10-19",
+      "url": "https://pipap.sprep.org/tags/community-conservation-areas",
+      "notes": "Lists Kira as the only Malaita/Are'are entry on the page read; describes Vuri Forest Conservation Area (Choiseul) as the country's 5th legal Protected Area."
+    },
+    {
+      "id": "S13",
+      "title": "Unlocking the Tourism Potential of Malaita Province",
+      "publisher": "Tourism Media Solomon Islands (Isles Media)",
+      "type": "news",
+      "date": "27 Oct 2022",
+      "url": "https://tourism.islesmedia.net/unlocking-the-tourism-potential-of-malaita-province/",
+      "notes": "Focuses on Langalanga Lagoon. Does not mention Are'are or Small Malaita."
+    },
+    {
+      "id": "S14",
+      "title": "Protected Planet terms and conditions",
+      "publisher": "UNEP-WCMC / IUCN",
+      "type": "reference",
+      "date": "Accessed 2026-10-19",
+      "url": "https://www.protectedplanet.net/en/legal",
+      "notes": "Governs reuse of WDPA/WDPCA data: non-commercial use, no redistribution by downloads or downloadable interactive maps, required citation."
+    }
+  ]
+}
