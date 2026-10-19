@@ -1,0 +1,4 @@
+# Fictional sample updates for local testing only; publishing them would put them on the live site.
+data/updates.sample.json
+# Design references, logo contact sheet and generator: working files, not part of the site.
+_reference/
