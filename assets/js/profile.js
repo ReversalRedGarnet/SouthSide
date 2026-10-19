@@ -12,14 +12,14 @@
   }
 
   function render(d, s) {
-    document.title = s.name + ' - Are\'are-Small Malaita Conservation Atlas (prototype)';
+    document.title = s.name + ' - SouthSide (prototype)';
     var used = {};
     s.facts.forEach(function (f) { (f.source_ids || []).forEach(function (id) { used[id] = true; }); });
     ((s.location && s.location.source_ids) || []).forEach(function (id) { used[id] = true; });
     var usedIds = d.sourceList.map(function (x) { return x.id; }).filter(function (id) { return used[id]; });
 
     var mapped = s.location && s.location.lat != null;
-    var cite = 'Are’are–Small Malaita Conservation Atlas (prototype). “' + s.name + '.” Desk-sourced profile, last reviewed ' +
+    var cite = 'SouthSide (prototype). “' + s.name + '.” Desk-sourced profile, last reviewed ' +
       A.fmtDate(s.last_reviewed) + '. Based on published sources ' + usedIds.join(', ') + '. Not reviewed by custodians.';
 
     root.innerHTML =

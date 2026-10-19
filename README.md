@@ -1,4 +1,7 @@
-# Are'are–Small Malaita Conservation Atlas (prototype v0.2)
+# SouthSide (prototype v0.2)
+
+Conservation sites in Southern Malaita (East Are'are, West Are'are and Small Malaita), Malaita Province, Solomon Islands.
+A teaching prototype for tourism students: https://reversalredgarnet.github.io/SouthSide/
 
 Static site. No build step. Upload the contents of this folder to a GitHub repo and enable Pages
 (Settings > Pages > deploy from branch, root). All paths are relative, and Leaflet is bundled, so it works under
