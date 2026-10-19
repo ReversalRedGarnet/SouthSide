@@ -217,7 +217,7 @@
         pane: 'fade', interactive: false, attribution: BOUNDARY_ATTR,
         style: function (f) {
           var c = token((CONSTITUENCY_STYLE[f.properties.ADM2_NAME] || {}).token || '--neutral-border');
-          return { color: c, weight: 1.75, opacity: 1, fillColor: c, fillOpacity: 0.07 };
+          return { color: c, weight: 1.75, opacity: 1, fillColor: c, fillOpacity: 0.12 };
         }
       }).addTo(map);
       // Name each constituency on the map, so the outline colours are never the only clue.

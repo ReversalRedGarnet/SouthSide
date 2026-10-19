@@ -45,10 +45,11 @@
   --conf-conflicting: #c2410c;
   --conf-unknown: #8a9199;
 
-  /* Constituency outlines on the map (each is also labelled by name) */
-  --const-east: #6b5aa6;
-  --const-west: #b0496e;
-  --const-small: #6f6253;
+  /* Constituency outlines and light fills on the map (each is also labelled by name).
+     Hues kept apart from each other and from the kind-of-site colours. */
+  --const-east: #6b5aa6;     /* violet */
+  --const-west: #a64468;     /* rose */
+  --const-small: #b800b8;    /* magenta */
 
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color-scheme: light;
@@ -87,15 +88,20 @@ code { font-size: .9em; }
 footer { border-top: 1px solid var(--rule); margin-top: 3rem; padding: 1rem 0 2rem; color: var(--muted); font-size: .875rem; }
 
 /* Filters */
-.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: flex-end; margin: 1.5rem 0 1rem; }
-.controls label { display: flex; flex-direction: column; gap: .2rem; flex: 1 1 9rem; max-width: 16rem; font-size: .875rem; font-weight: 600; }
+.controls { display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: center; margin: 0 0 .5rem; }
+.controls label { display: flex; align-items: center; gap: .45rem; flex: 1 1 13rem; max-width: 19rem; font-size: .875rem; font-weight: 600; white-space: nowrap; }
 input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); background: var(--bg); border: 1px solid var(--field); border-radius: 0; padding: .35rem .5rem; }
-.controls input, .controls select { width: 100%; height: 2.4rem; }
-.controls .count { font-size: .875rem; color: var(--muted); line-height: 2.4rem; }
+.controls input, .controls select { width: 100%; min-width: 0; height: 2.2rem; }
+.controls .count { font-size: .875rem; color: var(--muted); }
+.intro { margin-bottom: .5rem; }
+.coverage-line { font-size: .9375rem; margin-bottom: .75rem; }
+.coverage-details { margin: .25rem 0 1rem; }
+.coverage-details summary { cursor: pointer; font-weight: 600; font-size: .9375rem; }
+.coverage-details ul { margin: .5rem 0 0; }
 
 /* Maps */
 /* The main map runs wider than the text column (up to 64rem), centred on it. */
-#map { width: min(64rem, calc(100vw - 32px)); margin-left: calc(50% - min(32rem, 50vw - 16px)); height: 480px; border: 1px solid var(--rule); background: var(--map-bg); z-index: 1; }
+#map { width: min(64rem, calc(100vw - 32px)); margin-left: calc(50% - min(32rem, 50vw - 16px)); height: clamp(320px, calc(100vh - 360px), 480px); border: 1px solid var(--rule); background: var(--map-bg); z-index: 1; }
 /* Greyscale base map on every map; site pins, circles, outlines and the fade keep their colour. */
 .leaflet-tile-pane { filter: grayscale(1); }
 .mini-map { height: 240px; border: 1px solid var(--rule); background: var(--map-bg); margin-bottom: .5rem; }
@@ -118,12 +124,18 @@ input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); ba
 .swatch { display: inline-block; width: 16px; height: 11px; margin-right: .4rem; vertical-align: -1px; }
 .swatch-zone { width: 13px; height: 13px; border-radius: 50%; border: 2px dashed var(--neutral-border); }
 .swatch-fade { background: var(--fade-swatch); border: 1px solid var(--fade-swatch-border); }
-.swatch-line { height: 0; border-top: 3px solid; vertical-align: 3px; }
+.swatch-area { border: 2px solid; }
 .const-east { border-color: var(--const-east); }
 .const-west { border-color: var(--const-west); }
 .const-small { border-color: var(--const-small); }
+.swatch-area.const-east { background: color-mix(in srgb, var(--const-east) 14%, var(--bg)); }
+.swatch-area.const-west { background: color-mix(in srgb, var(--const-west) 14%, var(--bg)); }
+.swatch-area.const-small { background: color-mix(in srgb, var(--const-small) 14%, var(--bg)); }
 .leaflet-tooltip.const-label { background: var(--bg); color: var(--ink); border: 1px solid var(--rule); border-left-width: 4px; box-shadow: none; border-radius: 0; padding: 0 .3rem; font-size: .75rem; font-weight: 600; }
 .leaflet-tooltip.const-label::before { display: none; }
+.leaflet-tooltip.const-label.const-east { border-left-color: var(--const-east); }
+.leaflet-tooltip.const-label.const-west { border-left-color: var(--const-west); }
+.leaflet-tooltip.const-label.const-small { border-left-color: var(--const-small); }
 .leaflet-container { font-family: var(--sans); }
 .leaflet-popup-content { margin: 10px 12px; }
 .leaflet-popup-content p { margin: 0 0 .4rem; }
@@ -205,8 +217,14 @@ ol.sources li:target { outline: 2px solid var(--brand); outline-offset: 4px; }
 pre.out { border: 1px solid var(--rule); padding: .75rem; overflow: auto; max-height: 420px; font-size: .8125rem; line-height: 1.45; margin: 0 0 .6rem; white-space: pre-wrap; word-break: break-word; }
 
 @media (max-width: 600px) {
-  h1 { font-size: 1.5rem; }
   #map { height: 320px; }
+  /* Phones: keep the map near the top. Both fields and the count share one row. */
+  .proto { font-size: .8125rem; }
+  .site-header { padding: .6rem 0 .5rem; }
+  h1 { font-size: 1.375rem; margin-top: 1rem; }
+  .controls { gap: .3rem .6rem; flex-wrap: nowrap; align-items: flex-end; }
+  .controls label { flex-direction: column; align-items: stretch; gap: .1rem; flex: 1 1 0; min-width: 0; font-size: .8125rem; }
+  .controls .count { font-size: .8125rem; white-space: nowrap; padding-bottom: .5rem; }
   .row2 { grid-template-columns: 1fr; }
   /* Stacked tables: each row becomes a short block, labelled from data-label */
   table.stack thead { display: none; }

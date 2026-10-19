@@ -67,13 +67,8 @@
       html = '<p>No profiles match these filters.' +
         (none ? ' Nothing has been recorded in ' + A.esc(state.constituency) + ' yet. That is a research gap, not a finding that nothing is there.' : '') + '</p>';
     } else {
-      // The Status column shows one word, so say here what it means. Worded from the data,
-      // so the line stays true once a profile has been reviewed.
-      var unreviewed = function (s) { return s.verification_status === 'draft' || s.verification_status === 'desk_sourced'; };
-      html = '<p class="callout callout-caution">' + (list.every(unreviewed)
-        ? 'None of these profiles have been reviewed by custodians.'
-        : 'Profiles marked Draft or Desk-sourced have not been reviewed by custodians.') + '</p>' +
-        '<div class="table-scroll"><table class="stack" aria-labelledby="sites"><thead><tr>' +
+      // Review status is stated in the banner (meta.status) and per row by the Status badge.
+      html = '<div class="table-scroll"><table class="stack" aria-labelledby="sites"><thead><tr>' +
         '<th scope="col">Site</th><th scope="col">Constituency</th><th scope="col">Kind</th><th scope="col">Status</th><th scope="col">Map</th>' +
         '</tr></thead><tbody>' + list.map(row).join('') + '</tbody></table></div>';
       if (list.some(function (s) { return !isMapped(s); })) {

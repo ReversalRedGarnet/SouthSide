@@ -19,11 +19,8 @@
 
 <main id="main" class="wrap">
   <h1>Who looks after which places, and how do we know?</h1>
-  <p>A lightweight atlas of conservation sites across East Are'are, West Are'are and Small Malaita. Every statement links to a source, and every gap is labelled rather than guessed. The map is a starting point for research, not a record of what exists.</p>
-
-  <h2>Coverage by constituency</h2>
-  <p id="coverage-total"></p>
-  <ul id="coverage"></ul>
+  <p class="intro">Conservation sites in East Are'are, West Are'are and Small Malaita. Every statement links to a source and every gap is labelled. The map is a starting point for research, not a record of what exists.</p>
+  <p class="coverage-line"><strong>Coverage:</strong> <span id="coverage-total"></span></p>
 
   <form class="controls" onsubmit="return false" aria-label="Filters">
     <label>Search by name<input id="f-q" type="search" placeholder="e.g. Kira"></label>
@@ -48,9 +45,9 @@
         <h3>Places</h3>
         <ul>
           <li><span class="swatch swatch-zone" aria-hidden="true"></span>Location only known to bay or village level</li>
-          <li><span class="swatch swatch-line const-east" aria-hidden="true"></span>East Are'are</li>
-          <li><span class="swatch swatch-line const-west" aria-hidden="true"></span>West Are'are</li>
-          <li><span class="swatch swatch-line const-small" aria-hidden="true"></span>Small Malaita</li>
+          <li><span class="swatch swatch-area const-east" aria-hidden="true"></span>East Are'are</li>
+          <li><span class="swatch swatch-area const-west" aria-hidden="true"></span>West Are'are</li>
+          <li><span class="swatch swatch-area const-small" aria-hidden="true"></span>Small Malaita</li>
           <li><span class="swatch swatch-fade" aria-hidden="true"></span>Outside the three constituencies</li>
         </ul>
         <p class="small muted">Constituency boundaries: <a href="about.html#boundaries">how accurate they are</a>.</p>
@@ -69,6 +66,11 @@
     </div>
   </details>
   <p class="small muted map-hint">Click the map once to enable scroll-zoom.</p>
+
+  <details class="coverage-details">
+    <summary>Coverage by constituency</summary>
+    <ul id="coverage"></ul>
+  </details>
 
   <h2 id="sites">Sites</h2>
   <div id="list"><p class="muted">Loading sites&hellip;</p></div>
