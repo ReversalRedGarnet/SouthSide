@@ -1,13 +1,55 @@
 /* SouthSide - prototype styles.
    One light theme, system fonts, no external requests, so pages stay light on slow connections. */
 
+/* ---- Colour tokens. Every colour on the site is defined here and only here. ----
+   Colour is never the only signal: each coloured thing also has a word, a shape or an icon.
+   Brand green is for chrome (links, buttons, focus, selection) and never means "verified" or "good". */
 :root {
-  --bg: #fff;
+  /* Neutrals */
+  --bg: #ffffff;
   --ink: #1a1a1a;
-  --muted: #555;
+  --muted: #555555;
   --rule: #d6d6d6;
-  --field: #767676;
-  --accent: #325a4b;
+  --field: #767676;          /* form borders */
+  --map-bg: #eef0ee;         /* behind map tiles while they load */
+  --map-fade: #ffffff;       /* overlay outside the three constituencies */
+  --fade-swatch: #ececec;
+  --fade-swatch-border: #b5b5b5;
+
+  /* Brand (chrome only) */
+  --brand: #325a4b;
+  --brand-tint: #e7efeb;     /* selected list row */
+  --on-brand: #ffffff;
+
+  /* Kind of site: three hues, each paired with a shape */
+  --tier-legal: #1d4f91;     /* square */
+  --tier-area: #0b7076;      /* circle */
+  --tier-group: #a8660a;     /* diamond */
+
+  /* Verification trust ramp: one slate-blue family, darker = more checked */
+  --ver-draft-bg: #f4f6f9;     --ver-draft-border: #6b7d93;    --ver-draft-ink: #1e2b3a;
+  --ver-desk-bg: #cfd8e3;      --ver-desk-border: #8193a8;     --ver-desk-ink: #1e2b3a;
+  --ver-checked-bg: #4d6785;   --ver-checked-ink: #ffffff;
+  --ver-verified-bg: #1f3550;  --ver-verified-ink: #ffffff;
+  --ver-disputed-bg: #fdecea;  --ver-disputed-border: #b3261e; --ver-disputed-ink: #8c1d18;
+
+  /* Semantic states, shared by chips, callouts and form states */
+  --neutral-bg: #f1f3f5;  --neutral-border: #8a9199;  --neutral-ink: #2b3137;
+  --caution-bg: #fff4dc;  --caution-border: #b7791f;  --caution-ink: #6b4500;
+  --info-bg: #e9f1fb;     --info-border: #3d6fb4;     --info-ink: #1d3f73;
+  --danger-bg: #fdecea;   --danger-border: #b3261e;   --danger-ink: #8c1d18;
+
+  /* Fact confidence marks */
+  --conf-reported: #6b7280;
+  --conf-corroborated: #1f2937;
+  --conf-conflicting: #c2410c;
+  --conf-unknown: #8a9199;
+
+  /* Constituency outlines on the map (each is also labelled by name) */
+  --const-east: #6b5aa6;
+  --const-west: #b0496e;
+  --const-small: #6f6253;
+
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color-scheme: light;
 }
@@ -15,9 +57,9 @@
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--sans); }
-a { color: var(--accent); text-underline-offset: 2px; }
+a { color: var(--brand); text-underline-offset: 2px; }
 a:hover { color: var(--ink); }
-:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
 h1, h2, h3 { line-height: 1.25; margin: 2rem 0 .6rem; }
 h1 { font-size: 1.75rem; margin-top: 1.5rem; }
 h2 { font-size: 1.25rem; }
@@ -53,18 +95,35 @@ input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); ba
 
 /* Maps */
 /* The main map runs wider than the text column (up to 64rem), centred on it. */
-#map { width: min(64rem, calc(100vw - 32px)); margin-left: calc(50% - min(32rem, 50vw - 16px)); height: 480px; border: 1px solid var(--rule); background: #eef0ee; z-index: 1; }
+#map { width: min(64rem, calc(100vw - 32px)); margin-left: calc(50% - min(32rem, 50vw - 16px)); height: 480px; border: 1px solid var(--rule); background: var(--map-bg); z-index: 1; }
 /* Greyscale base map on every map; site pins, circles, outlines and the fade keep their colour. */
 .leaflet-tile-pane { filter: grayscale(1); }
-.mini-map { height: 240px; border: 1px solid var(--rule); background: #eef0ee; margin-bottom: .5rem; }
-.map-key { list-style: none; padding: 0; margin: .5rem 0 .4rem; display: flex; flex-wrap: wrap; gap: .2rem 1.5rem; font-size: .875rem; }
-.map-key li { margin: 0; }
-.pin { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--ink); }
-.key { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; margin-right: .4rem; }
-.key.pin-key { background: var(--accent); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--ink); }
-.key.zone-key { border: 2px dashed var(--accent); }
-.key.line-key { width: 16px; border-radius: 0; border: 1.5px solid var(--accent); }
-.key.fade-key { width: 16px; border-radius: 0; background: #ececec; border: 1px solid #b5b5b5; }
+.mini-map { height: 240px; border: 1px solid var(--rule); background: var(--map-bg); margin-bottom: .5rem; }
+
+/* Kind of site: colour + shape. .mark is the small inline version, .pin the map marker. */
+.mark, .pin { display: inline-block; flex: none; }
+.mark { width: 11px; height: 11px; margin-right: .4rem; vertical-align: -1px; }
+.pin { width: 16px; height: 16px; border: 2px solid var(--bg); box-shadow: 0 0 0 1px var(--ink); }
+.shape-legal_pa { background: var(--tier-legal); border-radius: 0; }
+.shape-community_area { background: var(--tier-area); border-radius: 50%; }
+.shape-community_group { background: var(--tier-group); border-radius: 0; transform: rotate(45deg) scale(.85); }
+
+/* Map legend: open on wide screens, collapsed on phones (home.js) */
+.legend { margin: .6rem 0 .4rem; font-size: .875rem; }
+.legend summary { cursor: pointer; font-weight: 600; }
+.legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .25rem 1.5rem; margin-top: .4rem; }
+.legend h3 { font-size: .875rem; margin: .5rem 0 .25rem; }
+.legend ul { list-style: none; padding: 0; margin: 0; }
+.legend li { margin: 0 0 .3rem; }
+.swatch { display: inline-block; width: 16px; height: 11px; margin-right: .4rem; vertical-align: -1px; }
+.swatch-zone { width: 13px; height: 13px; border-radius: 50%; border: 2px dashed var(--neutral-border); }
+.swatch-fade { background: var(--fade-swatch); border: 1px solid var(--fade-swatch-border); }
+.swatch-line { height: 0; border-top: 3px solid; vertical-align: 3px; }
+.const-east { border-color: var(--const-east); }
+.const-west { border-color: var(--const-west); }
+.const-small { border-color: var(--const-small); }
+.leaflet-tooltip.const-label { background: var(--bg); color: var(--ink); border: 1px solid var(--rule); border-left-width: 4px; box-shadow: none; border-radius: 0; padding: 0 .3rem; font-size: .75rem; font-weight: 600; }
+.leaflet-tooltip.const-label::before { display: none; }
 .leaflet-container { font-family: var(--sans); }
 .leaflet-popup-content { margin: 10px 12px; }
 .leaflet-popup-content p { margin: 0 0 .4rem; }
@@ -80,14 +139,54 @@ td[data-label="Map"] { min-width: 7.5rem; }
 td[data-label="Status"] { white-space: nowrap; }
 td .note { display: block; margin-top: .2rem; font-size: .875rem; color: var(--muted); }
 .src { font-size: .875rem; white-space: nowrap; }
-tr.active > * { background: #eef3f0; }
+tr.active > * { background: var(--brand-tint); }
 .table-scroll { overflow-x: auto; }
+
+/* Verification badges: the trust ramp. The word is always shown; verified and disputed add an icon. */
+.badge { display: inline-block; font-size: .8125rem; font-weight: 600; line-height: 1.35; padding: 0 .4rem; border: 1px solid transparent; border-radius: 3px; white-space: nowrap; }
+.badge-draft { background: var(--ver-draft-bg); color: var(--ver-draft-ink); border: 1px dashed var(--ver-draft-border); }
+.badge-desk_sourced { background: var(--ver-desk-bg); color: var(--ver-desk-ink); border-color: var(--ver-desk-border); }
+.badge-community_checked { background: var(--ver-checked-bg); color: var(--ver-checked-ink); }
+.badge-source_verified { background: var(--ver-verified-bg); color: var(--ver-verified-ink); }
+.badge-source_verified::before { content: "\2713\00a0"; content: "\2713\00a0" / ""; }
+.badge-disputed { background: var(--ver-disputed-bg); color: var(--ver-disputed-ink); border-color: var(--ver-disputed-border); }
+.badge-disputed::before { content: "\26A0\FE0E\00a0"; content: "\26A0\FE0E\00a0" / ""; }
+
+/* Chips: visitor access and consent. The chip text is the label. */
+.chip { display: inline-block; font-size: .875rem; font-weight: 600; line-height: 1.35; padding: 0 .45rem; border: 1px solid; border-radius: 3px; }
+.chip-neutral { background: var(--neutral-bg); color: var(--neutral-ink); border-color: var(--neutral-border); }
+.chip-caution { background: var(--caution-bg); color: var(--caution-ink); border-color: var(--caution-border); }
+.chip-info { background: var(--info-bg); color: var(--info-ink); border-color: var(--info-border); }
+.chip-danger { background: var(--danger-bg); color: var(--danger-ink); border-color: var(--danger-border); }
+
+/* Callouts: one component, three meanings. Each starts with a bold word. */
+.callout { border-left: 4px solid; padding: .55rem .85rem; margin: 0 0 1rem; color: var(--ink); }
+.callout > :last-child { margin-bottom: 0; }
+.callout-danger { background: var(--danger-bg); border-color: var(--danger-border); }
+.callout-caution { background: var(--caution-bg); border-color: var(--caution-border); }
+.callout-info { background: var(--info-bg); border-color: var(--info-border); }
+ul.callout { list-style: none; }
+ul.callout li { margin-bottom: .2rem; }
+
+/* Fact confidence: the word plus a mark with a different shape for each level */
+.conf { font-weight: 700; }
+.conf-mark { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: .35rem; vertical-align: 1px; }
+.conf-reported .conf-mark { background: var(--conf-reported); }
+.conf-corroborated .conf-mark { background: var(--conf-corroborated); box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--conf-corroborated); margin-left: 3px; }
+.conf-unknown .conf-mark { border: 1.5px solid var(--conf-unknown); }
+.conf-conflicting .conf-mark { width: 0; height: 0; border-radius: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 10px solid var(--conf-conflicting); vertical-align: 0; }
+.conf-conflicting { color: var(--danger-ink); }
+tr.flag-conflicting > * { background: var(--caution-bg); }
+tr.flag-conflicting > th { box-shadow: inset 4px 0 0 var(--conf-conflicting); padding-left: .6rem; }
+
+/* Form states (Field Kit) */
+input[aria-invalid="true"], input:user-invalid { border-color: var(--danger-border); box-shadow: 0 0 0 1px var(--danger-border); }
 
 /* Buttons: plain */
 .btn, .linkbtn { font: inherit; cursor: pointer; }
-.btn { font-size: .9375rem; padding: .3rem .8rem; border: 1px solid var(--accent); background: var(--bg); color: var(--accent); }
-.btn:hover { background: var(--accent); color: #fff; }
-.linkbtn { border: 0; padding: 0; text-align: left; white-space: nowrap; background: none; color: var(--accent); text-decoration: underline; text-underline-offset: 2px; font-size: .875rem; }
+.btn { font-size: .9375rem; padding: .3rem .8rem; border: 1px solid var(--brand); background: var(--bg); color: var(--brand); }
+.btn:hover { background: var(--brand); color: var(--on-brand); }
+.linkbtn { border: 0; padding: 0; text-align: left; white-space: nowrap; background: none; color: var(--brand); text-decoration: underline; text-underline-offset: 2px; font-size: .875rem; }
 .linkbtn:hover { color: var(--ink); }
 
 /* Profile */
@@ -96,7 +195,7 @@ tr.active > * { background: #eef3f0; }
 .profile-id + h1 { margin-top: .25rem; }
 ol.sources { padding-left: 1.4rem; }
 ol.sources li { margin-bottom: .8rem; overflow-wrap: anywhere; }
-ol.sources li:target { outline: 2px solid var(--accent); outline-offset: 4px; }
+ol.sources li:target { outline: 2px solid var(--brand); outline-offset: 4px; }
 
 /* Field Kit builder */
 .form-grid { display: grid; gap: .8rem; }
@@ -120,4 +219,8 @@ pre.out { border: 1px solid var(--rule); padding: .75rem; overflow: auto; max-he
   table.facts td { border-top: 0; padding-top: .15rem; }
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
-@media print { .site-header nav, .controls, #map, .mini-map, .map-key, .map-hint, .btn, .linkbtn { display: none; } }
+@media print {
+  .site-header nav, .controls, #map, .mini-map, .legend, .map-hint, .btn, .linkbtn { display: none; }
+  /* Keep badge, chip and callout fills when printing; the words and borders carry the meaning anyway. */
+  .badge, .chip, .callout, .mark, tr.flag-conflicting > * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

@@ -32,12 +32,42 @@
   </form>
 
   <div id="map" role="region" aria-label="Map of conservation sites. The site list below is an equivalent alternative."></div>
-  <ul class="map-key" aria-label="Map key">
-    <li><span class="key pin-key" aria-hidden="true"></span>Site (a location, not its boundary)</li>
-    <li><span class="key zone-key" aria-hidden="true"></span>Location only known to bay or village level</li>
-    <li><span class="key line-key" aria-hidden="true"></span>Constituency boundary (<a href="about.html#boundaries">how accurate</a>)</li>
-    <li><span class="key fade-key" aria-hidden="true"></span>Outside the three constituencies</li>
-  </ul>
+  <details class="legend" id="legend" open>
+    <summary>Map key and labels</summary>
+    <div class="legend-grid">
+      <div>
+        <h3>Kind of site</h3>
+        <ul>
+          <li><span class="mark shape-legal_pa" aria-hidden="true"></span>Square: legally declared protected area</li>
+          <li><span class="mark shape-community_area" aria-hidden="true"></span>Circle: community-managed area</li>
+          <li><span class="mark shape-community_group" aria-hidden="true"></span>Diamond: community conservation group</li>
+        </ul>
+        <p class="small muted">A pin is a location, not a boundary. Sites with no map point are still listed below, with the same mark.</p>
+      </div>
+      <div>
+        <h3>Places</h3>
+        <ul>
+          <li><span class="swatch swatch-zone" aria-hidden="true"></span>Location only known to bay or village level</li>
+          <li><span class="swatch swatch-line const-east" aria-hidden="true"></span>East Are'are</li>
+          <li><span class="swatch swatch-line const-west" aria-hidden="true"></span>West Are'are</li>
+          <li><span class="swatch swatch-line const-small" aria-hidden="true"></span>Small Malaita</li>
+          <li><span class="swatch swatch-fade" aria-hidden="true"></span>Outside the three constituencies</li>
+        </ul>
+        <p class="small muted">Constituency boundaries: <a href="about.html#boundaries">how accurate they are</a>.</p>
+      </div>
+      <div>
+        <h3>How checked (lighter = less checked)</h3>
+        <ul>
+          <li><span class="badge badge-draft">Draft</span> single source</li>
+          <li><span class="badge badge-desk_sourced">Desk-sourced</span> two or more sources</li>
+          <li><span class="badge badge-community_checked">Community-checked</span> reviewed by custodians</li>
+          <li><span class="badge badge-source_verified">Source-verified</span> checked against records</li>
+          <li><span class="badge badge-disputed">Disputed</span> sources or custodians disagree</li>
+        </ul>
+        <p class="small muted"><a href="about.html#levels">What the labels mean</a>.</p>
+      </div>
+    </div>
+  </details>
   <p class="small muted map-hint">Click the map once to enable scroll-zoom.</p>
 
   <h2 id="sites">Sites</h2>

@@ -20,6 +20,7 @@
     var vis = val('visibility');
     var haveCoords = lat != null && lng != null;
 
+    var badCoords = haveCoords && (lat > 0 || Math.abs(lat) < 7.5 || Math.abs(lat) > 11 || lng < 159.5 || lng > 163);
     if (haveCoords) {
       if (lat > 0) w.push('Latitude is positive. Malaita is south of the equator, so latitude should be negative (about -8 to -10).');
       if (Math.abs(lat) < 7.5 || Math.abs(lat) > 11 || lng < 159.5 || lng > 163) w.push('These coordinates look outside the Malaita area. Check for a swapped latitude and longitude or a missing minus sign.');
@@ -72,21 +73,27 @@
       last_reviewed: new Date().toISOString().slice(0, 10),
       public_visibility: vis === 'public' ? 'public' : vis
     };
-    return { rec: rec, warnings: w, point: publicPoint, tier: rec.tier, radius: location.radius_m || 0 };
+    return { rec: rec, warnings: w, badCoords: badCoords, point: publicPoint, tier: rec.tier, radius: location.radius_m || 0 };
   }
 
   function update() {
     var r = build();
     lastRecord = r.rec;
     out.textContent = JSON.stringify(r.rec, null, 2);
+    // Warnings use the caution callout; a clean check uses the info callout. The words carry the meaning.
+    warnings.className = 'callout ' + (r.warnings.length ? 'callout-caution' : 'callout-info');
     warnings.innerHTML = r.warnings.length
-      ? r.warnings.map(function (x) { return '<li>' + A.esc(x) + '</li>'; }).join('')
-      : '<li>No problems found. Remember: consent comes first.</li>';
+      ? r.warnings.map(function (x) { return '<li><strong>Check:</strong> ' + A.esc(x) + '</li>'; }).join('')
+      : '<li><strong>No problems found.</strong> Remember: consent comes first.</li>';
+    ['lat', 'lng'].forEach(function (n) {
+      if (r.badCoords) form.elements[n].setAttribute('aria-invalid', 'true');
+      else form.elements[n].removeAttribute('aria-invalid');
+    });
     if (pin) { map.removeLayer(pin); pin = null; }
     if (r.point) {
       pin = L.layerGroup([
-        L.marker(r.point, { icon: A.pinIcon(), alt: 'Draft public point' }),
-        r.radius ? A.zoneCircle(r.point, r.radius) : null
+        L.marker(r.point, { icon: A.pinIcon(r.tier), alt: 'Draft public point' }),
+        r.radius ? A.zoneCircle(r.point, r.radius, r.tier) : null
       ].filter(Boolean)).addTo(map);
       map.setView(r.point, 11);
       note.textContent = 'The pin shows the point the public would see (' + r.point.join(', ') + ').' + (r.radius ? ' The dashed circle shows it is generalised.' : '');

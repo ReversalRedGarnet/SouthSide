@@ -23,8 +23,8 @@
     return '<tr id="row-' + A.esc(s.id) + '">' +
       '<th scope="row"><a href="' + profileUrl(s) + '">' + A.esc(s.name) + '</a></th>' +
       '<td data-label="Constituency">' + A.esc(s.constituency) + '</td>' +
-      '<td data-label="Kind">' + A.esc(A.LABELS.tier[s.tier]) + '</td>' +
-      '<td data-label="Status">' + A.esc(A.statusWord(s.verification_status)) + '</td>' +
+      '<td data-label="Kind">' + A.tierTag(s.tier) + '</td>' +
+      '<td data-label="Status">' + A.badge(s.verification_status) + '</td>' +
       '<td data-label="Map">' + where + '</td></tr>';
   }
 
@@ -70,7 +70,7 @@
       // The Status column shows one word, so say here what it means. Worded from the data,
       // so the line stays true once a profile has been reviewed.
       var unreviewed = function (s) { return s.verification_status === 'draft' || s.verification_status === 'desk_sourced'; };
-      html = '<p>' + (list.every(unreviewed)
+      html = '<p class="callout callout-caution">' + (list.every(unreviewed)
         ? 'None of these profiles have been reviewed by custodians.'
         : 'Profiles marked Draft or Desk-sourced have not been reviewed by custodians.') + '</p>' +
         '<div class="table-scroll"><table class="stack" aria-labelledby="sites"><thead><tr>' +
@@ -99,10 +99,10 @@
     A.addStudyArea(map);
     data.sites.filter(isMapped).forEach(function (s) {
       var ll = [s.location.lat, s.location.lng];
-      var zone = s.location.radius_m ? A.zoneCircle(ll, s.location.radius_m).addTo(map) : null;
-      var pin = L.marker(ll, { icon: A.pinIcon(), title: s.name, alt: s.name, keyboard: true }).addTo(map);
+      var zone = s.location.radius_m ? A.zoneCircle(ll, s.location.radius_m, s.tier).addTo(map) : null;
+      var pin = L.marker(ll, { icon: A.pinIcon(s.tier), title: s.name, alt: s.name, keyboard: true }).addTo(map);
       pin.bindPopup('<p><strong>' + A.esc(s.name) + '</strong></p>' +
-        '<p class="small">' + A.esc(s.constituency) + ' &middot; ' + A.esc(A.LABELS.tier[s.tier]) + '</p>' +
+        '<p class="small">' + A.esc(s.constituency) + ' &middot; ' + A.tierTag(s.tier) + '</p>' +
         '<p class="small">' + A.statusText(s.verification_status) + '</p>' +
         '<p class="small"><em>' + A.esc(s.location.note) + '</em></p>' +
         '<a href="' + profileUrl(s) + '">Open profile</a>');
@@ -143,8 +143,12 @@
     data = d;
     document.getElementById('status-note').textContent = d.meta.status;
     renderCoverage();
+    // The legend starts open on wide screens and collapsed on phones.
+    var legend = document.getElementById('legend');
+    if (legend && window.matchMedia('(max-width: 600px)').matches) legend.removeAttribute('open');
     wireControls();
-    buildMap();
+    // The list is the equivalent of the map, so it must render even if the map cannot.
+    try { buildMap(); } catch (e) { if (window.console) console.warn('Map not shown:', e.message); }
     renderList();
   }).catch(function (err) {
     A.showLoadError(document.getElementById('list'), err);

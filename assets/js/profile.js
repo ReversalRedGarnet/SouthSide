@@ -4,8 +4,9 @@
   var root = document.getElementById('profile');
 
   function factRow(f, sources) {
-    return '<tr><th scope="row">' + A.esc(f.label) + '</th><td>' +
-      '<strong>' + A.esc(A.LABELS.confidence[f.confidence]) + '.</strong> ' +
+    // A conflicting fact gets a flagged row as well as its mark and word.
+    return '<tr' + (f.confidence === 'conflicting' ? ' class="flag-conflicting"' : '') + '><th scope="row">' + A.esc(f.label) + '</th><td>' +
+      A.confMark(f.confidence) + ' ' +
       A.esc(f.value) + ' ' + A.srcLinks(f.source_ids, sources) +
       (f.note ? '<span class="note">' + A.esc(f.note) + '</span>' : '') +
       '</td></tr>';
@@ -35,7 +36,7 @@
 
     root.innerHTML =
       '<p class="crumbs"><a href="index.html">&larr; All sites</a></p>' +
-      '<p class="profile-id">' + A.esc(s.id) + ' &middot; ' + A.esc(s.constituency) + ' &middot; ' + A.esc(A.LABELS.tier[s.tier]) + '</p>' +
+      '<p class="profile-id">' + A.esc(s.id) + ' &middot; ' + A.esc(s.constituency) + ' &middot; ' + A.tierTag(s.tier) + '</p>' +
       '<h1>' + A.esc(s.name) + '</h1>' +
       '<p>Status: ' + A.statusText(s.verification_status) + '. Everything below comes from published sources, not from the custodians. Items marked <strong>Unknown</strong> are gaps, not guesses.</p>' +
 
@@ -48,19 +49,19 @@
       '<h2>Where</h2><p>' + A.esc(s.place_text) + '</p>' +
       (mapped
         ? '<div id="mini" class="mini-map" role="img" aria-label="Small map showing the approximate location"></div>'
-        : '<p><strong>No map point</strong> (location withheld or unknown).</p>') +
+        : '<p class="callout callout-danger"><strong>No map point</strong> (location withheld or unknown).</p>') +
       '<table class="facts"><tbody>' +
       pairRow('Precision', A.esc(A.LABELS.precision[s.location.precision])) +
       pairRow('Location note', A.esc(s.location.note) + ' ' + A.srcLinks(s.location.source_ids, d.sources)) +
       '</tbody></table>' +
 
       '<h2>Visiting</h2><table class="facts"><tbody>' +
-      pairRow('Access', '<strong>' + A.esc(A.LABELS.visitor[s.visitor.access]) + '</strong>') +
+      pairRow('Access', A.chip('visitor', s.visitor.access)) +
       pairRow('Note', A.esc(s.visitor.note)) +
       '</tbody></table>' +
 
       '<h2>Permission and contact</h2><table class="facts"><tbody>' +
-      pairRow('Consent status', A.esc(A.LABELS.consent[s.consent.status]) + '. ' + A.esc(s.consent.note)) +
+      pairRow('Consent status', A.chip('consent', s.consent.status) + ' ' + A.esc(s.consent.note)) +
       pairRow('Public contact', contactText(s.contact)) +
       pairRow('Map visibility', A.esc(s.public_visibility)) +
       pairRow('Last reviewed', A.esc(A.fmtDate(s.last_reviewed))) +
@@ -81,12 +82,15 @@
       }).join('') + '</ol>' +
       '<h3>Cite this profile</h3><p class="small">' + A.esc(cite) + '</p>';
 
+    // The profile text is already on the page; a map problem must not replace it with an error.
     if (mapped) {
-      var ll = [s.location.lat, s.location.lng];
-      var m = A.baseMap('mini', { center: ll, zoom: 10, limit: true });
-      A.addStudyArea(m);
-      if (s.location.radius_m) A.zoneCircle(ll, s.location.radius_m).addTo(m);
-      L.marker(ll, { icon: A.pinIcon(), alt: s.name }).addTo(m);
+      try {
+        var ll = [s.location.lat, s.location.lng];
+        var m = A.baseMap('mini', { center: ll, zoom: 10, limit: true });
+        A.addStudyArea(m);
+        if (s.location.radius_m) A.zoneCircle(ll, s.location.radius_m, s.tier).addTo(m);
+        L.marker(ll, { icon: A.pinIcon(s.tier), alt: s.name }).addTo(m);
+      } catch (e) { if (window.console) console.warn('Map not shown:', e.message); }
     }
   }
 

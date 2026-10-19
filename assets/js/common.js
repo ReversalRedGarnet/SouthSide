@@ -45,7 +45,20 @@
   Object.keys(STATUS).forEach(function (k) { LABELS.verification[k] = STATUS[k][0] + ', ' + STATUS[k][1]; });
 
   var CONSTITUENCIES = ["East Are'are", "West Are'are", 'Small Malaita'];
-  var ACCENT = '#325a4b';
+
+  // Colours live in CSS tokens (assets/css/styles.css). Map layers that need a colour value read the token.
+  function token(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  var TIER_TOKEN = { legal_pa: '--tier-legal', community_area: '--tier-area', community_group: '--tier-group' };
+  // Boundary file names (ADM2_NAME) -> display name, colour token and legend class.
+  var CONSTITUENCY_STYLE = {
+    'East AreAre': { name: "East Are'are", token: '--const-east', cls: 'const-east' },
+    'West Areare': { name: "West Are'are", token: '--const-west', cls: 'const-west' },
+    'Small Malaita': { name: 'Small Malaita', token: '--const-small', cls: 'const-small' }
+  };
+  var CHIP = {
+    visitor: { unknown: 'neutral', ask_first: 'caution', guided: 'caution', open: 'info', closed_sensitive: 'danger' },
+    consent: { not_yet_sought: 'neutral', in_progress: 'caution', given_scoped: 'info', declined: 'danger' }
+  };
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -56,9 +69,30 @@
   // Just the status word ("Desk-sourced", "Draft"), for compact lists that explain the words nearby.
   function statusWord(code) { return STATUS[code] ? STATUS[code][0] : code; }
 
+  // Verification badge: the status word on the trust-ramp colour (icons for verified/disputed come from CSS).
+  function badge(code) {
+    return '<span class="badge badge-' + esc(code) + '">' + esc(statusWord(code)) + '</span>';
+  }
+
+  // Badge plus what it means, e.g. [Desk-sourced] not reviewed by custodians.
   function statusText(code) {
     var s = STATUS[code];
-    return s ? '<strong>' + esc(s[0]) + '</strong>, ' + esc(s[1]) : esc(code);
+    return s ? badge(code) + ' ' + esc(s[1]) : esc(code);
+  }
+
+  // Kind of site: coloured shape plus its name.
+  function tierTag(tier) {
+    return '<span class="tier"><span class="mark shape-' + esc(tier) + '" aria-hidden="true"></span>' + esc(LABELS.tier[tier] || tier) + '</span>';
+  }
+
+  // Visitor access or consent status as a chip; the chip text is the label.
+  function chip(kind, code) {
+    return '<span class="chip chip-' + (CHIP[kind][code] || 'neutral') + '">' + esc(LABELS[kind][code] || code) + '</span>';
+  }
+
+  // Fact confidence: a mark (different shape per level) and the word.
+  function confMark(level) {
+    return '<span class="conf conf-' + esc(level) + '"><span class="conf-mark" aria-hidden="true"></span>' + esc(LABELS.confidence[level] || level) + '.</span>';
   }
 
   function loadJSON(path) {
@@ -78,7 +112,7 @@
 
   function showLoadError(el, err) {
     var onFile = location.protocol === 'file:';
-    el.innerHTML = '<p><strong>The data could not be loaded.</strong> ' +
+    el.innerHTML = '<p class="callout callout-danger"><strong>The data could not be loaded.</strong> ' +
       (onFile
         ? 'This page was opened straight from a folder. Browsers block data files in that case. Open it through GitHub Pages, or run <code>python -m http.server</code> in this folder and visit <code>http://localhost:8000</code>.'
         : esc(err.message)) + '</p>';
@@ -110,9 +144,12 @@
     opts = opts || {};
     var study = L.latLngBounds(STUDY_BOUNDS);
     var map = L.map(id, { scrollWheelZoom: false, zoomSnap: 0.25, maxBoundsViscosity: 0.8 });
+    // A hidden map (e.g. print styles) has no size, so fitting or limiting the view would give NaN zooms.
+    var size = map.getSize(), visible = size.x > 0 && size.y > 0;
     if (opts.center) map.setView(opts.center, opts.zoom);
-    else map.fitBounds(study, { padding: [8, 8] });
-    if (opts.limit) {
+    else if (visible) map.fitBounds(study, { padding: [8, 8] });
+    else map.setView(study.getCenter(), 9);
+    if (opts.limit && visible) {
       map.setMinZoom(Math.floor(map.getBoundsZoom(study, false, L.point(16, 16))) - 1);
       map.setMaxBounds(study.pad(0.5));
     }
@@ -123,13 +160,49 @@
     return map;
   }
 
-  // Fade everything outside the three constituencies and outline each one.
-  // The fade sits in its own pane below site circles and pins, and nothing in it is interactive.
+  // A point well inside a ring ([lng, lat] pairs), for placing a label: on a coarse grid over the
+  // ring's box, the inside point furthest from any edge. Good enough for three label positions.
+  function labelPoint(ring) {
+    var xs = ring.map(function (p) { return p[0]; }), ys = ring.map(function (p) { return p[1]; });
+    var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+    function inside(x, y) {
+      var c = false;
+      for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        var a = ring[i], b = ring[j];
+        if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) c = !c;
+      }
+      return c;
+    }
+    function edgeDist(x, y) {
+      var best = Infinity;
+      for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        var a = ring[i], b = ring[j], dx = b[0] - a[0], dy = b[1] - a[1], l2 = dx * dx + dy * dy;
+        var t = l2 ? Math.max(0, Math.min(1, ((x - a[0]) * dx + (y - a[1]) * dy) / l2)) : 0;
+        var ex = x - a[0] - t * dx, ey = y - a[1] - t * dy;
+        best = Math.min(best, ex * ex + ey * ey);
+      }
+      return best;
+    }
+    var best = null, bestD = -1, n = 24;
+    for (var gx = 0; gx <= n; gx++) {
+      for (var gy = 0; gy <= n; gy++) {
+        var x = x0 + (x1 - x0) * gx / n, y = y0 + (y1 - y0) * gy / n;
+        if (!inside(x, y)) continue;
+        var d = edgeDist(x, y);
+        if (d > bestD) { bestD = d; best = [y, x]; }
+      }
+    }
+    return best;
+  }
+
+  // Fade everything outside the three constituencies, then outline, tint and label each one.
+  // The fade, outlines and labels sit in panes below site circles and pins, and none is interactive.
   // If the boundary file fails to load, the map simply stays unfaded.
   var BOUNDARY_ATTR = 'Constituencies: SINSO 2009 census via <a href="https://data.humdata.org/dataset/cod-ab-slb">OCHA HDX</a> (CC BY-IGO)';
   function addStudyArea(map) {
     return loadJSON('data/constituencies.geojson').then(function (g) {
       map.createPane('fade').style.zIndex = 350;
+      map.createPane('constLabels').style.zIndex = 360;
       var world = [[-40, 130], [-40, 190], [20, 190], [20, 130]];
       var holes = [];
       g.features.forEach(function (f) {
@@ -138,28 +211,42 @@
         });
       });
       L.polygon([world].concat(holes), {
-        pane: 'fade', stroke: false, fillColor: '#fff', fillOpacity: 0.55, interactive: false
+        pane: 'fade', stroke: false, fillColor: token('--map-fade'), fillOpacity: 0.55, interactive: false
       }).addTo(map);
       L.geoJSON(g, {
         pane: 'fade', interactive: false, attribution: BOUNDARY_ATTR,
-        style: { color: ACCENT, weight: 1.25, opacity: 0.9, fill: false }
+        style: function (f) {
+          var c = token((CONSTITUENCY_STYLE[f.properties.ADM2_NAME] || {}).token || '--neutral-border');
+          return { color: c, weight: 1.75, opacity: 1, fillColor: c, fillOpacity: 0.07 };
+        }
       }).addTo(map);
+      // Name each constituency on the map, so the outline colours are never the only clue.
+      g.features.forEach(function (f) {
+        var st = CONSTITUENCY_STYLE[f.properties.ADM2_NAME];
+        if (!st) return;
+        var biggest = f.geometry.coordinates.reduce(function (a, b) { return b[0].length > a[0].length ? b : a; });
+        var at = labelPoint(biggest[0]);
+        if (at) L.tooltip({ permanent: true, direction: 'center', className: 'const-label ' + st.cls, pane: 'constLabels' })
+          .setLatLng(at).setContent(esc(st.name)).addTo(map);
+      });
     }).catch(function () {});
   }
 
-  // Every site uses the same green circle. Kind of site is told in text, not by pin colour.
-  function pinIcon() {
-    return L.divIcon({ className: '', html: '<div class="pin"></div>', iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -8] });
+  // Map marker for a site: the kind-of-site shape and colour (square, circle or diamond).
+  function pinIcon(tier) {
+    return L.divIcon({ className: '', html: '<div class="pin shape-' + esc(tier) + '"></div>', iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -10] });
   }
 
-  // Dashed circle for a location known only roughly (bay, village or generalised area).
-  function zoneCircle(latlng, radius) {
-    return L.circle(latlng, { radius: radius, color: ACCENT, weight: 2, dashArray: '6 6', fillColor: ACCENT, fillOpacity: 0.06, interactive: false });
+  // Dashed circle for a location known only roughly (bay, village or generalised area), in the site's kind colour.
+  function zoneCircle(latlng, radius, tier) {
+    var c = token(TIER_TOKEN[tier] || '--neutral-border');
+    return L.circle(latlng, { radius: radius, color: c, weight: 2, dashArray: '6 6', fillColor: c, fillOpacity: 0.06, interactive: false });
   }
 
   window.Atlas = {
     LABELS: LABELS, CONSTITUENCIES: CONSTITUENCIES, esc: esc, loadAll: loadAll, loadJSON: loadJSON,
     showLoadError: showLoadError, srcLinks: srcLinks, statusWord: statusWord, statusText: statusText, fmtDate: fmtDate,
+    badge: badge, tierTag: tierTag, chip: chip, confMark: confMark, token: token,
     baseMap: baseMap, addStudyArea: addStudyArea, pinIcon: pinIcon, zoneCircle: zoneCircle
   };
 })();
