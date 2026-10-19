@@ -17,7 +17,7 @@
 <div class="proto"><p class="wrap"><strong>Prototype for teaching.</strong> Nothing typed on this page leaves your browser.</p></div>
 <header class="site-header"><div class="wrap">
   <a class="brand" href="index.html"><img class="brand-mark" src="assets/img/firefly-header.svg" width="40" height="40" alt="">SouthSide</a> <span class="tagline">Conservation sites in Southern Malaita</span>
-  <nav aria-label="Main"><a href="index.html">Map</a><a href="updates.html">Updates</a><a href="about.html">About and method</a><a href="kit.html" aria-current="page">Field Kit</a></nav>
+  <nav aria-label="Main"><a href="index.html">Map</a><a href="updates.html">Updates</a><a href="library.html">Research</a><a href="about.html">About</a><a href="kit.html" aria-current="page">Field Kit</a></nav>
 </div></header>
 
 <main id="main" class="wrap">
@@ -120,7 +120,7 @@
   </ul>
 
   <h2 id="publish">6. How to publish an update</h2>
-  <p>Only the atlas maintainer publishes. Custodians, students and anyone else can ask for an update: <span data-update-contact></span>. The maintainer adds an entry to <code>data/updates.json</code>, checks it and uploads the file. There is no form, server or account.</p>
+  <p>Only the atlas maintainer publishes.<span data-update-ask hidden> Custodians, students and anyone else can ask for an update: <span data-update-contact></span>.</span> The maintainer adds an entry to <code>data/updates.json</code>, checks it and uploads the file. There is no form, server or account.</p>
   <h3>Two kinds of update</h3>
   <ul>
     <li><strong>Primary update</strong>: needs a source in <code>data/sources.json</code> from an organisation marked <code>trusted: true</code> (a government, provincial, custodian or NGO source), and a consent record ID. One that fails either check shows as a community note marked <strong>Needs checking</strong>.</li>
@@ -153,6 +153,44 @@
   "status": "published"
 }</pre>
   <p><button type="button" class="btn" id="copy-update">Copy template</button></p>
+
+  <h2 id="research">7. How to submit research</h2>
+  <p>Researchers can offer published or unpublished work about East Are&rsquo;are, West Are&rsquo;are or Small Malaita for the <a href="library.html">research library</a>. The atlas maintainer lists it by adding an entry to <code>data/sources.json</code>, the same register that holds the atlas&rsquo;s first sources.<span data-update-ask hidden> To submit research: <span data-update-contact></span>.</span></p>
+  <p class="callout callout-info"><strong>Listing is not endorsement.</strong> A listed work is about this area and its author agreed to be listed. The atlas has not checked its methods or findings.</p>
+  <p class="callout callout-caution"><strong>Not for the library.</strong> Traditional ecological knowledge, oral histories and anything from custodians do not belong here. They are handled through consent and, where the custodians agree, as primary updates (section 6).</p>
+  <h3>Checklist before listing</h3>
+  <ul>
+    <li><strong>Rights:</strong> the author agrees in writing to be listed. Keep that agreement private; only <code>"rights_confirmed": true</code> goes in the file. Without it the entry stays hidden.</li>
+    <li><strong>Link out:</strong> <code>url</code> points to the published page or DOI. No full texts and no PDFs are stored in this repository.</li>
+    <li><strong>Summary:</strong> in your own words, 80 words at most. Never copy an abstract. Leave it out if unsure; the entry then shows its citation and link only.</li>
+    <li><strong>No locations:</strong> never copy coordinates or a site location from a paper. An entry whose title, summary or citation contains coordinates is hidden everywhere.</li>
+    <li><strong>Scope:</strong> <code>region_tags</code> needs at least one site ID (for example <code>SM-001</code>) or one of the three constituency names.</li>
+    <li><strong>Evidence kind:</strong> one of <span data-lib-values="evidence"></span>.</li>
+    <li><strong>Taxon groups:</strong> any of <span data-lib-values="taxon"></span>.</li>
+    <li><strong>Check:</strong> open <code>updates-check.html</code> locally and clear every error before uploading.</li>
+  </ul>
+  <h3>Entry template</h3>
+  <p class="small muted">Copy into the <code>sources</code> list in <code>data/sources.json</code>, numbering on from the last source (S33, S34 and so on). <code>trusted</code> stays <code>false</code>: research sources never make an update primary.</p>
+<pre id="research-template" class="template" tabindex="0">{
+  "id": "S33",
+  "title": "",
+  "publisher": "",
+  "type": "research",
+  "authority_type": "research",
+  "organisation": "",
+  "trusted": false,
+  "date": "",
+  "url": "https://",
+  "notes": "",
+  "origin": "researcher_submitted",
+  "evidence_kind": "researcher_submitted",
+  "taxon_groups": [],
+  "summary": "",
+  "region_tags": ["SM-001"],
+  "citation": "",
+  "rights_confirmed": true
+}</pre>
+  <p><button type="button" class="btn" id="copy-research">Copy template</button></p>
 </main>
 
 <footer><div class="wrap"><p>Prototype v0.2 &middot; Templates are starting points. Adapt them with your supervisor and the custodians.</p></div></footer>
@@ -160,6 +198,7 @@
 <script src="assets/vendor/leaflet/leaflet.js"></script>
 <script src="assets/js/common.js"></script>
 <script src="assets/js/updates.js"></script>
+<script src="assets/js/library.js"></script>
 <script src="assets/js/kit.js"></script>
 </body>
 </html>

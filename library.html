@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="description" content="SouthSide: research library for conservation sites in Southern Malaita, Solomon Islands. Teaching prototype, not reviewed by custodians.">
+<title>Research library - SouthSide (prototype)</title>
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="proto"><p class="wrap"><strong>Prototype for teaching.</strong> Desk-sourced from published material only. Not reviewed by any community or custodian.</p></div>
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="index.html"><img class="brand-mark" src="assets/img/firefly-header.svg" width="40" height="40" alt="">SouthSide</a> <span class="tagline">Conservation sites in Southern Malaita</span>
+  <nav aria-label="Main"><a href="index.html">Map</a><a href="updates.html">Updates</a><a href="library.html" aria-current="page">Research</a><a href="about.html">About</a><a href="kit.html">Field Kit</a></nav>
+</div></header>
+
+<main id="main" class="wrap">
+  <h1>Research library</h1>
+  <p>Published sources and research about East Are&rsquo;are, West Are&rsquo;are and Small Malaita. Each entry links out to where the work is published; nothing is hosted here. &ldquo;Cited for&rdquo; shows which facts on a site profile rest on that work, so you can trace a fact back to its first source.</p>
+  <ul>
+    <li><strong>Published source</strong> (solid line beside it): a work already published elsewhere, such as a paper, report or article.</li>
+    <li><strong>Submitted by the author</strong> (dashed line): a work its author offered for listing. The words &ldquo;not independently reviewed&rdquo; appear when nobody outside has reviewed it.</li>
+  </ul>
+  <p>Each entry also states its kind of evidence in words. A listing is not an endorsement: the atlas has not checked any work&rsquo;s findings.<span data-update-ask hidden> To submit research: <span data-update-contact></span>.</span> See the <a href="kit.html#research">Field Kit</a> for how entries are added.</p>
+
+  <form class="filters" onsubmit="return false" aria-label="Filters">
+    <label>Search<input id="l-q" type="search" placeholder="Title, publisher, topic"></label>
+    <label>Site<select id="l-site"><option value="">All sites</option></select></label>
+    <label>Constituency<select id="l-constituency"><option value="">All three</option></select></label>
+    <label>Taxon group<select id="l-taxon"><option value="">All groups</option></select></label>
+    <label>Evidence kind<select id="l-kind"><option value="">All kinds</option></select></label>
+    <label>Origin<select id="l-origin"><option value="">Published and submitted</option></select></label>
+    <label>Sort by<select id="l-sort"><option value="strength">Evidence strength (default)</option><option value="title">Title</option></select></label>
+  </form>
+  <p class="small muted" id="l-count" aria-live="polite"></p>
+
+  <div id="library"><p class="muted">Loading the library&hellip;</p></div>
+</main>
+
+<footer><div class="wrap"><p>Prototype v0.2 &middot; Not an official record. <a href="about.html#corrections">How corrections work</a>.</p></div></footer>
+
+<script src="assets/js/common.js"></script>
+<script src="assets/js/updates.js"></script>
+<script src="assets/js/library.js"></script>
+</body>
+</html>

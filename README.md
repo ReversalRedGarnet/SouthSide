@@ -34,6 +34,19 @@ Open through a web server, not by double-clicking: `python -m http.server`, then
 - Samples: `data/updates.sample.json` holds fictional entries showing every state. Pages load it only with
   `?sample=1` in the address (for example `http://localhost:8000/index.html?sample=1`). Do not upload it.
 
+## Research library
+- `library.html` lists sources from `data/sources.json` (one register, no second list). A source is listed if a site
+  fact cites it, it has `region_tags`, or it is `researcher_submitted`. Custodian sources are never listed; other
+  sources stay in the register only.
+- Optional fields: `origin`, `evidence_kind`, `taxon_groups`, `summary` (own words, 80 words maximum, never an
+  abstract), `region_tags`, and for researcher submissions `citation` and `rights_confirmed`. Allowed values are the
+  constants at the top of `assets/js/library.js`. Template and checklist: Field Kit section 7.
+- Scope is southern Malaita only: each entry needs a site ID or one of the three constituencies. Entries out of scope,
+  without `rights_confirmed: true` (researcher submissions), without a web `url`, or with coordinates in the title,
+  summary or citation are hidden and listed in `updates-check.html`.
+- No full texts or PDFs in the repo: entries link out. Traditional knowledge, oral histories and custodian material
+  never go in the library; they go through consent and primary updates.
+
 ## Rules
 - Prototype only: profiles are desk-sourced and NOT reviewed by custodians. Pages carry `noindex`.
 - Never commit true coordinates of sensitive places, private contacts, consent records or raw notes. Git history keeps them.

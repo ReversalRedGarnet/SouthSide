@@ -73,6 +73,8 @@
       '<p class="small muted">Starting points for first-hand research. Ask permission first. See the <a href="kit.html">Field Kit</a>.</p>' +
       '<ul>' + s.open_questions.map(function (q) { return '<li>' + A.esc(q) + '</li>'; }).join('') + '</ul>' +
 
+      (window.Library ? '<h2 id="research">Research</h2><div id="site-research"><p class="muted">Loading research&hellip;</p></div>' : '') +
+
       '<h2>Sources</h2><ol class="sources">' +
       usedIds.map(function (id) {
         var x = d.sources[id];
@@ -84,6 +86,7 @@
       '<h3>Cite this profile</h3><p class="small">' + A.esc(cite) + '</p>';
 
     if (window.Updates) window.Updates.renderSite(document.getElementById('site-updates'), s.id);
+    if (window.Library) window.Library.renderSite(document.getElementById('site-research'), s.id);
 
     // The profile text is already on the page; a map problem must not replace it with an error.
     if (mapped) {

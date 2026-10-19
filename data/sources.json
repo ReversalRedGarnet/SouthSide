@@ -2,7 +2,8 @@
   "meta": {
     "note": "Source register for the prototype. Every claim on a profile points to one or more of these IDs. All entries were read on the 'accessed' date; none are community-held or private documents.",
     "accessed_default": "2026-10-19",
-    "trust_note": "authority_type is one of government, provincial, custodian, ngo (these can be trusted) or intergovernmental, media, research, reference, commercial (never trusted). Trust is per organisation: every source with the same organisation must have the same trusted value. All sources are trusted: false until the maintainer confirms an organisation."
+    "trust_note": "authority_type is one of government, provincial, custodian, ngo (these can be trusted) or intergovernmental, media, research, reference, commercial (never trusted). Trust is per organisation: every source with the same organisation must have the same trusted value. All sources are trusted: false until the maintainer confirms an organisation.",
+    "library_note": "Research library fields (all optional): origin (published | researcher_submitted; missing means published), evidence_kind, taxon_groups, summary (own words, 80 words maximum), region_tags (site IDs or constituency names), and for researcher_submitted entries citation and rights_confirmed. Allowed values are the constants at the top of assets/js/library.js."
   },
   "sources": [
     {
@@ -15,7 +16,8 @@
       "trusted": false,
       "date": "Page metadata 8 Nov 2023; ceremony year not stated in text",
       "url": "https://environment.islesmedia.net/kira-becomes-first-protected-area-in-malaita-province/",
-      "notes": "Ceremony dates (27-28 November) do not match the page's publication metadata, so the year of declaration is unconfirmed."
+      "notes": "Ceremony dates (27-28 November) do not match the page's publication metadata, so the year of declaration is unconfirmed.",
+      "evidence_kind": "news_media"
     },
     {
       "id": "S02",
@@ -27,7 +29,8 @@
       "trusted": false,
       "date": "Not stated",
       "url": "https://solomons.gov.sb/?p=34002",
-      "notes": "Government news item. Names officials and a site coordinator; individuals are not republished in this prototype."
+      "notes": "Government news item. Names officials and a site coordinator; individuals are not republished in this prototype.",
+      "evidence_kind": "government_notice"
     },
     {
       "id": "S03",
@@ -39,7 +42,8 @@
       "trusted": false,
       "date": "Not stated",
       "url": "https://pipap.sprep.org/node/58583",
-      "notes": "Single news-style entry; no coordinates, boundary or IUCN category shown on the page read."
+      "notes": "Single news-style entry; no coordinates, boundary or IUCN category shown on the page read.",
+      "evidence_kind": "other"
     },
     {
       "id": "S04",
@@ -51,7 +55,8 @@
       "trusted": false,
       "date": "29 Jul 2018",
       "url": "https://www.culturalsurvival.org/node/12285",
-      "notes": "Funder-side description of the group's work. Spelled 'Association' here; S02 writes 'Foundation'."
+      "notes": "Funder-side description of the group's work. Spelled 'Association' here; S02 writes 'Foundation'.",
+      "evidence_kind": "ngo_report"
     },
     {
       "id": "S05",
@@ -63,7 +68,8 @@
       "trusted": false,
       "date": "12 Aug 2022",
       "url": "https://environment.islesmedia.net/mai-maasina-green-belt-acknowledges-undp-gef-for-project-funding-and-partnership/",
-      "notes": "Does not state the size of the area. Unclear which funded works belong to Mai-Maasina Green Belt and which to its partner AWCA."
+      "notes": "Does not state the size of the area. Unclear which funded works belong to Mai-Maasina Green Belt and which to its partner AWCA.",
+      "evidence_kind": "news_media"
     },
     {
       "id": "S06",
@@ -75,7 +81,11 @@
       "trusted": false,
       "date": "16 Mar 2023",
       "url": "https://environment.islesmedia.net/new-association-launched-to-protect-east-are-are-rainforests/",
-      "notes": "Does not state area, office-holders or funders."
+      "notes": "Does not state area, office-holders or funders.",
+      "evidence_kind": "news_media",
+      "taxon_groups": [
+        "forest_mangrove"
+      ]
     },
     {
       "id": "S07",
@@ -87,7 +97,11 @@
       "trusted": false,
       "date": "30 Jun 2020",
       "url": "https://tunapacific.ffa.int/2020/06/30/malaitans-reap-benefits-from-conserving-marine-areas/",
-      "notes": "Mainly about Manaoba LMMA (Lau Lagoon, outside this atlas); one section covers Puriasi in East Are'are. Figures are 2020 or earlier."
+      "notes": "Mainly about Manaoba LMMA (Lau Lagoon, outside this atlas); one section covers Puriasi in East Are'are. Figures are 2020 or earlier.",
+      "evidence_kind": "news_media",
+      "taxon_groups": [
+        "fish_marine"
+      ]
     },
     {
       "id": "S08",
@@ -99,7 +113,8 @@
       "trusted": false,
       "date": "Not stated",
       "url": "https://pacificwrecks.com/location/solomons_malaita_takataka_bay.html",
-      "notes": "Source of the bay-level coordinates (about 9.298 S, 161.242 E). Not a survey of any conservation boundary."
+      "notes": "Source of the bay-level coordinates (about 9.298 S, 161.242 E). Not a survey of any conservation boundary.",
+      "evidence_kind": "other"
     },
     {
       "id": "S09",
@@ -147,7 +162,8 @@
       "trusted": false,
       "date": "Accessed 2026-10-19",
       "url": "https://pipap.sprep.org/tags/community-conservation-areas",
-      "notes": "Lists Kira as the only Malaita/Are'are entry on the page read; describes Vuri Forest Conservation Area (Choiseul) as the country's 5th legal Protected Area."
+      "notes": "Lists Kira as the only Malaita/Are'are entry on the page read; describes Vuri Forest Conservation Area (Choiseul) as the country's 5th legal Protected Area.",
+      "evidence_kind": "other"
     },
     {
       "id": "S13",
@@ -183,7 +199,11 @@
       "trusted": false,
       "date": "Not stated",
       "url": "https://winrock.org/three-ways-scale-nrm-supports-locally-led-protection-of-forests-and-livelihoods-in-the-solomon-islands/",
-      "notes": "Gives Kira as 667 ha and a declaration date of 29 Oct 2023; also gives a celebration date of 27 Nov 2023 that conflicts with other sources."
+      "notes": "Gives Kira as 667 ha and a declaration date of 29 Oct 2023; also gives a celebration date of 27 Nov 2023 that conflicts with other sources.",
+      "evidence_kind": "ngo_report",
+      "taxon_groups": [
+        "forest_mangrove"
+      ]
     },
     {
       "id": "S16",
@@ -195,7 +215,8 @@
       "trusted": false,
       "date": "2 Nov 2023",
       "url": "https://sbm.sb/kira-forest-biodiversity-conservation-area-first-in-malaita/",
-      "notes": "Publication date makes a late-November 2023 ceremony impossible. Text says 'Friday 27th to Saturday 28th November', which fits 27-28 October 2023."
+      "notes": "Publication date makes a late-November 2023 ceremony impossible. Text says 'Friday 27th to Saturday 28th November', which fits 27-28 October 2023.",
+      "evidence_kind": "news_media"
     },
     {
       "id": "S17",
@@ -207,7 +228,8 @@
       "trusted": false,
       "date": "5 Dec 2024",
       "url": "https://www.equatorinitiative.org/2024/12/05/takataka-eco-village-conservation-foundation/",
-      "notes": "Contains a copy-paste error: some impact sections describe a Colombian project and were ignored."
+      "notes": "Contains a copy-paste error: some impact sections describe a Colombian project and were ignored.",
+      "evidence_kind": "other"
     },
     {
       "id": "S18",
@@ -219,7 +241,8 @@
       "trusted": false,
       "date": "Not stated",
       "url": "https://nakaunatureconnect.org/kira",
-      "notes": "Project developer's page. Gives 661 ha. Carbon credit figure is an estimate."
+      "notes": "Project developer's page. Gives 661 ha. Carbon credit figure is an estimate.",
+      "evidence_kind": "other"
     },
     {
       "id": "S19",
@@ -231,7 +254,11 @@
       "trusted": false,
       "date": "Not stated; refers to events to 2015",
       "url": "https://cepf.net/resources/documents/safeguard-social-assessment-50",
-      "notes": "Places the project in West Are'are on Aena'ura tribal land."
+      "notes": "Places the project in West Are'are on Aena'ura tribal land.",
+      "evidence_kind": "thesis_grey",
+      "taxon_groups": [
+        "reptiles_amphibians"
+      ]
     },
     {
       "id": "S20",
@@ -243,7 +270,11 @@
       "trusted": false,
       "date": "Grant June 2016 - Sept 2017",
       "url": "https://www.cepf.net/grants/grantee-projects/building-capacity-monitoring-and-management-leatherback-turtles-are-are",
-      "notes": "States location as West 'Are'are."
+      "notes": "States location as West 'Are'are.",
+      "evidence_kind": "ngo_report",
+      "taxon_groups": [
+        "reptiles_amphibians"
+      ]
     },
     {
       "id": "S21",
@@ -255,7 +286,11 @@
       "trusted": false,
       "date": "Report covers the 2015 season",
       "url": "https://media.rufford.org/media/project_reports/17164-1%20Detailed%20Final%20Report.pdf",
-      "notes": "Names tribal lands as Ausi (Wairaha), Au'vaura (Waisurione) and Po'otori (Hauhui). S19 spells the second 'Aena'ura'."
+      "notes": "Names tribal lands as Ausi (Wairaha), Au'vaura (Waisurione) and Po'otori (Hauhui). S19 spells the second 'Aena'ura'.",
+      "evidence_kind": "thesis_grey",
+      "taxon_groups": [
+        "reptiles_amphibians"
+      ]
     },
     {
       "id": "S22",
@@ -267,7 +302,11 @@
       "trusted": false,
       "date": "12 Jun 2024",
       "url": "https://environment.islesmedia.net/mangrove-ecosystem-conservation-a-way-forward-for-south-malaita-tribal-community/",
-      "notes": "Source for AHNRA. Does not give an area or a mangrove health assessment."
+      "notes": "Source for AHNRA. Does not give an area or a mangrove health assessment.",
+      "evidence_kind": "news_media",
+      "taxon_groups": [
+        "forest_mangrove"
+      ]
     },
     {
       "id": "S23",
@@ -279,7 +318,11 @@
       "trusted": false,
       "date": "4 Jun 2025",
       "url": "https://www.undp.org/pacific/press-releases/local-wisdom-global-impact-celebrating-mai-maasina-green-belt-world-environment-day",
-      "notes": "Describes a network of about thirty tribal communities across Are'are, Kwaio and Small Malaita, and eight ranger sites."
+      "notes": "Describes a network of about thirty tribal communities across Are'are, Kwaio and Small Malaita, and eight ranger sites.",
+      "evidence_kind": "other",
+      "region_tags": [
+        "SM-003"
+      ]
     },
     {
       "id": "S24",
@@ -291,7 +334,14 @@
       "trusted": false,
       "date": "20 Jan 2021 (project Sept 2019 - Dec 2020)",
       "url": "https://cepf.net/resources/final-project-report/final-project-report-2514",
-      "notes": "Reports about 15,000 ha of customarily protected forest and growth from 10 to 30 members. Grantee-reported figures."
+      "notes": "Reports about 15,000 ha of customarily protected forest and growth from 10 to 30 members. Grantee-reported figures.",
+      "evidence_kind": "thesis_grey",
+      "taxon_groups": [
+        "forest_mangrove"
+      ],
+      "region_tags": [
+        "SM-003"
+      ]
     },
     {
       "id": "S26",
@@ -303,7 +353,11 @@
       "trusted": false,
       "date": "2022",
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9005606",
-      "notes": "Peer-reviewed. Covers Mararo (East Are'are), Hunanawa (Maramasike) and Liwe (Small Malaita), among 13 villages, with catch recorded in 2017."
+      "notes": "Peer-reviewed. Covers Mararo (East Are'are), Hunanawa (Maramasike) and Liwe (Small Malaita), among 13 villages, with catch recorded in 2017.",
+      "evidence_kind": "peer_reviewed",
+      "taxon_groups": [
+        "fish_marine"
+      ]
     },
     {
       "id": "S27",
@@ -315,7 +369,12 @@
       "trusted": false,
       "date": "2020",
       "url": "https://worldfishcenter.org/publication/community-based-resource-management-malaita-province",
-      "notes": "Lists 32 place names on a map of community-based management in Malaita, including Mararo and Ahetaha (Manawai). Does not give constituencies."
+      "notes": "Lists 32 place names on a map of community-based management in Malaita, including Mararo and Ahetaha (Manawai). Does not give constituencies.",
+      "evidence_kind": "ngo_report",
+      "region_tags": [
+        "SM-005",
+        "SM-002"
+      ]
     },
     {
       "id": "S28",
@@ -327,7 +386,8 @@
       "trusted": false,
       "date": "13 Jul 2022",
       "url": "https://environment.islesmedia.net/conservation-division-continue-to-support-groups-undertaking-conservation-initiatives/",
-      "notes": "States five legally protected areas under the Protected Areas Act 2010 at that date, with Vuri the most recent."
+      "notes": "States five legally protected areas under the Protected Areas Act 2010 at that date, with Vuri the most recent.",
+      "evidence_kind": "news_media"
     },
     {
       "id": "S29",
@@ -339,7 +399,12 @@
       "trusted": false,
       "date": "15 Dec 2022",
       "url": "https://environment.islesmedia.net/conservation-groups-in-malaita-to-benefit-usaid-scale-project/",
-      "notes": "Names Ahetaha Water Conservation Association and Takataka Eco-Village Conservation Foundation as grant recipients."
+      "notes": "Names Ahetaha Water Conservation Association and Takataka Eco-Village Conservation Foundation as grant recipients.",
+      "evidence_kind": "news_media",
+      "region_tags": [
+        "SM-002",
+        "SM-001"
+      ]
     },
     {
       "id": "S30",
@@ -375,7 +440,11 @@
       "trusted": false,
       "date": "Grant July 2018 - Aug 2019",
       "url": "https://www.cepf.net/grants/grantee-projects/developing-management-and-recovery-plan-leatherback-turtles-are-are-malaita",
-      "notes": "Wai-Hau Conservation Foundation; a species management plan for Wai-Hau and southern Malaita."
+      "notes": "Wai-Hau Conservation Foundation; a species management plan for Wai-Hau and southern Malaita.",
+      "evidence_kind": "ngo_report",
+      "taxon_groups": [
+        "reptiles_amphibians"
+      ]
     }
   ]
 }

@@ -1,5 +1,8 @@
 /* Shared helpers: data loading, labels, small HTML utilities. No frameworks. */
 (function () {
+  // Footer "prepared" date (YYYY-MM-DD). Edit it here only; it fills every [data-site-date].
+  var SITE_PREPARED = '2026-10-19';
+
   // Verification status as plain text: a bold word, then what it means. Never colour alone.
   var STATUS = {
     draft: ['Draft', 'single source, not reviewed by custodians'],
@@ -273,4 +276,6 @@
     badge: badge, tierTag: tierTag, chip: chip, confMark: confMark, token: token,
     baseMap: baseMap, addStudyArea: addStudyArea, pinIcon: pinIcon, zoneCircle: zoneCircle
   };
+
+  document.querySelectorAll('[data-site-date]').forEach(function (el) { el.textContent = ' · prepared ' + fmtDate(SITE_PREPARED); });
 })();

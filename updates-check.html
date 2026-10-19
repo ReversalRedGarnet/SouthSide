@@ -15,18 +15,21 @@
 <div class="proto"><p class="wrap"><strong>Maintainer page.</strong> Not linked from the site, but not secret: anyone with the address can open it. It only reads the public data files.</p></div>
 <header class="site-header"><div class="wrap">
   <a class="brand" href="index.html"><img class="brand-mark" src="assets/img/firefly-header.svg" width="40" height="40" alt="">SouthSide</a> <span class="tagline">Conservation sites in Southern Malaita</span>
-  <nav aria-label="Main"><a href="index.html">Map</a><a href="updates.html">Updates</a><a href="about.html">About and method</a><a href="kit.html">Field Kit</a></nav>
+  <nav aria-label="Main"><a href="index.html">Map</a><a href="updates.html">Updates</a><a href="library.html">Research</a><a href="about.html">About</a><a href="kit.html">Field Kit</a></nav>
 </div></header>
 
 <main id="main" class="wrap">
   <h1>Update checks</h1>
-  <p>Checks every entry in <code>data/updates.json</code> and the trust fields in <code>data/sources.json</code>. Run it after every edit and before uploading. Add <code>?sample=1</code> to the address to include the local sample file.</p>
+  <p>Checks every entry in <code>data/updates.json</code>, the trust fields and the research library fields in <code>data/sources.json</code>. Run it after every edit and before uploading. Add <code>?sample=1</code> to the address to include the local sample file.</p>
   <div id="updates-check"><p class="muted">Checking&hellip;</p></div>
+  <h2>Research library</h2>
+  <div id="library-check"><p class="muted">Checking&hellip;</p></div>
 </main>
 
 <footer><div class="wrap"><p>Prototype v0.2 &middot; Maintainer page.</p></div></footer>
 
 <script src="assets/js/common.js"></script>
 <script src="assets/js/updates.js"></script>
+<script src="assets/js/library.js"></script>
 </body>
 </html>

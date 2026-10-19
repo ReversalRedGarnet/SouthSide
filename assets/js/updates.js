@@ -9,7 +9,8 @@
   var HALF_LIFE_DAYS = 60;           // score = weight x 0.5^(age_days / HALF_LIFE_DAYS)
   var HOME_THRESHOLD = 2.0;          // lowest score that reaches the homepage; pinned updates skip this
   var WEIGHT_MIN = 1, WEIGHT_MAX = 5;
-  var REQUEST_CONTACT = 'contact not yet published';   // how to ask for an update; shown wherever [data-update-contact] appears
+  var REQUEST_CONTACT = 'contact not yet published';   // how to ask for an update; fills every [data-update-contact]
+  var REQUEST_PLACEHOLDER = 'contact not yet published'; // while REQUEST_CONTACT still equals this, every [data-update-ask] sentence stays hidden
   var UPDATES_FILE = 'data/updates.json';
   var SAMPLE_FILE = 'data/updates.sample.json';        // local only, never uploaded
   var SAMPLE_PARAM = 'sample';                         // ?sample=1 loads the sample file
@@ -225,8 +226,15 @@
 
   function renderHome(el) {
     load().then(function (m) {
+      // No visible updates at all: the whole section shrinks to one line. It comes back with the first visible update.
+      var section = el.closest('section');
+      if (!visible(m).length && section) {
+        section.innerHTML = '<p>No updates yet. <a href="updates.html">All updates</a></p>';
+        keepSample();
+        return;
+      }
       var sel = homeSelection(m);
-      el.innerHTML = sampleNotice(m) + (sel.length ? list(sel, m, { h: 'h3' }) : '<p>No updates yet.</p>');
+      el.innerHTML = sampleNotice(m) + (sel.length ? list(sel, m, { h: 'h3' }) : '<p>No recent updates.</p>');
       keepSample();
     }).catch(function (err) { fail(el, err); });
   }
@@ -294,11 +302,16 @@
     }).catch(function (err) { fail(el, err); });
   }
 
+  // Sentences asking people to request an update are hidden in the HTML and shown only once a real contact is set.
   function fillContact() {
+    var set = !!REQUEST_CONTACT && REQUEST_CONTACT !== REQUEST_PLACEHOLDER;
     document.querySelectorAll('[data-update-contact]').forEach(function (s) { s.textContent = REQUEST_CONTACT; });
+    document.querySelectorAll('[data-update-ask]').forEach(function (s) { s.hidden = !set; });
   }
 
-  window.Updates = { load: load, check: check, findCoords: findCoords, homeSelection: homeSelection, renderSite: renderSite };
+  // sampleMode, link and keepSample are shared with the research library (assets/js/library.js).
+  window.Updates = { load: load, check: check, findCoords: findCoords, homeSelection: homeSelection, renderSite: renderSite,
+    sampleMode: sampleMode, link: link, keepSample: keepSample, SAMPLE_FILE: SAMPLE_FILE };
 
   fillContact();
   keepSample();

@@ -121,6 +121,7 @@
   }
   copyButton(document.getElementById('copy'), out);
   copyButton(document.getElementById('copy-update'), document.getElementById('update-template'));
+  copyButton(document.getElementById('copy-research'), document.getElementById('research-template'));
   document.getElementById('dl').addEventListener('click', function () {
     var blob = new Blob([out.textContent], { type: 'application/json' });
     var a = document.createElement('a');

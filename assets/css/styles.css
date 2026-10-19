@@ -97,7 +97,7 @@ code { font-size: .9em; }
 /* Header and footer */
 .site-header { background: var(--chrome); color: var(--on-chrome); border-bottom: 1px solid var(--chrome-rule); padding: .75rem 0 .6rem; }
 .brand { display: inline-flex; align-items: center; gap: .5rem; vertical-align: middle; font-weight: 700; font-size: 1.15rem; color: var(--on-chrome); text-decoration: none; }
-.brand-mark { display: block; flex: none; width: 40px; height: 40px; }
+.brand-mark { display: block; flex: none; width: 56px; height: 56px; }
 .tagline { color: var(--on-chrome-muted); vertical-align: middle; }
 .site-header a:hover { color: var(--on-chrome); }
 .site-header nav { margin-top: .35rem; display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; }
@@ -220,6 +220,19 @@ ul.callout li { margin-bottom: .2rem; }
 .update-body { margin: 0 0 .6rem; }
 .update-body > summary { cursor: pointer; font-size: .875rem; font-weight: 600; margin-bottom: .4rem; }
 .chip-check::before { content: "\26A0\FE0E\00a0"; content: "\26A0\FE0E\00a0" / ""; }
+/* Research library. Origin is told by words and the rule's shape: solid for a published source, dashed for a work
+   submitted by its author. Evidence kind is a separate outlined tag in words. Never green, never glow. */
+.lib-entry { border-left: 4px solid var(--ink); padding: .05rem 0 .05rem .85rem; margin: 0 0 1.25rem; }
+.lib-submitted { border-left-style: dashed; border-left-color: var(--neutral-border); }
+.lib-entry > :last-child { margin-bottom: 0; }
+.lib-entry p.small { margin-bottom: .3rem; }
+.lib-kind { display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .5rem; margin: 0; font-size: .875rem; }
+.lib-entry h2, .lib-entry h3 { font-size: 1.05rem; margin: .2rem 0 .15rem; }
+.lib-meta { margin: 0 0 .4rem; font-size: .875rem; color: var(--muted); overflow-wrap: anywhere; }
+.lib-tag { display: inline-block; font-size: .8125rem; font-weight: 600; line-height: 1.35; padding: 0 .4rem; border: 1px solid var(--neutral-border); border-radius: 0; color: var(--neutral-ink); }
+.filters { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: .5rem 1rem; margin: 0 0 .25rem; }
+.filters label { display: flex; flex-direction: column; gap: .15rem; font-size: .875rem; font-weight: 600; min-width: 0; }
+.filters input, .filters select { width: 100%; min-width: 0; height: 2.2rem; }
 pre.template { border: 1px solid var(--rule); padding: .75rem; overflow: auto; font-size: .8125rem; line-height: 1.45; margin: 0 0 .6rem; }
 
 /* Fact confidence: the word plus a mark with a different shape for each level */
@@ -264,7 +277,7 @@ pre.out { border: 1px solid var(--rule); padding: .75rem; overflow: auto; max-he
   /* Phones: keep the map near the top. Both fields and the count share one row. */
   .proto { font-size: .8125rem; }
   .site-header { padding: .5rem 0 .4rem; }
-  .brand-mark { width: 36px; height: 36px; }
+  .brand-mark { width: 44px; height: 44px; }
   h1 { font-size: 1.375rem; margin-top: 1rem; }
   .controls { gap: .3rem .6rem; flex-wrap: nowrap; align-items: flex-end; }
   .controls label { flex-direction: column; align-items: stretch; gap: .1rem; flex: 1 1 0; min-width: 0; font-size: .8125rem; }
