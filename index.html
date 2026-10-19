@@ -11,19 +11,18 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="proto"><div class="wrap"><strong>Prototype for teaching.</strong> <span id="status-note">Desk-sourced from published material only. Not reviewed by any community or custodian.</span></div></div>
+<div class="proto"><p class="wrap"><strong>Prototype for teaching.</strong> <span id="status-note">Desk-sourced from published material only. Not reviewed by any community or custodian.</span></p></div>
 <header class="site-header"><div class="wrap">
   <a class="brand" href="index.html">SouthSide</a> <span class="tagline">Conservation sites in Southern Malaita</span>
   <nav aria-label="Main"><a href="index.html" aria-current="page">Map</a><a href="about.html">About and method</a><a href="kit.html">Field Kit</a></nav>
 </div></header>
 
 <main id="main" class="wrap">
-  <section class="hero">
-    <h1>Who looks after which places, and how do we know?</h1>
-    <p>A lightweight atlas of conservation sites across East Are'are, West Are'are and Small Malaita. Every statement links to a source, and every gap is labelled rather than guessed. The map is a starting point for research, not a record of what exists.</p>
-  </section>
+  <h1>Who looks after which places, and how do we know?</h1>
+  <p>A lightweight atlas of conservation sites across East Are'are, West Are'are and Small Malaita. Every statement links to a source, and every gap is labelled rather than guessed. The map is a starting point for research, not a record of what exists.</p>
 
-  <section aria-label="Coverage by constituency"><div id="coverage" class="coverage"></div></section>
+  <h2>Coverage by constituency</h2>
+  <ul id="coverage"></ul>
 
   <form class="controls" onsubmit="return false" aria-label="Filters">
     <label>Search by name<input id="f-q" type="search" placeholder="e.g. Kira"></label>
@@ -33,18 +32,11 @@
     <span class="count" id="count" aria-live="polite"></span>
   </form>
 
-  <div class="atlas">
-    <div id="list" aria-label="Site list"><p class="muted">Loading sites&hellip;</p></div>
-    <div class="map-col">
-      <div id="map" role="region" aria-label="Map of conservation sites. The site list is an equivalent alternative."></div>
-      <div class="legend" aria-label="Legend">
-        <span><i class="dot legal_pa"></i>Legally declared protected area</span>
-        <span><i class="dot community_area"></i>Community-managed area</span>
-        <span><i class="dot community_group"></i>Community conservation group</span>
-      </div>
-      <p class="map-note">Dashed circle = the location is only known to bay or village level. Pins are never site boundaries. Click the map once to enable scroll-zoom. Base map &copy; OpenStreetMap contributors. If the tiles do not load, the list still works.</p>
-    </div>
-  </div>
+  <div id="map" role="region" aria-label="Map of conservation sites. The site list below is an equivalent alternative."></div>
+  <p class="map-note"><span class="key pin-key" aria-hidden="true"></span>Site location (every site uses the same pin). <span class="key zone-key" aria-hidden="true"></span>Dashed circle: the location is only known to bay or village level. Pins are never site boundaries. Click the map once to enable scroll-zoom. Base map &copy; OpenStreetMap contributors. If the tiles do not load, the list still works.</p>
+
+  <h2 id="sites">Sites</h2>
+  <div id="list"><p class="muted">Loading sites&hellip;</p></div>
 </main>
 
 <footer><div class="wrap">

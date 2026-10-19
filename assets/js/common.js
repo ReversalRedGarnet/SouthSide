@@ -1,5 +1,14 @@
 /* Shared helpers: data loading, labels, small HTML utilities. No frameworks. */
 (function () {
+  // Verification status as plain text: a bold word, then what it means. Never colour alone.
+  var STATUS = {
+    draft: ['Draft', 'single source, not reviewed by custodians'],
+    desk_sourced: ['Desk-sourced', 'not reviewed by custodians'],
+    community_checked: ['Community-checked', 'reviewed by named custodians'],
+    source_verified: ['Source-verified', 'key facts checked against primary records'],
+    disputed: ['Disputed', 'custodians or sources disagree']
+  };
+
   var LABELS = {
     tier: {
       legal_pa: 'Legally declared protected area',
@@ -7,13 +16,7 @@
       community_group: 'Community conservation group'
     },
     realm: { land: 'Land / forest', coast_sea: 'Coast and sea' },
-    verification: {
-      draft: 'Draft (single source)',
-      desk_sourced: 'Desk-sourced (not community-reviewed)',
-      community_checked: 'Community-checked',
-      source_verified: 'Source-verified',
-      disputed: 'Disputed'
-    },
+    verification: {},
     confidence: {
       reported: 'Reported',
       corroborated: 'Corroborated',
@@ -40,13 +43,20 @@
       unlocated: 'Not yet located'
     }
   };
+  Object.keys(STATUS).forEach(function (k) { LABELS.verification[k] = STATUS[k][0] + ', ' + STATUS[k][1]; });
 
   var CONSTITUENCIES = ["East Are'are", "West Are'are", 'Small Malaita'];
+  var ACCENT = '#325a4b';
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
+  }
+
+  function statusText(code) {
+    var s = STATUS[code];
+    return s ? '<strong>' + esc(s[0]) + '</strong>, ' + esc(s[1]) : esc(code);
   }
 
   function loadJSON(path) {
@@ -66,26 +76,18 @@
 
   function showLoadError(el, err) {
     var onFile = location.protocol === 'file:';
-    el.innerHTML = '<div class="callout danger"><p><strong>The data could not be loaded.</strong> ' +
+    el.innerHTML = '<p><strong>The data could not be loaded.</strong> ' +
       (onFile
         ? 'This page was opened straight from a folder. Browsers block data files in that case. Open it through GitHub Pages, or run <code>python -m http.server</code> in this folder and visit <code>http://localhost:8000</code>.'
-        : esc(err.message)) + '</p></div>';
+        : esc(err.message)) + '</p>';
   }
 
-  function srcChips(ids, sources) {
+  function srcLinks(ids, sources) {
     if (!ids || !ids.length) return '';
     return '<span class="src">' + ids.map(function (id) {
       var s = sources[id];
-      return '<a href="site.html#" data-src="' + esc(id) + '" title="' + esc(s ? s.title : id) + '">' + esc(id) + '</a>';
+      return '<a href="#src-' + esc(id) + '" title="' + esc(s ? s.title : id) + '">[' + esc(id) + ']</a>';
     }).join(' ') + '</span>';
-  }
-
-  function badges(site) {
-    return '<ul class="badges">' +
-      '<li class="badge v-' + esc(site.verification_status) + '">' + esc(LABELS.verification[site.verification_status]) + '</li>' +
-      '<li class="badge">' + esc(LABELS.tier[site.tier]) + '</li>' +
-      '<li class="badge">' + esc(site.constituency) + '</li>' +
-      '</ul>';
   }
 
   function fmtDate(iso) {
@@ -106,19 +108,19 @@
     return map;
   }
 
-  function pinIcon(tier) {
-    return L.divIcon({
-      className: '',
-      html: '<div class="pin ' + tier + '"></div>',
-      iconSize: [22, 22],
-      iconAnchor: [11, 22],
-      popupAnchor: [0, -22]
-    });
+  // Every site uses the same green circle. Kind of site is told in text, not by pin colour.
+  function pinIcon() {
+    return L.divIcon({ className: '', html: '<div class="pin"></div>', iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -8] });
+  }
+
+  // Dashed circle for a location known only roughly (bay, village or generalised area).
+  function zoneCircle(latlng, radius) {
+    return L.circle(latlng, { radius: radius, color: ACCENT, weight: 2, dashArray: '6 6', fillColor: ACCENT, fillOpacity: 0.06, interactive: false });
   }
 
   window.Atlas = {
     LABELS: LABELS, CONSTITUENCIES: CONSTITUENCIES, esc: esc, loadAll: loadAll, loadJSON: loadJSON,
-    showLoadError: showLoadError, srcChips: srcChips, badges: badges, fmtDate: fmtDate,
-    baseMap: baseMap, pinIcon: pinIcon
+    showLoadError: showLoadError, srcLinks: srcLinks, statusText: statusText, fmtDate: fmtDate,
+    baseMap: baseMap, pinIcon: pinIcon, zoneCircle: zoneCircle
   };
 })();

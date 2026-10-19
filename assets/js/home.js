@@ -16,52 +16,51 @@
   }
 
   function isMapped(s) { return s.location && s.location.lat != null && s.location.lng != null; }
+  function profileUrl(s) { return 'site.html?id=' + encodeURIComponent(s.id); }
 
-  function card(s) {
-    var mapped = isMapped(s);
-    var locLine = mapped
-      ? 'Map point: ' + A.LABELS.precision[s.location.precision].toLowerCase() + ' only'
-      : 'Not on the map yet - location not confirmed';
-    return '<li class="card" id="card-' + A.esc(s.id) + '" data-id="' + A.esc(s.id) + '">' +
-      '<h3><a href="site.html?id=' + encodeURIComponent(s.id) + '">' + A.esc(s.name) + '</a></h3>' +
-      A.badges(s) +
-      '<p>' + A.esc(s.place_text) + '</p>' +
-      '<p class="small">' + A.esc(locLine) + '</p>' +
-      '<div class="actions">' +
-        '<a class="btn" href="site.html?id=' + encodeURIComponent(s.id) + '">Open profile</a>' +
-        (mapped ? '<button type="button" class="btn ghost" data-show="' + A.esc(s.id) + '">Show on map</button>' : '') +
-      '</div></li>';
+  function row(s) {
+    var where = isMapped(s)
+      ? A.esc(A.LABELS.precision[s.location.precision]) + '<br><button type="button" class="linkbtn" data-show="' + A.esc(s.id) + '">Show on map</button>'
+      : 'Not located yet';
+    return '<tr id="row-' + A.esc(s.id) + '">' +
+      '<th scope="row"><a href="' + profileUrl(s) + '">' + A.esc(s.name) + '</a></th>' +
+      '<td data-label="Constituency">' + A.esc(s.constituency) + '</td>' +
+      '<td data-label="Kind">' + A.esc(A.LABELS.tier[s.tier]) + '</td>' +
+      '<td data-label="Status">' + A.statusText(s.verification_status) + '</td>' +
+      '<td data-label="Map">' + where + '</td></tr>';
   }
 
   function renderCoverage() {
-    var el = document.getElementById('coverage');
-    el.innerHTML = A.CONSTITUENCIES.map(function (c) {
-      var n = data.sites.filter(function (s) { return s.constituency === c; }).length;
-      var mapped = data.sites.filter(function (s) { return s.constituency === c && isMapped(s); }).length;
-      if (n === 0) {
-        return '<div class="cov empty"><div class="n">0</div><div class="lbl">' + A.esc(c) + '</div>' +
-          '<p class="hint">No sites found in published sources yet. This is a research gap, not a finding that none exist.</p></div>';
+    document.getElementById('coverage').innerHTML = A.CONSTITUENCIES.map(function (c) {
+      var here = data.sites.filter(function (s) { return s.constituency === c; });
+      if (!here.length) {
+        return '<li><strong>' + A.esc(c) + '</strong>: no sites found in published sources yet. This is a research gap, not a finding that none exist.</li>';
       }
-      return '<div class="cov"><div class="n">' + n + '</div><div class="lbl">' + A.esc(c) + '</div>' +
-        '<p class="hint">' + n + ' desk-sourced profiles, ' + mapped + ' with a map point.</p></div>';
+      var byStatus = {};
+      here.forEach(function (s) { byStatus[s.verification_status] = (byStatus[s.verification_status] || 0) + 1; });
+      var breakdown = Object.keys(byStatus).map(function (k) {
+        return byStatus[k] + ' ' + A.LABELS.verification[k].split(',')[0].toLowerCase();
+      }).join(', ');
+      return '<li><strong>' + A.esc(c) + '</strong>: ' + here.length + ' profiles (' + A.esc(breakdown) + '), ' +
+        here.filter(isMapped).length + ' with a map point.</li>';
     }).join('');
   }
 
   function renderList() {
     var list = data.sites.filter(matches);
-    var mapped = list.filter(isMapped);
-    var unmapped = list.filter(function (s) { return !isMapped(s); });
+    // Sites with a map point first, so the list follows the map.
+    list = list.filter(isMapped).concat(list.filter(function (s) { return !isMapped(s); }));
     document.getElementById('count').textContent = list.length + ' of ' + data.sites.length + ' profiles';
 
-    var html = '';
+    var html;
     if (!list.length) {
-      html = '<div class="empty-state">No profiles match these filters. If you chose West Are\'are or Small Malaita, that is expected - nothing has been recorded there yet.</div>';
+      html = '<p>No profiles match these filters. If you chose West Are\'are or Small Malaita, that is expected: nothing has been recorded there yet.</p>';
     } else {
-      if (mapped.length) html += '<ul class="site-list" aria-label="Sites with a map point">' + mapped.map(card).join('') + '</ul>';
-      if (unmapped.length) {
-        html += '<h2 class="unmapped-title">Not yet on the map (' + unmapped.length + ')</h2>' +
-          '<p class="small muted">These have a profile but no confirmed location. Recording one, with the custodians\' permission, is a good first research task.</p>' +
-          '<ul class="site-list" aria-label="Sites without a map point">' + unmapped.map(card).join('') + '</ul>';
+      html = '<div class="table-scroll"><table class="stack" aria-labelledby="sites"><thead><tr>' +
+        '<th scope="col">Site</th><th scope="col">Constituency</th><th scope="col">Kind</th><th scope="col">Status</th><th scope="col">Map</th>' +
+        '</tr></thead><tbody>' + list.map(row).join('') + '</tbody></table></div>';
+      if (list.some(function (s) { return !isMapped(s); })) {
+        html += '<p class="small muted">"Not located yet" means the site has a profile but no confirmed location. Recording one, with the custodians\' permission, is a good first research task.</p>';
       }
     }
     document.getElementById('list').innerHTML = html;
@@ -81,32 +80,25 @@
   function buildMap() {
     map = A.baseMap('map', [-9.55, 161.3], 8);
     data.sites.filter(isMapped).forEach(function (s) {
-      var pin = L.marker([s.location.lat, s.location.lng], {
-        icon: A.pinIcon(s.tier), title: s.name, alt: s.name, keyboard: true
-      }).addTo(map);
-      pin.bindPopup('<h3>' + A.esc(s.name) + '</h3>' +
-        '<p class="small" style="margin:0 0 .5rem">' + A.esc(s.constituency) + ' &middot; ' + A.esc(A.LABELS.tier[s.tier]) + '</p>' +
-        '<p class="small" style="margin:0 0 .5rem"><em>' + A.esc(s.location.note) + '</em></p>' +
-        '<a href="site.html?id=' + encodeURIComponent(s.id) + '">Open profile</a>');
-      var zone = null;
-      if (s.location.radius_m) {
-        zone = L.circle([s.location.lat, s.location.lng], {
-          radius: s.location.radius_m, color: '#1f5a43', weight: 2, dashArray: '6 6',
-          fillColor: '#1f5a43', fillOpacity: 0.08, interactive: false
-        }).addTo(map);
-      }
+      var ll = [s.location.lat, s.location.lng];
+      var zone = s.location.radius_m ? A.zoneCircle(ll, s.location.radius_m).addTo(map) : null;
+      var pin = L.marker(ll, { icon: A.pinIcon(), title: s.name, alt: s.name, keyboard: true }).addTo(map);
+      pin.bindPopup('<p><strong>' + A.esc(s.name) + '</strong></p>' +
+        '<p class="small">' + A.esc(s.constituency) + ' &middot; ' + A.esc(A.LABELS.tier[s.tier]) + '</p>' +
+        '<p class="small">' + A.statusText(s.verification_status) + '</p>' +
+        '<p class="small"><em>' + A.esc(s.location.note) + '</em></p>' +
+        '<a href="' + profileUrl(s) + '">Open profile</a>');
       markers[s.id] = { pin: pin, zone: zone };
       pin.on('click', function () { highlight(s.id, false); });
     });
   }
 
   function highlight(id, pan) {
-    document.querySelectorAll('.card.active').forEach(function (c) { c.classList.remove('active'); });
-    var c = document.getElementById('card-' + id);
-    if (c) { c.classList.add('active'); c.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+    document.querySelectorAll('tr.active').forEach(function (r) { r.classList.remove('active'); });
+    var r = document.getElementById('row-' + id);
+    if (r) r.classList.add('active');
     if (pan && markers[id]) {
-      var ll = markers[id].pin.getLatLng();
-      map.setView(ll, 11);
+      map.setView(markers[id].pin.getLatLng(), 11);
       markers[id].pin.openPopup();
       document.getElementById('map').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }

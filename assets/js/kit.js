@@ -80,15 +80,15 @@
     out.textContent = JSON.stringify(r.rec, null, 2);
     warnings.innerHTML = r.warnings.length
       ? r.warnings.map(function (x) { return '<li>' + A.esc(x) + '</li>'; }).join('')
-      : '<li class="ok">No problems found. Remember: consent comes first.</li>';
+      : '<li>No problems found. Remember: consent comes first.</li>';
     if (pin) { map.removeLayer(pin); pin = null; }
     if (r.point) {
       pin = L.layerGroup([
-        L.marker(r.point, { icon: A.pinIcon('draft'), alt: 'Draft public point' }),
-        r.radius ? L.circle(r.point, { radius: r.radius, color: '#8a2f2a', weight: 2, dashArray: '6 6', fillOpacity: 0.08, interactive: false }) : null
+        L.marker(r.point, { icon: A.pinIcon(), alt: 'Draft public point' }),
+        r.radius ? A.zoneCircle(r.point, r.radius) : null
       ].filter(Boolean)).addTo(map);
       map.setView(r.point, 11);
-      note.textContent = 'Red pin = the point the public would see (' + r.point.join(', ') + ').';
+      note.textContent = 'The pin shows the point the public would see (' + r.point.join(', ') + ').' + (r.radius ? ' The dashed circle shows it is generalised.' : '');
     } else {
       note.textContent = 'No public point. That is the right choice for sensitive places.';
     }
