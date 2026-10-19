@@ -105,17 +105,22 @@
   form.addEventListener('input', update);
   form.addEventListener('change', update);
 
-  document.getElementById('copy').addEventListener('click', function (e) {
-    var btn = e.currentTarget;
-    function done() { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1500); }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(out.textContent).then(done, function () { selectOut(); });
-    } else { selectOut(); }
-  });
-  function selectOut() {
-    var r = document.createRange(); r.selectNodeContents(out);
+  // Copy a block's text; if the clipboard is unavailable, select it so it can be copied by hand.
+  function copyButton(btn, el) {
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      function done() { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = label; }, 1500); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(el.textContent).then(done, function () { selectText(el); });
+      } else { selectText(el); }
+    });
+  }
+  function selectText(el) {
+    var r = document.createRange(); r.selectNodeContents(el);
     var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
   }
+  copyButton(document.getElementById('copy'), out);
+  copyButton(document.getElementById('copy-update'), document.getElementById('update-template'));
   document.getElementById('dl').addEventListener('click', function () {
     var blob = new Blob([out.textContent], { type: 'application/json' });
     var a = document.createElement('a');

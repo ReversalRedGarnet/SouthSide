@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "schema_version": "1",
+    "note": "Site updates. Only the maintainer publishes, by adding an entry here and uploading the file. Field Kit section 6 has the template and checklist; updates-check.html checks every entry. Fields: id, date (YYYY-MM-DD, shown as 'as of'), title, summary, body (plain text, blank line between paragraphs), tier (primary | secondary), source_ids, consent_id (primary only, e.g. C01), site_ids, weight (1-5), pinned (optional), status (published | withdrawn), withdrawn_reason (consent | sensitivity | other; for consent or sensitivity, blank title, summary and body). Never put coordinates in an update."
+  },
+  "updates": []
+}

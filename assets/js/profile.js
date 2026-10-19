@@ -38,10 +38,11 @@
       '<p class="crumbs"><a href="index.html">&larr; All sites</a></p>' +
       '<p class="profile-id">' + A.esc(s.id) + ' &middot; ' + A.esc(s.constituency) + ' &middot; ' + A.tierTag(s.tier) + '</p>' +
       '<h1>' + A.esc(s.name) + '</h1>' +
-      '<p>Status: ' + A.statusText(s.verification_status) + '. Everything below comes from published sources, not from the custodians. Items marked <strong>Unknown</strong> are gaps, not guesses.</p>' +
+      '<p>Status: ' + A.statusText(s.verification_status) + '. This profile is desk-sourced from published material, not from the custodians. Updates are listed separately, each labelled with who it comes from. Items marked <strong>Unknown</strong> are gaps, not guesses.</p>' +
 
       '<h2>Why it matters</h2><p>' + A.esc(s.summary_en) + '</p>' +
       '<p class="small muted">Solomon Pijin summary: ' + (s.summary_pijin ? A.esc(s.summary_pijin) : 'not yet written. Best written by local reviewers.') + '</p>' +
+      (window.Updates ? '<h2 id="updates">Updates</h2><div id="site-updates"><p class="muted">Loading updates&hellip;</p></div>' : '') +
 
       '<h2>Key facts</h2><p class="small muted">Each fact starts with how sure we are: Reported, Corroborated, Conflicting or Unknown.</p>' +
       '<table class="facts"><tbody>' + s.facts.map(function (f) { return factRow(f, d.sources); }).join('') + '</tbody></table>' +
@@ -81,6 +82,8 @@
           (x.notes ? '<br><span class="small muted">' + A.esc(x.notes) + '</span>' : '') + '</li>';
       }).join('') + '</ol>' +
       '<h3>Cite this profile</h3><p class="small">' + A.esc(cite) + '</p>';
+
+    if (window.Updates) window.Updates.renderSite(document.getElementById('site-updates'), s.id);
 
     // The profile text is already on the page; a map problem must not replace it with an error.
     if (mapped) {

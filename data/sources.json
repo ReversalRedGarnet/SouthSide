@@ -1,7 +1,8 @@
 {
   "meta": {
     "note": "Source register for the prototype. Every claim on a profile points to one or more of these IDs. All entries were read on the 'accessed' date; none are community-held or private documents.",
-    "accessed_default": "2026-10-19"
+    "accessed_default": "2026-10-19",
+    "trust_note": "authority_type is one of government, provincial, custodian, ngo (these can be trusted) or intergovernmental, media, research, reference, commercial (never trusted). Trust is per organisation: every source with the same organisation must have the same trusted value. All sources are trusted: false until the maintainer confirms an organisation."
   },
   "sources": [
     {
@@ -9,6 +10,9 @@
       "title": "Kira Becomes First Protected Area in Malaita Province",
       "publisher": "Environment Media (Isles Media)",
       "type": "news",
+      "authority_type": "media",
+      "organisation": "Isles Media",
+      "trusted": false,
       "date": "Page metadata 8 Nov 2023; ceremony year not stated in text",
       "url": "https://environment.islesmedia.net/kira-becomes-first-protected-area-in-malaita-province/",
       "notes": "Ceremony dates (27-28 November) do not match the page's publication metadata, so the year of declaration is unconfirmed."
@@ -18,6 +22,9 @@
       "title": "Protected Area Registration: Kira Forest Biodiversity Conservation Area (KFBCA)",
       "publisher": "Solomon Islands Government (solomons.gov.sb)",
       "type": "official",
+      "authority_type": "government",
+      "organisation": "Solomon Islands Government",
+      "trusted": false,
       "date": "Not stated",
       "url": "https://solomons.gov.sb/?p=34002",
       "notes": "Government news item. Names officials and a site coordinator; individuals are not republished in this prototype."
@@ -27,6 +34,9 @@
       "title": "Kira Forest Biodiversity Conservation Area (portal entry)",
       "publisher": "Pacific Islands Protected Area Portal (SPREP)",
       "type": "portal",
+      "authority_type": "intergovernmental",
+      "organisation": "SPREP",
+      "trusted": false,
       "date": "Not stated",
       "url": "https://pipap.sprep.org/node/58583",
       "notes": "Single news-style entry; no coordinates, boundary or IUCN category shown on the page read."
@@ -36,6 +46,9 @@
       "title": "Ahetaha Water Conservation Association (partner profile)",
       "publisher": "Cultural Survival (Keepers of the Earth Fund)",
       "type": "ngo",
+      "authority_type": "ngo",
+      "organisation": "Cultural Survival",
+      "trusted": false,
       "date": "29 Jul 2018",
       "url": "https://www.culturalsurvival.org/node/12285",
       "notes": "Funder-side description of the group's work. Spelled 'Association' here; S02 writes 'Foundation'."
@@ -45,6 +58,9 @@
       "title": "Mai-Maasina Green Belt Acknowledges UNDP-GEF for Project Funding and Partnership",
       "publisher": "Environment Media (Isles Media)",
       "type": "news",
+      "authority_type": "media",
+      "organisation": "Isles Media",
+      "trusted": false,
       "date": "12 Aug 2022",
       "url": "https://environment.islesmedia.net/mai-maasina-green-belt-acknowledges-undp-gef-for-project-funding-and-partnership/",
       "notes": "Does not state the size of the area. Unclear which funded works belong to Mai-Maasina Green Belt and which to its partner AWCA."
@@ -54,6 +70,9 @@
       "title": "New Association Launched to Protect East Are'Are Rainforests",
       "publisher": "Environment Media (Isles Media)",
       "type": "news",
+      "authority_type": "media",
+      "organisation": "Isles Media",
+      "trusted": false,
       "date": "16 Mar 2023",
       "url": "https://environment.islesmedia.net/new-association-launched-to-protect-east-are-are-rainforests/",
       "notes": "Does not state area, office-holders or funders."
@@ -63,6 +82,9 @@
       "title": "Malaitans reap benefits from conserving marine areas",
       "publisher": "FFA TunaPacific (photos credited to WorldFish)",
       "type": "ngo",
+      "authority_type": "intergovernmental",
+      "organisation": "Pacific Islands Forum Fisheries Agency (FFA)",
+      "trusted": false,
       "date": "30 Jun 2020",
       "url": "https://tunapacific.ffa.int/2020/06/30/malaitans-reap-benefits-from-conserving-marine-areas/",
       "notes": "Mainly about Manaoba LMMA (Lau Lagoon, outside this atlas); one section covers Puriasi in East Are'are. Figures are 2020 or earlier."
@@ -72,6 +94,9 @@
       "title": "Takataka Bay (location entry)",
       "publisher": "Pacific Wrecks",
       "type": "reference",
+      "authority_type": "reference",
+      "organisation": "Pacific Wrecks",
+      "trusted": false,
       "date": "Not stated",
       "url": "https://pacificwrecks.com/location/solomons_malaita_takataka_bay.html",
       "notes": "Source of the bay-level coordinates (about 9.298 S, 161.242 E). Not a survey of any conservation boundary."
@@ -81,6 +106,9 @@
       "title": "Malaita Province (constituencies and 2019 population)",
       "publisher": "Wikipedia",
       "type": "reference",
+      "authority_type": "reference",
+      "organisation": "Wikipedia",
+      "trusted": false,
       "date": "Accessed 2026-10-19",
       "url": "https://en.wikipedia.org/wiki/Malaita_Province",
       "notes": "Background only. East Are'are 8,199 people; West Are'are 8,008; Small Malaita 16,146 (2019 census figures as quoted). Check against the census release before citing."
@@ -90,6 +118,9 @@
       "title": "Protected areas of Solomon Islands",
       "publisher": "Wikipedia",
       "type": "reference",
+      "authority_type": "reference",
+      "organisation": "Wikipedia",
+      "trusted": false,
       "date": "Accessed 2026-10-19",
       "url": "https://en.wikipedia.org/wiki/Protected_areas_of_Solomon_Islands",
       "notes": "Lists three Key Biodiversity Areas in Malaita Province (Langa Langa Lagoon, Lau Lagoon, Ndai); none in Are'are or Small Malaita."
@@ -99,6 +130,9 @@
       "title": "New conservation areas in Malaita and Bougainville",
       "publisher": "Australian Museum",
       "type": "ngo",
+      "authority_type": "research",
+      "organisation": "Australian Museum",
+      "trusted": false,
       "date": "7 Feb 2020",
       "url": "https://australian.museum/learn/news/blog/new-conservation-areas-malaita-and-bougainville/",
       "notes": "Kwaio conservation areas (Baru Conservation Alliance). Outside this atlas's constituencies; kept as a comparison."
@@ -108,6 +142,9 @@
       "title": "Community conservation areas (tag listing)",
       "publisher": "Pacific Islands Protected Area Portal (SPREP)",
       "type": "portal",
+      "authority_type": "intergovernmental",
+      "organisation": "SPREP",
+      "trusted": false,
       "date": "Accessed 2026-10-19",
       "url": "https://pipap.sprep.org/tags/community-conservation-areas",
       "notes": "Lists Kira as the only Malaita/Are'are entry on the page read; describes Vuri Forest Conservation Area (Choiseul) as the country's 5th legal Protected Area."
@@ -117,6 +154,9 @@
       "title": "Unlocking the Tourism Potential of Malaita Province",
       "publisher": "Tourism Media Solomon Islands (Isles Media)",
       "type": "news",
+      "authority_type": "media",
+      "organisation": "Isles Media",
+      "trusted": false,
       "date": "27 Oct 2022",
       "url": "https://tourism.islesmedia.net/unlocking-the-tourism-potential-of-malaita-province/",
       "notes": "Focuses on Langalanga Lagoon. Does not mention Are'are or Small Malaita."
@@ -126,6 +166,9 @@
       "title": "Protected Planet terms and conditions",
       "publisher": "UNEP-WCMC / IUCN",
       "type": "reference",
+      "authority_type": "intergovernmental",
+      "organisation": "UNEP-WCMC and IUCN (Protected Planet)",
+      "trusted": false,
       "date": "Accessed 2026-10-19",
       "url": "https://www.protectedplanet.net/en/legal",
       "notes": "Governs reuse of WDPA/WDPCA data: non-commercial use, no redistribution by downloads or downloadable interactive maps, required citation."
@@ -135,6 +178,9 @@
       "title": "Three ways SCALE-NRM supports locally led protection of forests and livelihoods in the Solomon Islands",
       "publisher": "Winrock International",
       "type": "ngo",
+      "authority_type": "ngo",
+      "organisation": "Winrock International",
+      "trusted": false,
       "date": "Not stated",
       "url": "https://winrock.org/three-ways-scale-nrm-supports-locally-led-protection-of-forests-and-livelihoods-in-the-solomon-islands/",
       "notes": "Gives Kira as 667 ha and a declaration date of 29 Oct 2023; also gives a celebration date of 27 Nov 2023 that conflicts with other sources."
@@ -144,6 +190,9 @@
       "title": "Kira Forest Biodiversity Conservation Area, first in Malaita",
       "publisher": "Solomon Business Magazine",
       "type": "news",
+      "authority_type": "media",
+      "organisation": "Solomon Business Magazine",
+      "trusted": false,
       "date": "2 Nov 2023",
       "url": "https://sbm.sb/kira-forest-biodiversity-conservation-area-first-in-malaita/",
       "notes": "Publication date makes a late-November 2023 ceremony impossible. Text says 'Friday 27th to Saturday 28th November', which fits 27-28 October 2023."
@@ -153,6 +202,9 @@
       "title": "Takataka Eco Village Conservation Foundation",
       "publisher": "Equator Initiative (UNDP)",
       "type": "ngo",
+      "authority_type": "intergovernmental",
+      "organisation": "UNDP",
+      "trusted": false,
       "date": "5 Dec 2024",
       "url": "https://www.equatorinitiative.org/2024/12/05/takataka-eco-village-conservation-foundation/",
       "notes": "Contains a copy-paste error: some impact sections describe a Colombian project and were ignored."
@@ -162,6 +214,9 @@
       "title": "Kira Carbon Project",
       "publisher": "Nakau Nature Connect",
       "type": "ngo",
+      "authority_type": "commercial",
+      "organisation": "Nakau Nature Connect",
+      "trusted": false,
       "date": "Not stated",
       "url": "https://nakaunatureconnect.org/kira",
       "notes": "Project developer's page. Gives 661 ha. Carbon credit figure is an estimate."
@@ -171,6 +226,9 @@
       "title": "Safeguard social assessment: The Leather Back Turtle (Wai-Hau Conservation Foundation)",
       "publisher": "Critical Ecosystem Partnership Fund (CEPF)",
       "type": "ngo",
+      "authority_type": "ngo",
+      "organisation": "Critical Ecosystem Partnership Fund (CEPF)",
+      "trusted": false,
       "date": "Not stated; refers to events to 2015",
       "url": "https://cepf.net/resources/documents/safeguard-social-assessment-50",
       "notes": "Places the project in West Are'are on Aena'ura tribal land."
@@ -180,6 +238,9 @@
       "title": "Building capacity for monitoring and management of leatherback turtles in Are'are",
       "publisher": "CEPF",
       "type": "ngo",
+      "authority_type": "ngo",
+      "organisation": "Critical Ecosystem Partnership Fund (CEPF)",
+      "trusted": false,
       "date": "Grant June 2016 - Sept 2017",
       "url": "https://www.cepf.net/grants/grantee-projects/building-capacity-monitoring-and-management-leatherback-turtles-are-are",
       "notes": "States location as West 'Are'are."
@@ -189,6 +250,9 @@
       "title": "Detailed final report, leatherback monitoring at Waisurione",
       "publisher": "The Rufford Foundation",
       "type": "ngo",
+      "authority_type": "ngo",
+      "organisation": "The Rufford Foundation",
+      "trusted": false,
       "date": "Report covers the 2015 season",
       "url": "https://media.rufford.org/media/project_reports/17164-1%20Detailed%20Final%20Report.pdf",
       "notes": "Names tribal lands as Ausi (Wairaha), Au'vaura (Waisurione) and Po'otori (Hauhui). S19 spells the second 'Aena'ura'."
@@ -198,6 +262,9 @@
       "title": "Mangrove Ecosystem Conservation, a Way Forward for South Malaita Tribal Community",
       "publisher": "Environment Media (Isles Media)",
       "type": "news",
+      "authority_type": "media",
+      "organisation": "Isles Media",
+      "trusted": false,
       "date": "12 Jun 2024",
       "url": "https://environment.islesmedia.net/mangrove-ecosystem-conservation-a-way-forward-for-south-malaita-tribal-community/",
       "notes": "Source for AHNRA. Does not give an area or a mangrove health assessment."
@@ -207,6 +274,9 @@
       "title": "Local Wisdom, Global Impact: Celebrating the Mai-Maasina Green Belt on World Environment Day",
       "publisher": "UNDP Pacific",
       "type": "ngo",
+      "authority_type": "intergovernmental",
+      "organisation": "UNDP",
+      "trusted": false,
       "date": "4 Jun 2025",
       "url": "https://www.undp.org/pacific/press-releases/local-wisdom-global-impact-celebrating-mai-maasina-green-belt-world-environment-day",
       "notes": "Describes a network of about thirty tribal communities across Are'are, Kwaio and Small Malaita, and eight ranger sites."
@@ -216,6 +286,9 @@
       "title": "Final project report: Developing the Mai-Maasina Green Belt for Malaita",
       "publisher": "CEPF",
       "type": "ngo",
+      "authority_type": "ngo",
+      "organisation": "Critical Ecosystem Partnership Fund (CEPF)",
+      "trusted": false,
       "date": "20 Jan 2021 (project Sept 2019 - Dec 2020)",
       "url": "https://cepf.net/resources/final-project-report/final-project-report-2514",
       "notes": "Reports about 15,000 ha of customarily protected forest and growth from 10 to 30 members. Grantee-reported figures."
@@ -225,6 +298,9 @@
       "title": "Patterns of catch and trophic signatures illustrate diverse management requirements of coastal fisheries in Solomon Islands",
       "publisher": "Ambio (via PubMed Central)",
       "type": "research",
+      "authority_type": "research",
+      "organisation": "Ambio (journal)",
+      "trusted": false,
       "date": "2022",
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9005606",
       "notes": "Peer-reviewed. Covers Mararo (East Are'are), Hunanawa (Maramasike) and Liwe (Small Malaita), among 13 villages, with catch recorded in 2017."
@@ -234,6 +310,9 @@
       "title": "Community Based Resource Management in Malaita Province",
       "publisher": "WorldFish (factsheet)",
       "type": "ngo",
+      "authority_type": "ngo",
+      "organisation": "WorldFish",
+      "trusted": false,
       "date": "2020",
       "url": "https://worldfishcenter.org/publication/community-based-resource-management-malaita-province",
       "notes": "Lists 32 place names on a map of community-based management in Malaita, including Mararo and Ahetaha (Manawai). Does not give constituencies."
@@ -243,6 +322,9 @@
       "title": "Conservation Division Continue To Support Groups Undertaking Conservation Initiatives",
       "publisher": "Environment Media (Isles Media)",
       "type": "news",
+      "authority_type": "media",
+      "organisation": "Isles Media",
+      "trusted": false,
       "date": "13 Jul 2022",
       "url": "https://environment.islesmedia.net/conservation-division-continue-to-support-groups-undertaking-conservation-initiatives/",
       "notes": "States five legally protected areas under the Protected Areas Act 2010 at that date, with Vuri the most recent."
@@ -252,6 +334,9 @@
       "title": "Conservation Groups in Malaita to Benefit USAID SCALE Project",
       "publisher": "Environment Media (Isles Media)",
       "type": "news",
+      "authority_type": "media",
+      "organisation": "Isles Media",
+      "trusted": false,
       "date": "15 Dec 2022",
       "url": "https://environment.islesmedia.net/conservation-groups-in-malaita-to-benefit-usaid-scale-project/",
       "notes": "Names Ahetaha Water Conservation Association and Takataka Eco-Village Conservation Foundation as grant recipients."
@@ -261,6 +346,9 @@
       "title": "Protected Areas Act 2010 (No. 4 of 2010)",
       "publisher": "FAOLEX",
       "type": "law",
+      "authority_type": "intergovernmental",
+      "organisation": "FAO (FAOLEX)",
+      "trusted": false,
       "date": "2010",
       "url": "https://faolex.fao.org/docs/pdf/sol94186.pdf",
       "notes": "Read via an automated summary. Check the full text before relying on section numbers or penalties."
@@ -270,6 +358,9 @@
       "title": "Electoral systems and boundaries",
       "publisher": "Solomon Islands Electoral Commission",
       "type": "official",
+      "authority_type": "government",
+      "organisation": "Solomon Islands Electoral Commission",
+      "trusted": false,
       "date": "Not stated",
       "url": "https://siec.gov.sb/elections/election-review/electoral-systems-and-boundaries/",
       "notes": "States the last redrawing of constituencies was in 1997 (47 to 50) and that a 2009 proposal to increase the number was rejected."
@@ -279,6 +370,9 @@
       "title": "CEPF grant: Developing a management and recovery plan for leatherback turtles in Are'are, Malaita",
       "publisher": "CEPF",
       "type": "ngo",
+      "authority_type": "ngo",
+      "organisation": "Critical Ecosystem Partnership Fund (CEPF)",
+      "trusted": false,
       "date": "Grant July 2018 - Aug 2019",
       "url": "https://www.cepf.net/grants/grantee-projects/developing-management-and-recovery-plan-leatherback-turtles-are-are-malaita",
       "notes": "Wai-Hau Conservation Foundation; a species management plan for Wai-Hau and southern Malaita."

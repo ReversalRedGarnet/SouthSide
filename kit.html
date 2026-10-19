@@ -8,13 +8,16 @@
 <title>Field Kit - SouthSide (prototype)</title>
 <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="proto"><p class="wrap"><strong>Prototype for teaching.</strong> Nothing typed on this page leaves your browser.</p></div>
 <header class="site-header"><div class="wrap">
-  <a class="brand" href="index.html">SouthSide</a> <span class="tagline">Conservation sites in Southern Malaita</span>
-  <nav aria-label="Main"><a href="index.html">Map</a><a href="about.html">About and method</a><a href="kit.html" aria-current="page">Field Kit</a></nav>
+  <a class="brand" href="index.html"><img class="brand-mark" src="assets/img/firefly-header.svg" width="40" height="40" alt="">SouthSide</a> <span class="tagline">Conservation sites in Southern Malaita</span>
+  <nav aria-label="Main"><a href="index.html">Map</a><a href="updates.html">Updates</a><a href="about.html">About and method</a><a href="kit.html" aria-current="page">Field Kit</a></nav>
 </div></header>
 
 <main id="main" class="wrap">
@@ -115,12 +118,48 @@
     <li>The sources listed on each profile, which show how much is reported, by whom, and when.</li>
     <li>The <a href="about.html#existing">What already exists</a> table, with its limits.</li>
   </ul>
+
+  <h2 id="publish">6. How to publish an update</h2>
+  <p>Only the atlas maintainer publishes. Custodians, students and anyone else can ask for an update: <span data-update-contact></span>. The maintainer adds an entry to <code>data/updates.json</code>, checks it and uploads the file. There is no form, server or account.</p>
+  <h3>Two kinds of update</h3>
+  <ul>
+    <li><strong>Primary update</strong>: needs a source in <code>data/sources.json</code> from an organisation marked <code>trusted: true</code> (a government, provincial, custodian or NGO source), and a consent record ID. One that fails either check shows as a community note marked <strong>Needs checking</strong>.</li>
+    <li><strong>Community note, unverified</strong>: from anyone. Always shown with that label.</li>
+  </ul>
+  <h3>Checklist before uploading</h3>
+  <ul>
+    <li><strong>Consent:</strong> confirm the consent record exists before adding a primary entry. Only its ID (for example <code>C01</code>) goes in the file. The record itself stays private.</li>
+    <li><strong>Source:</strong> add the source to <code>data/sources.json</code> first, with its <code>authority_type</code> and <code>organisation</code>.</li>
+    <li><strong>No coordinates:</strong> never write coordinates for any place. An entry containing coordinates is hidden on every page until they are removed.</li>
+    <li><strong>Date:</strong> write <code>YYYY-MM-DD</code>. Pages show it as &ldquo;as of&rdquo; that date.</li>
+    <li><strong>Weight (1 to 5):</strong> sets how long an update can stay on the homepage without being pinned: about 79 days at 5, 60 at 4 and 35 at 3. At 2 it only appears on the day it is dated, and at 1 never. Use <code>"pinned": true</code> for something that must stay; pinned updates still count toward the three homepage slots.</li>
+    <li><strong>Check:</strong> Open <code>updates-check.html</code> locally and clear every error before uploading. Hidden entries are still readable in <code>data/updates.json</code>.</li>
+    <li><strong>Withdrawing:</strong> set <code>"status": "withdrawn"</code> and a <code>withdrawn_reason</code> (<code>consent</code>, <code>sensitivity</code> or <code>other</code>). For consent or sensitivity, also empty the title, summary and body. Git history still keeps earlier versions of the file, so get consent in writing before publishing a custodian&rsquo;s story.</li>
+  </ul>
+  <h3>Entry template</h3>
+  <p class="small muted">Copy into the <code>updates</code> list in <code>data/updates.json</code>. For a community note, set <code>tier</code> to <code>"secondary"</code> and delete the <code>consent_id</code> line.</p>
+<pre id="update-template" class="template" tabindex="0">{
+  "id": "U-0001",
+  "date": "YYYY-MM-DD",
+  "title": "",
+  "summary": "",
+  "body": "",
+  "tier": "primary",
+  "source_ids": ["S00"],
+  "consent_id": "C01",
+  "site_ids": ["SM-001"],
+  "weight": 3,
+  "pinned": false,
+  "status": "published"
+}</pre>
+  <p><button type="button" class="btn" id="copy-update">Copy template</button></p>
 </main>
 
 <footer><div class="wrap"><p>Prototype v0.2 &middot; Templates are starting points. Adapt them with your supervisor and the custodians.</p></div></footer>
 
 <script src="assets/vendor/leaflet/leaflet.js"></script>
 <script src="assets/js/common.js"></script>
+<script src="assets/js/updates.js"></script>
 <script src="assets/js/kit.js"></script>
 </body>
 </html>

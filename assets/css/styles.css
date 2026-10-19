@@ -16,10 +16,24 @@
   --fade-swatch: #ececec;
   --fade-swatch-border: #b5b5b5;
 
+  /* Palette: four moss greens and the firefly glow. Rules use the role tokens below, not these. */
+  --green-1: #122a07;
+  --green-2: #284a0c;
+  --green-3: #487413;
+  --green-4: #98b528;        /* tints, fills and the rule on green 1 only: 2.3:1 on white, never text, border or icon there */
+  --glow: #ffe95c;           /* decorative only: logo, current-page nav underline, focus halo. Never a status, never text on light (1.2:1) */
+
   /* Brand (chrome only) */
-  --brand: #325a4b;
-  --brand-tint: #e7efeb;     /* selected list row */
+  --brand: var(--green-2);   /* links, buttons */
+  --brand-tint: #f1f5e1;     /* selected list row: green 4 at 14% on white */
   --on-brand: #ffffff;
+  --chrome: var(--green-1);  /* header background */
+  --chrome-border: var(--green-3); /* chrome borders: buttons, panel edges. Table hairlines stay --rule */
+  --chrome-rule: var(--green-4);   /* the rule on green 1, under the header */
+  --on-chrome: #eef3df;      /* text on green 1 */
+  --on-chrome-muted: #c8d6ac;      /* tagline and secondary text on green 1 */
+  --logo-ink-on-dark: #cfe08a;     /* reserved: logo ink on dark if the mark is ever inlined. The header <img> draws in green 4. */
+  --focus-ring: var(--green-1);    /* dark ring, with a --glow halo outside it */
 
   /* Kind of site: three hues, each paired with a shape */
   --tier-legal: #1d4f91;     /* square */
@@ -60,7 +74,8 @@ html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--sans); }
 a { color: var(--brand); text-underline-offset: 2px; }
 a:hover { color: var(--ink); }
-:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
+/* Focus: a dark ring with a glow halo outside it. The ring carries the contrast on light pages, the halo on the green header. */
+:focus-visible { outline: 3px solid var(--glow); outline-offset: 3px; box-shadow: 0 0 0 3px var(--focus-ring); }
 h1, h2, h3 { line-height: 1.25; margin: 2rem 0 .6rem; }
 h1 { font-size: 1.75rem; margin-top: 1.5rem; }
 h2 { font-size: 1.25rem; }
@@ -80,11 +95,14 @@ code { font-size: .9em; }
 .proto p { margin: 0 auto; }
 
 /* Header and footer */
-.site-header { border-bottom: 1px solid var(--rule); padding: 1rem 0 .75rem; }
-.brand { font-weight: 700; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
-.tagline { color: var(--muted); }
+.site-header { background: var(--chrome); color: var(--on-chrome); border-bottom: 1px solid var(--chrome-rule); padding: .75rem 0 .6rem; }
+.brand { display: inline-flex; align-items: center; gap: .5rem; vertical-align: middle; font-weight: 700; font-size: 1.15rem; color: var(--on-chrome); text-decoration: none; }
+.brand-mark { display: block; flex: none; width: 40px; height: 40px; }
+.tagline { color: var(--on-chrome-muted); vertical-align: middle; }
+.site-header a:hover { color: var(--on-chrome); }
 .site-header nav { margin-top: .35rem; display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; }
-.site-header nav a[aria-current="page"] { color: var(--ink); font-weight: 600; text-decoration: none; }
+.site-header nav a { color: var(--on-chrome); text-decoration-color: var(--on-chrome-muted); text-underline-offset: 5px; }
+.site-header nav a[aria-current="page"] { font-weight: 600; text-decoration-color: var(--glow); text-decoration-thickness: 3px; }
 footer { border-top: 1px solid var(--rule); margin-top: 3rem; padding: 1rem 0 2rem; color: var(--muted); font-size: .875rem; }
 
 /* Filters */
@@ -121,7 +139,7 @@ input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); ba
 /* Two independent collapsible panels under the map. align-items: start keeps an open panel
    from stretching its neighbour. Both summaries share one style so they read as a pair. */
 .map-panels { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem 1.5rem; align-items: start; margin-bottom: .5rem; }
-.panel { border-top: 1px solid var(--rule); min-width: 0; }
+.panel { border-top: 1px solid var(--chrome-border); min-width: 0; }
 .panel > summary { cursor: pointer; font-weight: 600; font-size: .9375rem; padding: .45rem 0; }
 .legend { font-size: .875rem; }
 .legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .25rem 1.5rem; margin-top: .4rem; }
@@ -144,6 +162,9 @@ input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); ba
 .leaflet-tooltip.const-label.const-west { border-left-color: var(--const-west); }
 .leaflet-tooltip.const-label.const-small { border-left-color: var(--const-small); }
 .leaflet-container { font-family: var(--sans); }
+/* leaflet.css colours .leaflet-container a with its own blue. Popup and attribution links use the brand colour;
+   scoped so the zoom buttons and popup close button keep Leaflet's defaults. */
+.leaflet-container .leaflet-popup-content a, .leaflet-container .leaflet-control-attribution a { color: var(--brand); }
 .leaflet-popup-content { margin: 10px 12px; }
 .leaflet-popup-content p { margin: 0 0 .4rem; }
 
@@ -188,6 +209,19 @@ tr.active > * { background: var(--brand-tint); }
 ul.callout { list-style: none; }
 ul.callout li { margin-bottom: .2rem; }
 
+/* Site updates. The tier is told by words and by the rule's shape: solid for a primary update,
+   dashed for a community note (as on the Draft badge, dashed = less checked). Never green, never glow. */
+.update { border-left: 4px solid var(--ink); padding: .05rem 0 .05rem .85rem; margin: 0 0 1.25rem; }
+.update-secondary { border-left-style: dashed; border-left-color: var(--neutral-border); }
+.update > :last-child { margin-bottom: 0; }
+.update-kind { display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .5rem; margin: 0; font-size: .875rem; }
+.update h2, .update h3 { font-size: 1.05rem; margin: .2rem 0 .15rem; }
+.update-meta { margin: 0 0 .4rem; font-size: .875rem; color: var(--muted); }
+.update-body { margin: 0 0 .6rem; }
+.update-body > summary { cursor: pointer; font-size: .875rem; font-weight: 600; margin-bottom: .4rem; }
+.chip-check::before { content: "\26A0\FE0E\00a0"; content: "\26A0\FE0E\00a0" / ""; }
+pre.template { border: 1px solid var(--rule); padding: .75rem; overflow: auto; font-size: .8125rem; line-height: 1.45; margin: 0 0 .6rem; }
+
 /* Fact confidence: the word plus a mark with a different shape for each level */
 .conf { font-weight: 700; }
 .conf-mark { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: .35rem; vertical-align: 1px; }
@@ -204,7 +238,7 @@ input[aria-invalid="true"], input:user-invalid { border-color: var(--danger-bord
 
 /* Buttons: plain */
 .btn, .linkbtn { font: inherit; cursor: pointer; }
-.btn { font-size: .9375rem; padding: .3rem .8rem; border: 1px solid var(--brand); background: var(--bg); color: var(--brand); }
+.btn { font-size: .9375rem; padding: .3rem .8rem; border: 1px solid var(--chrome-border); background: var(--bg); color: var(--brand); }
 .btn:hover { background: var(--brand); color: var(--on-brand); }
 .linkbtn { border: 0; padding: 0; text-align: left; white-space: nowrap; background: none; color: var(--brand); text-decoration: underline; text-underline-offset: 2px; font-size: .875rem; }
 .linkbtn:hover { color: var(--ink); }
@@ -229,7 +263,8 @@ pre.out { border: 1px solid var(--rule); padding: .75rem; overflow: auto; max-he
   .map-panels { grid-template-columns: 1fr; gap: 0; }
   /* Phones: keep the map near the top. Both fields and the count share one row. */
   .proto { font-size: .8125rem; }
-  .site-header { padding: .6rem 0 .5rem; }
+  .site-header { padding: .5rem 0 .4rem; }
+  .brand-mark { width: 36px; height: 36px; }
   h1 { font-size: 1.375rem; margin-top: 1rem; }
   .controls { gap: .3rem .6rem; flex-wrap: nowrap; align-items: flex-end; }
   .controls label { flex-direction: column; align-items: stretch; gap: .1rem; flex: 1 1 0; min-width: 0; font-size: .8125rem; }
@@ -247,7 +282,10 @@ pre.out { border: 1px solid var(--rule); padding: .75rem; overflow: auto; max-he
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
 @media print {
-  .site-header nav, .controls, #map, .mini-map, .legend, .map-hint, .btn, .linkbtn { display: none; }
+  .site-header nav, .controls, #map, .mini-map, .legend, .map-hint, .btn, .linkbtn, .brand-mark { display: none; }
+  /* Browsers drop background colours when printing, so the header prints as dark text on paper. */
+  .site-header { background: none; border-color: var(--rule); }
+  .brand, .tagline { color: var(--ink); }
   /* Keep badge, chip and callout fills when printing; the words and borders carry the meaning anyway. */
   .badge, .chip, .callout, .mark, tr.flag-conflicting > * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
