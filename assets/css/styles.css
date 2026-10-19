@@ -115,7 +115,8 @@ input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); ba
 .shape-community_group { background: var(--tier-group); border-radius: 0; transform: rotate(45deg) scale(.85); }
 
 /* Map legend: open on wide screens, collapsed on phones (home.js) */
-.legend { margin: .6rem 0 .4rem; font-size: .875rem; }
+.map-hint { margin: .35rem 0 .2rem; }
+.legend { margin: .2rem 0 .3rem; font-size: .875rem; }
 .legend summary { cursor: pointer; font-weight: 600; }
 .legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .25rem 1.5rem; margin-top: .4rem; }
 .legend h3 { font-size: .875rem; margin: .5rem 0 .25rem; }
@@ -147,8 +148,11 @@ thead th { border-top: 0; border-bottom: 1px solid var(--ink); font-size: .875re
 tbody tr:last-child > * { border-bottom: 1px solid var(--rule); }
 tbody th { font-weight: 400; }
 table.facts th { width: 30%; font-weight: 600; }
-td[data-label="Map"] { min-width: 7.5rem; }
+td[data-label="Map"] { min-width: 7.5rem; white-space: nowrap; }
 td[data-label="Status"] { white-space: nowrap; }
+td[data-label="Kind"] .tier, td[data-label="Constituency"] { white-space: nowrap; }
+/* The site table runs as wide as the map (up to 64rem) so rows stay short; prose stays in the narrow column. */
+#list .table-scroll { width: min(64rem, calc(100vw - 32px)); margin-left: calc(50% - min(32rem, 50vw - 16px)); }
 td .note { display: block; margin-top: .2rem; font-size: .875rem; color: var(--muted); }
 .src { font-size: .875rem; white-space: nowrap; }
 tr.active > * { background: var(--brand-tint); }

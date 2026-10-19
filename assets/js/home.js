@@ -23,7 +23,7 @@
     return '<tr id="row-' + A.esc(s.id) + '">' +
       '<th scope="row"><a href="' + profileUrl(s) + '">' + A.esc(s.name) + '</a></th>' +
       '<td data-label="Constituency">' + A.esc(s.constituency) + '</td>' +
-      '<td data-label="Kind">' + A.tierTag(s.tier) + '</td>' +
+      '<td data-label="Kind">' + A.tierTag(s.tier, true) + '</td>' +
       '<td data-label="Status">' + A.badge(s.verification_status) + '</td>' +
       '<td data-label="Map">' + where + '</td></tr>';
   }
@@ -138,9 +138,6 @@
     data = d;
     document.getElementById('status-note').textContent = d.meta.status;
     renderCoverage();
-    // The legend starts open on wide screens and collapsed on phones.
-    var legend = document.getElementById('legend');
-    if (legend && window.matchMedia('(max-width: 600px)').matches) legend.removeAttribute('open');
     wireControls();
     // The list is the equivalent of the map, so it must render even if the map cannot.
     try { buildMap(); } catch (e) { if (window.console) console.warn('Map not shown:', e.message); }

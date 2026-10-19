@@ -15,6 +15,12 @@
       community_area: 'Community-managed area',
       community_group: 'Community conservation group'
     },
+    // Short forms for the compact site table; the legend and profiles use the full names.
+    tierShort: {
+      legal_pa: 'Legal protected area',
+      community_area: 'Community area',
+      community_group: 'Community group'
+    },
     verification: {},
     confidence: {
       reported: 'Reported',
@@ -53,7 +59,8 @@
   var CONSTITUENCY_STYLE = {
     'East AreAre': { name: "East Are'are", token: '--const-east', cls: 'const-east' },
     'West Areare': { name: "West Are'are", token: '--const-west', cls: 'const-west' },
-    'Small Malaita': { name: 'Small Malaita', token: '--const-small', cls: 'const-small' }
+    // Small Malaita's label sits just off its east coast, so it does not cover the base map's "Maramasike" name.
+    'Small Malaita': { name: 'Small Malaita', token: '--const-small', cls: 'const-small', labelOffshore: 'east' }
   };
   var CHIP = {
     visitor: { unknown: 'neutral', ask_first: 'caution', guided: 'caution', open: 'info', closed_sensitive: 'danger' },
@@ -80,9 +87,11 @@
     return s ? badge(code) + ' ' + esc(s[1]) : esc(code);
   }
 
-  // Kind of site: coloured shape plus its name.
-  function tierTag(tier) {
-    return '<span class="tier"><span class="mark shape-' + esc(tier) + '" aria-hidden="true"></span>' + esc(LABELS.tier[tier] || tier) + '</span>';
+  // Kind of site: coloured shape plus its name (short form for the site table, with the full name as a tooltip).
+  function tierTag(tier, short) {
+    var full = LABELS.tier[tier] || tier;
+    var text = short ? (LABELS.tierShort[tier] || full) : full;
+    return '<span class="tier"' + (short ? ' title="' + esc(full) + '"' : '') + '><span class="mark shape-' + esc(tier) + '" aria-hidden="true"></span>' + esc(text) + '</span>';
   }
 
   // Visitor access or consent status as a chip; the chip text is the label.
@@ -226,8 +235,23 @@
         if (!st) return;
         var biggest = f.geometry.coordinates.reduce(function (a, b) { return b[0].length > a[0].length ? b : a; });
         var at = labelPoint(biggest[0]);
-        if (at) L.tooltip({ permanent: true, direction: 'center', className: 'const-label ' + st.cls, pane: 'constLabels' })
-          .setLatLng(at).setContent(esc(st.name)).addTo(map);
+        if (!at) return;
+        var opts = { permanent: true, direction: 'center', className: 'const-label ' + st.cls, pane: 'constLabels' };
+        var label = function (o, ll) { return L.tooltip(o).setLatLng(ll).setContent(esc(st.name)).addTo(map); };
+        if (st.labelOffshore === 'east') {
+          // Anchor on the easternmost coast point near the label's latitude and draw the label to its right.
+          var band = biggest[0].filter(function (p) { return Math.abs(p[1] - at[0]) < 0.03; });
+          var edge = band.reduce(function (a, p) { return p[0] > a[0] ? p : a; }, [at[1], at[0]]);
+          var tip = label(L.extend({}, opts, { direction: 'right', offset: [6, 0] }), [edge[1], edge[0]]);
+          // On a narrow map there may be no room offshore: then sit on the island, just below the base map's name.
+          var box = map.getContainer().getBoundingClientRect(), el = tip.getElement();
+          if (el && el.getBoundingClientRect().right > box.right - 4) {
+            map.removeLayer(tip);
+            label(L.extend({}, opts, { offset: [0, 20] }), at);
+          }
+          return;
+        }
+        label(opts, at);
       });
     }).catch(function () {});
   }
