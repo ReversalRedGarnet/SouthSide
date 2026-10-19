@@ -28,18 +28,29 @@
       '<td data-label="Map">' + where + '</td></tr>';
   }
 
+  function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+
+  // "4 desk-sourced, 1 draft": counts by verification status, in the order the labels are defined.
+  function statusBreakdown(sites) {
+    return Object.keys(A.LABELS.verification).map(function (k) {
+      var n = sites.filter(function (s) { return s.verification_status === k; }).length;
+      return n ? n + ' ' + A.statusWord(k).toLowerCase() : null;
+    }).filter(Boolean).join(', ');
+  }
+
+  // Every number here is counted from the data, so it stays true as profiles are added.
   function renderCoverage() {
+    var covered = A.CONSTITUENCIES.filter(function (c) { return data.sites.some(function (s) { return s.constituency === c; }); });
+    document.getElementById('coverage-total').textContent =
+      plural(data.sites.length, 'profile', 'profiles') + ' (' + statusBreakdown(data.sites) + ') in ' +
+      covered.length + ' of ' + A.CONSTITUENCIES.length + ' constituencies, ' +
+      data.sites.filter(isMapped).length + ' with a map point.';
     document.getElementById('coverage').innerHTML = A.CONSTITUENCIES.map(function (c) {
       var here = data.sites.filter(function (s) { return s.constituency === c; });
       if (!here.length) {
         return '<li><strong>' + A.esc(c) + '</strong>: no sites found in published sources yet. This is a research gap, not a finding that none exist.</li>';
       }
-      var byStatus = {};
-      here.forEach(function (s) { byStatus[s.verification_status] = (byStatus[s.verification_status] || 0) + 1; });
-      var breakdown = Object.keys(byStatus).map(function (k) {
-        return byStatus[k] + ' ' + A.LABELS.verification[k].split(',')[0].toLowerCase();
-      }).join(', ');
-      return '<li><strong>' + A.esc(c) + '</strong>: ' + here.length + ' profiles (' + A.esc(breakdown) + '), ' +
+      return '<li><strong>' + A.esc(c) + '</strong>: ' + plural(here.length, 'profile', 'profiles') + ' (' + A.esc(statusBreakdown(here)) + '), ' +
         here.filter(isMapped).length + ' with a map point.</li>';
     }).join('');
   }
@@ -52,7 +63,9 @@
 
     var html;
     if (!list.length) {
-      html = '<p>No profiles match these filters. If you chose West Are\'are or Small Malaita, that is expected: nothing has been recorded there yet.</p>';
+      var none = state.constituency && !data.sites.some(function (s) { return s.constituency === state.constituency; });
+      html = '<p>No profiles match these filters.' +
+        (none ? ' Nothing has been recorded in ' + A.esc(state.constituency) + ' yet. That is a research gap, not a finding that nothing is there.' : '') + '</p>';
     } else {
       // The Status column shows one word, so say here what it means. Worded from the data,
       // so the line stays true once a profile has been reviewed.

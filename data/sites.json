@@ -2,7 +2,7 @@
   "meta": {
     "schema_version": "0.2",
     "prepared": "2026-10-19",
-    "status": "Desk-sourced from published material only. Not reviewed by any custodian or community. Not an official record.",
+    "status": "Desk-sourced and draft profiles from published material only. None has been reviewed by any custodian or community. Not an official record.",
     "coordinate_note": "Only one site has a sourced location, and it is a bay-level point, not a boundary. Others are deliberately left unmapped until someone records a location with permission."
   },
   "sites": [
@@ -25,16 +25,18 @@
       "summary_en": "About 677 hectares of forest on Kira tribal land near Takataka Bay, declared a Protected Area under the national Protected Areas Act 2010. Sources describe it as the first in Malaita Province. Logging and mining are prohibited, and a community committee with rangers manages it.",
       "summary_pijin": null,
       "facts": [
-        {"key": "area", "label": "Area", "value": "677 hectares of forest", "confidence": "reported", "source_ids": ["S01", "S02", "S03"], "note": "All three sources report the declaration figure. Measurement method is not stated."},
+        {"key": "area", "label": "Area", "value": "Reported as 677 hectares (S01, S02, S03, S16), 667 hectares (S15) and 661 hectares (S18).", "confidence": "conflicting", "source_ids": ["S01", "S02", "S03", "S15", "S16", "S18"], "note": "677 hectares is the figure given at the declaration. The sources do not agree, and none of the figures has been checked with the Kira committee."},
         {"key": "legal", "label": "Legal status", "value": "Declared a Protected Area under the Protected Areas Act 2010; registered as Resource Management Area Category 4 (Protected Areas Regulation 2012).", "confidence": "reported", "source_ids": ["S01", "S02"], "note": "Sources cite the Act as both 'Protected Areas Act 2010' and 'Protected Areas Management Act 2010'. Check the certificate."},
-        {"key": "established", "label": "Declared", "value": "Ceremony on 27-28 November at the Kira Conservation Centre. Year not stated.", "confidence": "unknown", "source_ids": ["S01", "S02"], "note": "27 November fell on a Friday in 2015 and 2020, matching 'Friday 27'. S01's page metadata says 2023, which does not match. Confirm from the certificate."},
-        {"key": "first", "label": "Claimed 'first'", "value": "First conservation group in Malaita Province to be declared a Protected Area. S01 also calls it the first forest Protected Area by law in Solomon Islands.", "confidence": "conflicting", "source_ids": ["S01", "S02", "S12"], "note": "The Malaita claim is consistent across sources. The national 'first forest' claim is unchecked: S12 describes Vuri Forest Conservation Area (Choiseul) as the country's 5th legal Protected Area."},
+        {"key": "established", "label": "Declared", "value": "October 2023. Ceremony at the Kira Conservation Centre.", "confidence": "reported", "source_ids": ["S01", "S02", "S15", "S16", "S17"], "note": "Sources conflict on the exact day. S01, S02 and S16 describe a ceremony on Friday 27 to Saturday 28 'November', but S16 was published on 2 November 2023, so this most likely means 27-28 October 2023. S15 gives 29 October 2023 for the declaration and also mentions a celebration on 27 November 2023. Confirm from the certificate."},
+        {"key": "first", "label": "Claimed 'first'", "value": "The first conservation group in Malaita Province to be declared a Protected Area. Nationally it appears to be the sixth legal Protected Area: five existed by July 2022, with Vuri the most recent, and the Kira announcement says six have been declared to date.", "confidence": "reported", "source_ids": ["S01", "S02", "S12", "S16", "S28"], "note": "An earlier version of this profile repeated S01's description of Kira as the first forest Protected Area by law in Solomon Islands. S12 and S28 contradict that, so it has been dropped. Check against the national Protected Area register."},
         {"key": "management", "label": "Management", "value": "Kira Protected Area Management Committee and rangers, working to a management plan. Logging and mining are prohibited.", "confidence": "reported", "source_ids": ["S01"], "note": "The management plan has not been seen."},
-        {"key": "origin", "label": "Origins", "value": "Grew from the Taka' Taka Eco-Village Conservation Foundation, a community non-profit founded in 2014.", "confidence": "reported", "source_ids": ["S02"]},
+        {"key": "origin", "label": "Origins", "value": "Grew from the Taka' Taka Eco-Village Conservation Foundation, conceived in 2014 and legally registered on 11 March 2015 as an incorporated non-profit. The foundation works in wards 19 and 20 of East Are'are, around Takataka Bay.", "confidence": "reported", "source_ids": ["S02", "S17"]},
         {"key": "partners", "label": "Partners named", "value": "Winrock International (supplied GPS mapping equipment), Mai-Maasina Green Belt, Wai-Hau Conservation Foundation, Ahetaha Water Conservation Association.", "confidence": "reported", "source_ids": ["S02"], "note": "The last partner is called a 'Foundation' in S02 and an 'Association' in S04."},
         {"key": "priorities", "label": "Stated priorities", "value": "Economic development, kastom education and environmental stewardship.", "confidence": "reported", "source_ids": ["S02"]},
-        {"key": "species", "label": "Species and habitats", "value": "Forest. No species list in the sources read.", "confidence": "unknown", "source_ids": []},
-        {"key": "threats", "label": "Threats and pressures", "value": "Not described in the sources read.", "confidence": "unknown", "source_ids": []}
+        {"key": "species", "label": "Species and habitats", "value": "Forest. A baseline assessment reported about 126 plant species and 70 wildlife species (11 amphibians, 11 reptiles, 32 birds, 9 mammals and 7 aquatic species), including 28 endemic birds. Solomon's sea eagle is listed as vulnerable.", "confidence": "reported", "source_ids": ["S17"], "note": "Figures as reported by the Equator Initiative. Parts of that page describe an unrelated project and were ignored. The full survey has not been seen."},
+        {"key": "community", "label": "Community", "value": "More than 300 households in Masupa, Aiarai and Purimou are reported to benefit. Kira land is described as among the last unlogged areas in Malaita.", "confidence": "reported", "source_ids": ["S15"], "note": "From a partner organisation's article. The 'last unlogged' description has not been checked."},
+        {"key": "carbon", "label": "Carbon project", "value": "A forest carbon project with Nakau Nature Connect is in development.", "confidence": "reported", "source_ids": ["S18"], "note": "From the project developer's own page. The Kira committee has not confirmed what may be shown about this project."},
+        {"key": "threats", "label": "Threats and pressures", "value": "Not yet recorded in this profile.", "confidence": "unknown", "source_ids": []}
       ],
       "visitor": {
         "access": "unknown",
@@ -49,12 +51,14 @@
         "note": "Prepared from published sources only. The Kira committee has not seen or approved this profile."
       },
       "open_questions": [
-        "In which year was the area declared, and where is the signed certificate?",
+        "On which days in October 2023 was the area declared, and where is the signed certificate?",
         "Can the committee share its GPS boundary (made with the Winrock equipment) and agree on how it is shown publicly?",
         "Is the management plan public, and does it say anything about visitors?",
         "Have any biodiversity surveys been done, and may their findings be shown?",
         "How are the rangers supported, and what do they need?",
-        "What are the rules and fees for a research or tourism visit, and who gives permission?"
+        "What are the rules and fees for a research or tourism visit, and who gives permission?",
+        "Which of the reported areas (677, 667 or 661 hectares) is correct, and how was it measured?",
+        "What may be shown publicly about the carbon project with Nakau? The Kira committee should confirm this before anything more is added."
       ],
       "verification_status": "desk_sourced",
       "last_reviewed": "2026-10-19",
@@ -99,7 +103,8 @@
         "Are the 2016 rules written down, and have they changed?",
         "How have dugong and turtle numbers changed since the rules began?",
         "What is the current relationship with Mai-Maasina Green Belt and Kira?",
-        "Does the group want visitors, and on what terms?"
+        "Does the group want visitors, and on what terms?",
+        "A 2020 WorldFish factsheet lists 'Ahetaha (Manawai)', which suggests Ahetaha is at or near Manawai Harbour. Is AWCA in the same locality as the Mai-Maasina Green Belt conservation village?"
       ],
       "verification_status": "desk_sourced",
       "last_reviewed": "2026-10-19",
@@ -140,7 +145,8 @@
         "What land and sea does the initiative look after, and who are the customary owners?",
         "How does it relate to AWCA: separate groups, or one programme?",
         "Who uses the training centre, and could it host student or visitor groups?",
-        "Where is the 100-metre no-take zone, and how is it enforced?"
+        "Where is the 100-metre no-take zone, and how is it enforced?",
+        "A 2020 WorldFish factsheet lists 'Ahetaha (Manawai)', which suggests Ahetaha is at or near Manawai Harbour. Is this conservation village in the same locality as AWCA?"
       ],
       "verification_status": "desk_sourced",
       "last_reviewed": "2026-10-19",
@@ -210,7 +216,8 @@
         {"key": "rules", "label": "Rules", "value": "Certain catches and methods banned for three years, then a one-week opening for special occasions. Fines of up to SBD 500 for breaches.", "confidence": "reported", "source_ids": ["S07"], "note": "Reported in 2020. Rules may have changed."},
         {"key": "outcomes", "label": "Reported outcomes", "value": "The area is becoming a breeding area for marine life.", "confidence": "reported", "source_ids": ["S07"], "note": "Qualitative statement; no survey data in the source."},
         {"key": "threats", "label": "Threats and pressures", "value": "Nearby logging is described as a persistent threat.", "confidence": "reported", "source_ids": ["S07"]},
-        {"key": "support", "label": "Support named", "value": "WorldFish Solomon Islands did most of the site setup; Malaita Province fisheries division also named.", "confidence": "reported", "source_ids": ["S07"], "note": "The sentence names WorldFish for the Manaoba site; confirm it also applies to Puriasi."}
+        {"key": "support", "label": "Support named", "value": "WorldFish Solomon Islands did most of the site setup; Malaita Province fisheries division also named.", "confidence": "reported", "source_ids": ["S07"], "note": "The sentence names WorldFish for the Manaoba site; confirm it also applies to Puriasi."},
+        {"key": "second_source", "label": "Second source", "value": "A peer-reviewed study (catch recorded in 2017) describes a marine management area in the mangroves at Mararo, East Are'are, protecting invertebrates, and reports that logging began during sampling and threatens its marine habitats.", "confidence": "reported", "source_ids": ["S26"], "note": "Independent of S07. It names Mararo, not Puriasi; confirm that it describes the same area."}
       ],
       "visitor": {
         "access": "closed_sensitive",
@@ -222,9 +229,93 @@
         "Are the 2020 rules still in force, and who enforces them?",
         "What may be said publicly about the taboo sites, if anything?",
         "Has the logging threat changed, and what is being done about it?",
-        "Does the organisation want the area on a public map at all?"
+        "Does the organisation want the area on a public map at all?",
+        "Is the Mararo marine management area described in the 2022 study the same as Puriasi?"
       ],
       "verification_status": "desk_sourced",
+      "last_reviewed": "2026-10-19",
+      "public_visibility": "withheld"
+    },
+    {
+      "id": "SM-006",
+      "name": "Waisurione leatherback turtle nesting beach (Wai-Hau Conservation Foundation)",
+      "alt_names": ["Waihau Conservation Foundation project"],
+      "constituency": "West Are'are",
+      "place_text": "Waisurione beach, spanning three tribal lands; Wai-Hau Conservation Foundation is based at Waisurione",
+      "tier": "community_group",
+      "realm": "coast_sea",
+      "location": {
+        "lat": null,
+        "lng": null,
+        "precision": "unlocated",
+        "note": "Nesting beach. Locations of turtle nests invite egg poaching, so keep withheld on the public map unless the custodians decide otherwise.",
+        "source_ids": ["S21"]
+      },
+      "summary_en": "A community-run leatherback turtle monitoring project on a nesting beach in West Are'are, led by the Wai-Hau Conservation Foundation. Local rangers patrol the beach, and a species management plan was being developed in 2018-19. A 2015 report called it one of the smaller rookeries in the Western Pacific.",
+      "summary_pijin": null,
+      "facts": [
+        {"key": "area", "label": "Area", "value": "A 4.8 km beach.", "confidence": "reported", "source_ids": ["S19"], "note": "Beach length, not a protected-area size."},
+        {"key": "tenure", "label": "Tribal lands", "value": "Three tribal lands: Ausi (Wairaha), Au'vaura (Waisurione) and Po'otori (Hauhui).", "confidence": "reported", "source_ids": ["S21"], "note": "S19 names the second land 'Aena'ura'. Confirm spelling with the tribes."},
+        {"key": "management", "label": "Management", "value": "Wai-Hau Conservation Foundation Inc. runs the project, with community rangers.", "confidence": "reported", "source_ids": ["S19", "S21"]},
+        {"key": "rangers", "label": "Rangers", "value": "About 26 to 28 volunteer rangers elected by the community and local stakeholders in 2014-15.", "confidence": "reported", "source_ids": ["S21"], "note": "Numbers differ slightly across documents and are from 2014-15."},
+        {"key": "nesting", "label": "Nesting", "value": "Seven leatherback nests or emergences recorded in the 2015 season, May to July. The report called it one of the smaller rookeries in the Western Pacific.", "confidence": "reported", "source_ids": ["S21"], "note": "One season only. Current numbers unknown."},
+        {"key": "threats", "label": "Threats and pressures", "value": "Storm erosion of the beach, risk of egg poaching, severe weather, and a territorial misunderstanding between tribal groups that limited monitoring on one side of the beach in 2015.", "confidence": "reported", "source_ids": ["S21"]},
+        {"key": "facilities", "label": "Facilities", "value": "A conservation centre was completed in 2015.", "confidence": "reported", "source_ids": ["S21"]},
+        {"key": "funding", "label": "Funding reported", "value": "CEPF grants of about USD 15,400 (2016-17) and USD 18,000 (2018-19); Rufford Foundation and others earlier.", "confidence": "reported", "source_ids": ["S20", "S32", "S21"]},
+        {"key": "plan", "label": "Planning", "value": "The 2018-19 grant aimed to produce a species management plan for Wai-Hau and southern Malaita. Whether it was finished is not stated.", "confidence": "unknown", "source_ids": ["S32"]},
+        {"key": "legal", "label": "Legal status", "value": "No protected-area registration found in the sources read.", "confidence": "unknown", "source_ids": []}
+      ],
+      "visitor": {"access": "unknown", "note": "Sources disagree: S19 says more than 15 tourists visited in 2015, while S21 mentions no ecotourism. Treat as closed to casual visits. Nesting beaches are fragile and poaching is a stated risk. Ask the Foundation."},
+      "contact": {"public": null, "note": "Not published."},
+      "consent": {"status": "not_yet_sought", "note": "Prepared from published grant and project documents only."},
+      "open_questions": [
+        "Is the project still active, and how many nests were recorded in recent seasons?",
+        "Was the species management plan finished, and is it public?",
+        "Which tribes and which beach sections are involved now, and how should each be named?",
+        "Does the Foundation want visitors, and under what rules?",
+        "How does the Foundation relate to Mai-Maasina Green Belt, whose anchor site is reported as Waihau?"
+      ],
+      "verification_status": "desk_sourced",
+      "last_reviewed": "2026-10-19",
+      "public_visibility": "withheld"
+    },
+    {
+      "id": "SM-007",
+      "name": "Apunepara Ha'amwaora Natural Resource Association (AHNRA)",
+      "alt_names": [],
+      "constituency": "Small Malaita",
+      "place_text": "Maramasike Passage; training held at Waitomo village, Raroisu'u ward 21",
+      "tier": "community_group",
+      "realm": "coast_sea",
+      "location": {
+        "lat": null,
+        "lng": null,
+        "precision": "unlocated",
+        "note": "Villages are named but not geolocated in the sources.",
+        "source_ids": ["S22"]
+      },
+      "summary_en": "A tribal community association on the Maramasike Passage in Small Malaita working to protect forest and mangroves. In 2024 it trained about 30 rangers from five villages and began preparing a protected-area application. It also says it wants ecotourism and a carbon programme.",
+      "summary_pijin": null,
+      "facts": [
+        {"key": "area", "label": "Area", "value": "Not stated.", "confidence": "unknown", "source_ids": ["S22"]},
+        {"key": "villages", "label": "Participating villages", "value": "Watoto, Sarawasi, Eliote, We'a and Malo'u.", "confidence": "reported", "source_ids": ["S22"]},
+        {"key": "focus", "label": "Focus", "value": "Terrestrial forest and mangrove ecosystems, with mangrove species described as the flagship for conservation.", "confidence": "reported", "source_ids": ["S22"]},
+        {"key": "activity", "label": "Recent activity", "value": "Protected-area management and ranger training on 20-23 May 2024, run by the Solomon Islands Rangers Association; about 30 rangers and representatives from five villages took part. A mangrove species survey was reported in 2024.", "confidence": "reported", "source_ids": ["S22"]},
+        {"key": "legal", "label": "Legal status", "value": "Preparing a protected-area application. No registration reported.", "confidence": "reported", "source_ids": ["S22"]},
+        {"key": "threats", "label": "Threats and pressures", "value": "Population growth and overharvesting, unsustainable logging, settlement expansion, betel nut plantations, slash-and-burn farming, sea level rise and saltwater intrusion.", "confidence": "reported", "source_ids": ["S22"]},
+        {"key": "aims", "label": "Stated aims", "value": "Ecotourism, a carbon trade programme and sustainable livelihoods that maintain cultural practices.", "confidence": "reported", "source_ids": ["S22"], "note": "Aspirations, not operating activities."},
+        {"key": "support", "label": "Support reported", "value": "Solomon Islands Rangers Association; USAID's SCALE project (Winrock); a small grant.", "confidence": "reported", "source_ids": ["S22"]}
+      ],
+      "visitor": {"access": "unknown", "note": "The association says it wants ecotourism, but no visitor arrangements were found. Ask first."},
+      "contact": {"public": null, "note": "Founders are named in S22. Not republished here."},
+      "consent": {"status": "not_yet_sought", "note": "Prepared from a single news article. Treat as a lead until custodians confirm."},
+      "open_questions": [
+        "Which land and mangrove areas does AHNRA look after, and which tribe holds them?",
+        "Has the protected-area application been lodged, and what stage is it at?",
+        "Is there a map or boundary the association is ready to share?",
+        "What does the association want from tourism, and what would it refuse?"
+      ],
+      "verification_status": "draft",
       "last_reviewed": "2026-10-19",
       "public_visibility": "withheld"
     }

@@ -129,6 +129,159 @@
       "date": "Accessed 2026-10-19",
       "url": "https://www.protectedplanet.net/en/legal",
       "notes": "Governs reuse of WDPA/WDPCA data: non-commercial use, no redistribution by downloads or downloadable interactive maps, required citation."
+    },
+    {
+      "id": "S15",
+      "title": "Three ways SCALE-NRM supports locally led protection of forests and livelihoods in the Solomon Islands",
+      "publisher": "Winrock International",
+      "type": "ngo",
+      "date": "Not stated",
+      "url": "https://winrock.org/three-ways-scale-nrm-supports-locally-led-protection-of-forests-and-livelihoods-in-the-solomon-islands/",
+      "notes": "Gives Kira as 667 ha and a declaration date of 29 Oct 2023; also gives a celebration date of 27 Nov 2023 that conflicts with other sources."
+    },
+    {
+      "id": "S16",
+      "title": "Kira Forest Biodiversity Conservation Area, first in Malaita",
+      "publisher": "Solomon Business Magazine",
+      "type": "news",
+      "date": "2 Nov 2023",
+      "url": "https://sbm.sb/kira-forest-biodiversity-conservation-area-first-in-malaita/",
+      "notes": "Publication date makes a late-November 2023 ceremony impossible. Text says 'Friday 27th to Saturday 28th November', which fits 27-28 October 2023."
+    },
+    {
+      "id": "S17",
+      "title": "Takataka Eco Village Conservation Foundation",
+      "publisher": "Equator Initiative (UNDP)",
+      "type": "ngo",
+      "date": "5 Dec 2024",
+      "url": "https://www.equatorinitiative.org/2024/12/05/takataka-eco-village-conservation-foundation/",
+      "notes": "Contains a copy-paste error: some impact sections describe a Colombian project and were ignored."
+    },
+    {
+      "id": "S18",
+      "title": "Kira Carbon Project",
+      "publisher": "Nakau Nature Connect",
+      "type": "ngo",
+      "date": "Not stated",
+      "url": "https://nakaunatureconnect.org/kira",
+      "notes": "Project developer's page. Gives 661 ha. Carbon credit figure is an estimate."
+    },
+    {
+      "id": "S19",
+      "title": "Safeguard social assessment: The Leather Back Turtle (Wai-Hau Conservation Foundation)",
+      "publisher": "Critical Ecosystem Partnership Fund (CEPF)",
+      "type": "ngo",
+      "date": "Not stated; refers to events to 2015",
+      "url": "https://cepf.net/resources/documents/safeguard-social-assessment-50",
+      "notes": "Places the project in West Are'are on Aena'ura tribal land."
+    },
+    {
+      "id": "S20",
+      "title": "Building capacity for monitoring and management of leatherback turtles in Are'are",
+      "publisher": "CEPF",
+      "type": "ngo",
+      "date": "Grant June 2016 - Sept 2017",
+      "url": "https://www.cepf.net/grants/grantee-projects/building-capacity-monitoring-and-management-leatherback-turtles-are-are",
+      "notes": "States location as West 'Are'are."
+    },
+    {
+      "id": "S21",
+      "title": "Detailed final report, leatherback monitoring at Waisurione",
+      "publisher": "The Rufford Foundation",
+      "type": "ngo",
+      "date": "Report covers the 2015 season",
+      "url": "https://media.rufford.org/media/project_reports/17164-1%20Detailed%20Final%20Report.pdf",
+      "notes": "Names tribal lands as Ausi (Wairaha), Au'vaura (Waisurione) and Po'otori (Hauhui). S19 spells the second 'Aena'ura'."
+    },
+    {
+      "id": "S22",
+      "title": "Mangrove Ecosystem Conservation, a Way Forward for South Malaita Tribal Community",
+      "publisher": "Environment Media (Isles Media)",
+      "type": "news",
+      "date": "12 Jun 2024",
+      "url": "https://environment.islesmedia.net/mangrove-ecosystem-conservation-a-way-forward-for-south-malaita-tribal-community/",
+      "notes": "Source for AHNRA. Does not give an area or a mangrove health assessment."
+    },
+    {
+      "id": "S23",
+      "title": "Local Wisdom, Global Impact: Celebrating the Mai-Maasina Green Belt on World Environment Day",
+      "publisher": "UNDP Pacific",
+      "type": "ngo",
+      "date": "4 Jun 2025",
+      "url": "https://www.undp.org/pacific/press-releases/local-wisdom-global-impact-celebrating-mai-maasina-green-belt-world-environment-day",
+      "notes": "Describes a network of about thirty tribal communities across Are'are, Kwaio and Small Malaita, and eight ranger sites."
+    },
+    {
+      "id": "S24",
+      "title": "Final project report: Developing the Mai-Maasina Green Belt for Malaita",
+      "publisher": "CEPF",
+      "type": "ngo",
+      "date": "20 Jan 2021 (project Sept 2019 - Dec 2020)",
+      "url": "https://cepf.net/resources/final-project-report/final-project-report-2514",
+      "notes": "Reports about 15,000 ha of customarily protected forest and growth from 10 to 30 members. Grantee-reported figures."
+    },
+    {
+      "id": "S26",
+      "title": "Patterns of catch and trophic signatures illustrate diverse management requirements of coastal fisheries in Solomon Islands",
+      "publisher": "Ambio (via PubMed Central)",
+      "type": "research",
+      "date": "2022",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9005606",
+      "notes": "Peer-reviewed. Covers Mararo (East Are'are), Hunanawa (Maramasike) and Liwe (Small Malaita), among 13 villages, with catch recorded in 2017."
+    },
+    {
+      "id": "S27",
+      "title": "Community Based Resource Management in Malaita Province",
+      "publisher": "WorldFish (factsheet)",
+      "type": "ngo",
+      "date": "2020",
+      "url": "https://worldfishcenter.org/publication/community-based-resource-management-malaita-province",
+      "notes": "Lists 32 place names on a map of community-based management in Malaita, including Mararo and Ahetaha (Manawai). Does not give constituencies."
+    },
+    {
+      "id": "S28",
+      "title": "Conservation Division Continue To Support Groups Undertaking Conservation Initiatives",
+      "publisher": "Environment Media (Isles Media)",
+      "type": "news",
+      "date": "13 Jul 2022",
+      "url": "https://environment.islesmedia.net/conservation-division-continue-to-support-groups-undertaking-conservation-initiatives/",
+      "notes": "States five legally protected areas under the Protected Areas Act 2010 at that date, with Vuri the most recent."
+    },
+    {
+      "id": "S29",
+      "title": "Conservation Groups in Malaita to Benefit USAID SCALE Project",
+      "publisher": "Environment Media (Isles Media)",
+      "type": "news",
+      "date": "15 Dec 2022",
+      "url": "https://environment.islesmedia.net/conservation-groups-in-malaita-to-benefit-usaid-scale-project/",
+      "notes": "Names Ahetaha Water Conservation Association and Takataka Eco-Village Conservation Foundation as grant recipients."
+    },
+    {
+      "id": "S30",
+      "title": "Protected Areas Act 2010 (No. 4 of 2010)",
+      "publisher": "FAOLEX",
+      "type": "law",
+      "date": "2010",
+      "url": "https://faolex.fao.org/docs/pdf/sol94186.pdf",
+      "notes": "Read via an automated summary. Check the full text before relying on section numbers or penalties."
+    },
+    {
+      "id": "S31",
+      "title": "Electoral systems and boundaries",
+      "publisher": "Solomon Islands Electoral Commission",
+      "type": "official",
+      "date": "Not stated",
+      "url": "https://siec.gov.sb/elections/election-review/electoral-systems-and-boundaries/",
+      "notes": "States the last redrawing of constituencies was in 1997 (47 to 50) and that a 2009 proposal to increase the number was rejected."
+    },
+    {
+      "id": "S32",
+      "title": "CEPF grant: Developing a management and recovery plan for leatherback turtles in Are'are, Malaita",
+      "publisher": "CEPF",
+      "type": "ngo",
+      "date": "Grant July 2018 - Aug 2019",
+      "url": "https://www.cepf.net/grants/grantee-projects/developing-management-and-recovery-plan-leatherback-turtles-are-are-malaita",
+      "notes": "Wai-Hau Conservation Foundation; a species management plan for Wai-Hau and southern Malaita."
     }
   ]
 }

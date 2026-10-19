@@ -11,6 +11,13 @@
       '</td></tr>';
   }
 
+  // "None published." plus the note, unless the note already says there is no published contact.
+  function contactText(c) {
+    if (c.public) return A.esc(c.public) + ' ' + A.esc(c.note);
+    if (/^(not|none) published\.?$/i.test((c.note || '').trim())) return A.esc(c.note);
+    return 'None published. ' + A.esc(c.note);
+  }
+
   function pairRow(label, html) {
     return '<tr><th scope="row">' + A.esc(label) + '</th><td>' + html + '</td></tr>';
   }
@@ -22,8 +29,8 @@
     ((s.location && s.location.source_ids) || []).forEach(function (id) { used[id] = true; });
     var usedIds = d.sourceList.map(function (x) { return x.id; }).filter(function (id) { return used[id]; });
 
-    var mapped = s.location && s.location.lat != null;
-    var cite = 'SouthSide (prototype). “' + s.name + '.” Desk-sourced profile, last reviewed ' +
+    var mapped = s.location && s.location.lat != null && s.location.lng != null;
+    var cite = 'SouthSide (prototype). “' + s.name + '.” ' + A.statusWord(s.verification_status) + ' profile, last reviewed ' +
       A.fmtDate(s.last_reviewed) + '. Based on published sources ' + usedIds.join(', ') + '. Not reviewed by custodians.';
 
     root.innerHTML =
@@ -39,7 +46,9 @@
       '<table class="facts"><tbody>' + s.facts.map(function (f) { return factRow(f, d.sources); }).join('') + '</tbody></table>' +
 
       '<h2>Where</h2><p>' + A.esc(s.place_text) + '</p>' +
-      (mapped ? '<div id="mini" class="mini-map" role="img" aria-label="Small map showing the approximate location"></div>' : '') +
+      (mapped
+        ? '<div id="mini" class="mini-map" role="img" aria-label="Small map showing the approximate location"></div>'
+        : '<p><strong>No map point</strong> (location withheld or unknown).</p>') +
       '<table class="facts"><tbody>' +
       pairRow('Precision', A.esc(A.LABELS.precision[s.location.precision])) +
       pairRow('Location note', A.esc(s.location.note) + ' ' + A.srcLinks(s.location.source_ids, d.sources)) +
@@ -52,7 +61,7 @@
 
       '<h2>Permission and contact</h2><table class="facts"><tbody>' +
       pairRow('Consent status', A.esc(A.LABELS.consent[s.consent.status]) + '. ' + A.esc(s.consent.note)) +
-      pairRow('Public contact', (s.contact.public ? A.esc(s.contact.public) : 'None published.') + ' ' + A.esc(s.contact.note)) +
+      pairRow('Public contact', contactText(s.contact)) +
       pairRow('Map visibility', A.esc(s.public_visibility)) +
       pairRow('Last reviewed', A.esc(A.fmtDate(s.last_reviewed))) +
       '</tbody></table>' +
