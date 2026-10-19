@@ -78,7 +78,8 @@
   }
 
   function buildMap() {
-    map = A.baseMap('map', [-9.55, 161.3], 8);
+    map = A.baseMap('map', { limit: true });
+    A.addStudyArea(map);
     data.sites.filter(isMapped).forEach(function (s) {
       var ll = [s.location.lat, s.location.lng];
       var zone = s.location.radius_m ? A.zoneCircle(ll, s.location.radius_m).addTo(map) : null;
@@ -89,7 +90,7 @@
         '<p class="small"><em>' + A.esc(s.location.note) + '</em></p>' +
         '<a href="' + profileUrl(s) + '">Open profile</a>');
       markers[s.id] = { pin: pin, zone: zone };
-      pin.on('click', function () { highlight(s.id, false); });
+      pin.on('popupopen', function () { highlight(s.id, false); });
     });
   }
 

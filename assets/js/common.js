@@ -99,13 +99,50 @@
   var TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   var TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-  function baseMap(id, center, zoom) {
-    var map = L.map(id, { scrollWheelZoom: false }).setView(center, zoom);
+  // Extent of East Are'are, West Are'are and Small Malaita (south-west, north-east corners).
+  var STUDY_BOUNDS = [[-9.74, 160.94], [-8.98, 161.59]];
+
+  // opts.center + opts.zoom: start there; otherwise frame the study area.
+  // opts.limit: keep people near the study area (minimum zoom, and soft pan limits).
+  function baseMap(id, opts) {
+    opts = opts || {};
+    var study = L.latLngBounds(STUDY_BOUNDS);
+    var map = L.map(id, { scrollWheelZoom: false, zoomSnap: 0.25, maxBoundsViscosity: 0.8 });
+    if (opts.center) map.setView(opts.center, opts.zoom);
+    else map.fitBounds(study, { padding: [8, 8] });
+    if (opts.limit) {
+      map.setMinZoom(Math.floor(map.getBoundsZoom(study, false, L.point(16, 16))) - 1);
+      map.setMaxBounds(study.pad(0.5));
+    }
     L.tileLayer(TILE_URL, { maxZoom: 17, attribution: TILE_ATTR }).addTo(map);
     // Enable wheel zoom only after the user clicks the map, so the page can still scroll.
     map.on('focus click', function () { map.scrollWheelZoom.enable(); });
     map.on('blur mouseout', function () { map.scrollWheelZoom.disable(); });
     return map;
+  }
+
+  // Fade everything outside the three constituencies and outline each one.
+  // The fade sits in its own pane below site circles and pins, and nothing in it is interactive.
+  // If the boundary file fails to load, the map simply stays unfaded.
+  var BOUNDARY_ATTR = 'Constituencies: SINSO 2009 census via <a href="https://data.humdata.org/dataset/cod-ab-slb">OCHA HDX</a> (CC BY-IGO)';
+  function addStudyArea(map) {
+    return loadJSON('data/constituencies.geojson').then(function (g) {
+      map.createPane('fade').style.zIndex = 350;
+      var world = [[-40, 130], [-40, 190], [20, 190], [20, 130]];
+      var holes = [];
+      g.features.forEach(function (f) {
+        f.geometry.coordinates.forEach(function (poly) {
+          poly.forEach(function (ring) { holes.push(ring.map(function (p) { return [p[1], p[0]]; })); });
+        });
+      });
+      L.polygon([world].concat(holes), {
+        pane: 'fade', stroke: false, fillColor: '#fff', fillOpacity: 0.55, interactive: false
+      }).addTo(map);
+      L.geoJSON(g, {
+        pane: 'fade', interactive: false, attribution: BOUNDARY_ATTR,
+        style: { color: ACCENT, weight: 1.25, opacity: 0.9, fill: false }
+      }).addTo(map);
+    }).catch(function () {});
   }
 
   // Every site uses the same green circle. Kind of site is told in text, not by pin colour.
@@ -121,6 +158,6 @@
   window.Atlas = {
     LABELS: LABELS, CONSTITUENCIES: CONSTITUENCIES, esc: esc, loadAll: loadAll, loadJSON: loadJSON,
     showLoadError: showLoadError, srcLinks: srcLinks, statusText: statusText, fmtDate: fmtDate,
-    baseMap: baseMap, pinIcon: pinIcon, zoneCircle: zoneCircle
+    baseMap: baseMap, addStudyArea: addStudyArea, pinIcon: pinIcon, zoneCircle: zoneCircle
   };
 })();

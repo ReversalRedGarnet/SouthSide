@@ -74,7 +74,8 @@
 
     if (mapped) {
       var ll = [s.location.lat, s.location.lng];
-      var m = A.baseMap('mini', ll, 10);
+      var m = A.baseMap('mini', { center: ll, zoom: 10, limit: true });
+      A.addStudyArea(m);
       if (s.location.radius_m) A.zoneCircle(ll, s.location.radius_m).addTo(m);
       L.marker(ll, { icon: A.pinIcon(), alt: s.name }).addTo(m);
     }

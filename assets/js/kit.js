@@ -5,7 +5,8 @@
   var out = document.getElementById('out');
   var warnings = document.getElementById('warnings');
   var note = document.getElementById('kitmap-note');
-  var map = A.baseMap('kitmap', [-9.55, 161.3], 8);
+  // Starts on the study area but is not limited, so a point entered outside it can still be checked.
+  var map = A.baseMap('kitmap');
   var pin = null, lastRecord = null;
 
   function val(n) { return form.elements[n].value.trim(); }

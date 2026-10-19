@@ -81,7 +81,16 @@
   <ul>
     <li>Base map &copy; OpenStreetMap contributors, via the standard tile server, used lightly under its <a href="https://operations.osmfoundation.org/policies/tiles/" rel="noopener">tile usage policy</a>. Do not add bulk or offline tile downloads on that server.</li>
     <li>Map library: Leaflet (BSD-2-Clause), included in <code>assets/vendor/leaflet</code>.</li>
-    <li>Content and code licences are still to be chosen with the custodians. Until then, treat all content as <em>all rights reserved</em> and cite sources, not this prototype.</li>
+    <li>Constituency boundaries: Solomon Islands National Statistics Office (SINSO), 2009 Census of Population and Housing, published by OCHA as <a href="https://data.humdata.org/dataset/cod-ab-slb" rel="noopener">Solomon Islands - Subnational Administrative Boundaries</a> on the Humanitarian Data Exchange, under <a href="https://creativecommons.org/licenses/by/3.0/igo/" rel="noopener">CC BY-IGO 3.0</a>. Stored in <code>data/constituencies.geojson</code>, which keeps that licence. See <a href="#boundaries">About the boundaries</a> for what was changed.</li>
+    <li>Content and code licences are still to be chosen with the custodians. Until then, treat all other content as <em>all rights reserved</em> and cite sources, not this prototype.</li>
+  </ul>
+
+  <h3 id="boundaries">About the boundaries</h3>
+  <ul>
+    <li><strong>Date.</strong> The boundaries come from the 2009 census. The file was published in 2018, and OCHA reports reviewing it in October 2024 with no update needed. The 2024 national election still used 50 constituencies. No later boundary change was found, but this has not been confirmed with the Constituency Boundaries Commission.</li>
+    <li><strong>Accuracy.</strong> The coastline matches the OpenStreetMap base map closely. The inland lines between constituencies are straight, schematic lines, not surveyed boundaries.</li>
+    <li><strong>Changes made here.</strong> Only the three constituencies were kept, converted to latitude and longitude, and simplified (to about 44 m, with islets under about half a hectare removed) so the page stays light. Downloaded 19 October 2026.</li>
+    <li><strong>Meaning.</strong> These are electoral units. They say nothing about customary land, tribal boundaries or who may speak for a place.</li>
   </ul>
 
   <h2 id="corrections">Corrections and removal</h2>
@@ -90,7 +99,7 @@
   <h2>Known limitations of this prototype</h2>
   <ul>
     <li>Only one site has a map point, and it is a bay-level point rather than a boundary.</li>
-    <li>No constituency boundaries are drawn. A permitted, current boundary file has not been confirmed.</li>
+    <li>Constituency boundaries date from the 2009 census, and their inland lines are approximate. See <a href="#boundaries">About the boundaries</a>.</li>
     <li>No photographs, because no permissions exist yet.</li>
     <li>No Solomon Pijin or Are'are-language summaries. These should be written by local reviewers.</li>
     <li>Several sources are news articles or funder profiles, some from 2018-2022.</li>
