@@ -95,13 +95,14 @@ input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); ba
 .controls .count { font-size: .875rem; color: var(--muted); }
 .intro { margin-bottom: .5rem; }
 .coverage-line { font-size: .9375rem; margin-bottom: .75rem; }
-.coverage-details { margin: .25rem 0 1rem; }
-.coverage-details summary { cursor: pointer; font-weight: 600; font-size: .9375rem; }
-.coverage-details ul { margin: .5rem 0 0; }
+.coverage-details ul { margin: .25rem 0 .5rem; }
 
 /* Maps */
 /* The main map runs wider than the text column (up to 64rem), centred on it. */
-#map { width: min(64rem, calc(100vw - 32px)); margin-left: calc(50% - min(32rem, 50vw - 16px)); height: clamp(320px, calc(100vh - 360px), 480px); border: 1px solid var(--rule); background: var(--map-bg); z-index: 1; }
+/* Map, its hint, the two panels and the site table share one width (up to 64rem), centred on the
+   narrow text column; prose stays in the column. */
+#map, .map-hint, .map-panels, #list .table-scroll { width: min(64rem, calc(100vw - 32px)); margin-left: calc(50% - min(32rem, 50vw - 16px)); }
+#map { height: clamp(320px, calc(100vh - 360px), 480px); border: 1px solid var(--rule); background: var(--map-bg); z-index: 1; }
 /* Greyscale base map on every map; site pins, circles, outlines and the fade keep their colour. */
 .leaflet-tile-pane { filter: grayscale(1); }
 .mini-map { height: 240px; border: 1px solid var(--rule); background: var(--map-bg); margin-bottom: .5rem; }
@@ -115,9 +116,14 @@ input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); ba
 .shape-community_group { background: var(--tier-group); border-radius: 0; transform: rotate(45deg) scale(.85); }
 
 /* Map legend: open on wide screens, collapsed on phones (home.js) */
-.map-hint { margin: .35rem 0 .2rem; }
-.legend { margin: .2rem 0 .3rem; font-size: .875rem; }
-.legend summary { cursor: pointer; font-weight: 600; }
+.map-hint { margin-top: .35rem; margin-bottom: .5rem; }
+
+/* Two independent collapsible panels under the map. align-items: start keeps an open panel
+   from stretching its neighbour. Both summaries share one style so they read as a pair. */
+.map-panels { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem 1.5rem; align-items: start; margin-bottom: .5rem; }
+.panel { border-top: 1px solid var(--rule); min-width: 0; }
+.panel > summary { cursor: pointer; font-weight: 600; font-size: .9375rem; padding: .45rem 0; }
+.legend { font-size: .875rem; }
 .legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .25rem 1.5rem; margin-top: .4rem; }
 .legend h3 { font-size: .875rem; margin: .5rem 0 .25rem; }
 .legend ul { list-style: none; padding: 0; margin: 0; }
@@ -151,8 +157,6 @@ table.facts th { width: 30%; font-weight: 600; }
 td[data-label="Map"] { min-width: 7.5rem; white-space: nowrap; }
 td[data-label="Status"] { white-space: nowrap; }
 td[data-label="Kind"] .tier, td[data-label="Constituency"] { white-space: nowrap; }
-/* The site table runs as wide as the map (up to 64rem) so rows stay short; prose stays in the narrow column. */
-#list .table-scroll { width: min(64rem, calc(100vw - 32px)); margin-left: calc(50% - min(32rem, 50vw - 16px)); }
 td .note { display: block; margin-top: .2rem; font-size: .875rem; color: var(--muted); }
 .src { font-size: .875rem; white-space: nowrap; }
 tr.active > * { background: var(--brand-tint); }
@@ -222,6 +226,7 @@ pre.out { border: 1px solid var(--rule); padding: .75rem; overflow: auto; max-he
 
 @media (max-width: 600px) {
   #map { height: 320px; }
+  .map-panels { grid-template-columns: 1fr; gap: 0; }
   /* Phones: keep the map near the top. Both fields and the count share one row. */
   .proto { font-size: .8125rem; }
   .site-header { padding: .6rem 0 .5rem; }

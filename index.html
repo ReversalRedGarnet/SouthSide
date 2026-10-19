@@ -30,7 +30,9 @@
 
   <div id="map" role="region" aria-label="Map of conservation sites. The site list below is an equivalent alternative."></div>
   <p class="small muted map-hint">Click the map once to enable scroll-zoom.</p>
-  <details class="legend" id="legend">
+  <!-- Two independent collapsible panels, side by side on wide screens, stacked on phones. -->
+  <div class="map-panels">
+  <details class="panel legend" id="legend">
     <summary>Map key and labels</summary>
     <div class="legend-grid">
       <div>
@@ -66,11 +68,11 @@
       </div>
     </div>
   </details>
-
-  <details class="coverage-details">
+  <details class="panel coverage-details">
     <summary>Coverage by constituency</summary>
     <ul id="coverage"></ul>
   </details>
+  </div>
 
   <h2 id="sites">Sites</h2>
   <div id="list"><p class="muted">Loading sites&hellip;</p></div>
