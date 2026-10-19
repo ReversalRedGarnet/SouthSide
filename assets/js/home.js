@@ -1,13 +1,11 @@
 /* Home page: map, filters, site list. */
 (function () {
   var A = window.Atlas;
-  var state = { constituency: '', tier: '', realm: '', q: '' };
+  var state = { constituency: '', q: '' };
   var data, map, markers = {};
 
   function matches(s) {
     if (state.constituency && s.constituency !== state.constituency) return false;
-    if (state.tier && s.tier !== state.tier) return false;
-    if (state.realm && s.realm !== state.realm) return false;
     if (state.q) {
       var hay = (s.name + ' ' + (s.alt_names || []).join(' ') + ' ' + s.place_text).toLowerCase();
       if (hay.indexOf(state.q.toLowerCase()) === -1) return false;
@@ -26,7 +24,7 @@
       '<th scope="row"><a href="' + profileUrl(s) + '">' + A.esc(s.name) + '</a></th>' +
       '<td data-label="Constituency">' + A.esc(s.constituency) + '</td>' +
       '<td data-label="Kind">' + A.esc(A.LABELS.tier[s.tier]) + '</td>' +
-      '<td data-label="Status">' + A.statusText(s.verification_status) + '</td>' +
+      '<td data-label="Status">' + A.esc(A.statusWord(s.verification_status)) + '</td>' +
       '<td data-label="Map">' + where + '</td></tr>';
   }
 
@@ -56,7 +54,13 @@
     if (!list.length) {
       html = '<p>No profiles match these filters. If you chose West Are\'are or Small Malaita, that is expected: nothing has been recorded there yet.</p>';
     } else {
-      html = '<div class="table-scroll"><table class="stack" aria-labelledby="sites"><thead><tr>' +
+      // The Status column shows one word, so say here what it means. Worded from the data,
+      // so the line stays true once a profile has been reviewed.
+      var unreviewed = function (s) { return s.verification_status === 'draft' || s.verification_status === 'desk_sourced'; };
+      html = '<p>' + (list.every(unreviewed)
+        ? 'None of these profiles have been reviewed by custodians.'
+        : 'Profiles marked Draft or Desk-sourced have not been reviewed by custodians.') + '</p>' +
+        '<div class="table-scroll"><table class="stack" aria-labelledby="sites"><thead><tr>' +
         '<th scope="col">Site</th><th scope="col">Constituency</th><th scope="col">Kind</th><th scope="col">Status</th><th scope="col">Map</th>' +
         '</tr></thead><tbody>' + list.map(row).join('') + '</tbody></table></div>';
       if (list.some(function (s) { return !isMapped(s); })) {
@@ -108,17 +112,13 @@
   function wireControls() {
     var fc = document.getElementById('f-constituency');
     A.CONSTITUENCIES.forEach(function (c) { fc.insertAdjacentHTML('beforeend', '<option>' + A.esc(c) + '</option>'); });
-    var ft = document.getElementById('f-tier');
-    Object.keys(A.LABELS.tier).forEach(function (k) { ft.insertAdjacentHTML('beforeend', '<option value="' + k + '">' + A.esc(A.LABELS.tier[k]) + '</option>'); });
-    var fr = document.getElementById('f-realm');
-    Object.keys(A.LABELS.realm).forEach(function (k) { fr.insertAdjacentHTML('beforeend', '<option value="' + k + '">' + A.esc(A.LABELS.realm[k]) + '</option>'); });
 
     function update() {
-      state.constituency = fc.value; state.tier = ft.value; state.realm = fr.value;
+      state.constituency = fc.value;
       state.q = document.getElementById('f-q').value.trim();
       renderList();
     }
-    [fc, ft, fr].forEach(function (el) { el.addEventListener('change', update); });
+    fc.addEventListener('change', update);
     document.getElementById('f-q').addEventListener('input', update);
     document.getElementById('list').addEventListener('click', function (e) {
       var b = e.target.closest('[data-show]');

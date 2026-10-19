@@ -27,13 +27,17 @@
   <form class="controls" onsubmit="return false" aria-label="Filters">
     <label>Search by name<input id="f-q" type="search" placeholder="e.g. Kira"></label>
     <label>Constituency<select id="f-constituency"><option value="">All three</option></select></label>
-    <label>Kind of site<select id="f-tier"><option value="">All kinds</option></select></label>
-    <label>Land or sea<select id="f-realm"><option value="">Both</option></select></label>
     <span class="count" id="count" aria-live="polite"></span>
   </form>
 
   <div id="map" role="region" aria-label="Map of conservation sites. The site list below is an equivalent alternative."></div>
-  <p class="map-note"><span class="key pin-key" aria-hidden="true"></span>Site location (every site uses the same pin). <span class="key zone-key" aria-hidden="true"></span>Dashed circle: the location is only known to bay or village level. Pins are never site boundaries. Thin green lines are the East Are'are, West Are'are and Small Malaita constituency boundaries (2009 census; inland lines are approximate, see <a href="about.html#boundaries">About</a>), and the pale area is outside them. Click the map once to enable scroll-zoom. Base map &copy; OpenStreetMap contributors. If the tiles do not load, the list still works.</p>
+  <ul class="map-key" aria-label="Map key">
+    <li><span class="key pin-key" aria-hidden="true"></span>Site (a location, not its boundary)</li>
+    <li><span class="key zone-key" aria-hidden="true"></span>Location only known to bay or village level</li>
+    <li><span class="key line-key" aria-hidden="true"></span>Constituency boundary (<a href="about.html#boundaries">how accurate</a>)</li>
+    <li><span class="key fade-key" aria-hidden="true"></span>Outside the three constituencies</li>
+  </ul>
+  <p class="small muted map-hint">Click the map once to enable scroll-zoom.</p>
 
   <h2 id="sites">Sites</h2>
   <div id="list"><p class="muted">Loading sites&hellip;</p></div>

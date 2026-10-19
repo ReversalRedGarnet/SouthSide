@@ -15,7 +15,6 @@
       community_area: 'Community-managed area',
       community_group: 'Community conservation group'
     },
-    realm: { land: 'Land / forest', coast_sea: 'Coast and sea' },
     verification: {},
     confidence: {
       reported: 'Reported',
@@ -53,6 +52,9 @@
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
+
+  // Just the status word ("Desk-sourced", "Draft"), for compact lists that explain the words nearby.
+  function statusWord(code) { return STATUS[code] ? STATUS[code][0] : code; }
 
   function statusText(code) {
     var s = STATUS[code];
@@ -157,7 +159,7 @@
 
   window.Atlas = {
     LABELS: LABELS, CONSTITUENCIES: CONSTITUENCIES, esc: esc, loadAll: loadAll, loadJSON: loadJSON,
-    showLoadError: showLoadError, srcLinks: srcLinks, statusText: statusText, fmtDate: fmtDate,
+    showLoadError: showLoadError, srcLinks: srcLinks, statusWord: statusWord, statusText: statusText, fmtDate: fmtDate,
     baseMap: baseMap, addStudyArea: addStudyArea, pinIcon: pinIcon, zoneCircle: zoneCircle
   };
 })();

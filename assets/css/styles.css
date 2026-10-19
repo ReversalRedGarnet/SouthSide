@@ -45,19 +45,26 @@ code { font-size: .9em; }
 footer { border-top: 1px solid var(--rule); margin-top: 3rem; padding: 1rem 0 2rem; color: var(--muted); font-size: .875rem; }
 
 /* Filters */
-.controls { display: flex; flex-wrap: wrap; gap: .75rem 1rem; align-items: end; margin: 1.5rem 0 1rem; }
-.controls label { display: flex; flex-direction: column; gap: .2rem; font-size: .875rem; font-weight: 600; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: flex-end; margin: 1.5rem 0 1rem; }
+.controls label { display: flex; flex-direction: column; gap: .2rem; flex: 1 1 9rem; max-width: 16rem; font-size: .875rem; font-weight: 600; }
 input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); background: var(--bg); border: 1px solid var(--field); border-radius: 0; padding: .35rem .5rem; }
-.controls .count { font-size: .875rem; color: var(--muted); }
+.controls input, .controls select { width: 100%; height: 2.4rem; }
+.controls .count { font-size: .875rem; color: var(--muted); line-height: 2.4rem; }
 
 /* Maps */
-#map { height: 420px; border: 1px solid var(--rule); background: #eef0ee; z-index: 1; }
+/* The main map runs wider than the text column (up to 64rem), centred on it. */
+#map { width: min(64rem, calc(100vw - 32px)); margin-left: calc(50% - min(32rem, 50vw - 16px)); height: 480px; border: 1px solid var(--rule); background: #eef0ee; z-index: 1; }
+/* Greyscale base map on every map; site pins, circles, outlines and the fade keep their colour. */
+.leaflet-tile-pane { filter: grayscale(1); }
 .mini-map { height: 240px; border: 1px solid var(--rule); background: #eef0ee; margin-bottom: .5rem; }
-.map-note { font-size: .875rem; color: var(--muted); margin: .5rem 0 0; }
+.map-key { list-style: none; padding: 0; margin: .5rem 0 .4rem; display: flex; flex-wrap: wrap; gap: .2rem 1.5rem; font-size: .875rem; }
+.map-key li { margin: 0; }
 .pin { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--ink); }
-.key { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; margin-right: .25rem; }
+.key { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; margin-right: .4rem; }
 .key.pin-key { background: var(--accent); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--ink); }
 .key.zone-key { border: 2px dashed var(--accent); }
+.key.line-key { width: 16px; border-radius: 0; border: 1.5px solid var(--accent); }
+.key.fade-key { width: 16px; border-radius: 0; background: #ececec; border: 1px solid #b5b5b5; }
 .leaflet-container { font-family: var(--sans); }
 .leaflet-popup-content { margin: 10px 12px; }
 .leaflet-popup-content p { margin: 0 0 .4rem; }
@@ -70,6 +77,7 @@ tbody tr:last-child > * { border-bottom: 1px solid var(--rule); }
 tbody th { font-weight: 400; }
 table.facts th { width: 30%; font-weight: 600; }
 td[data-label="Map"] { min-width: 7.5rem; }
+td[data-label="Status"] { white-space: nowrap; }
 td .note { display: block; margin-top: .2rem; font-size: .875rem; color: var(--muted); }
 .src { font-size: .875rem; white-space: nowrap; }
 tr.active > * { background: #eef3f0; }
@@ -100,7 +108,6 @@ pre.out { border: 1px solid var(--rule); padding: .75rem; overflow: auto; max-he
 @media (max-width: 600px) {
   h1 { font-size: 1.5rem; }
   #map { height: 320px; }
-  .controls label { flex: 1 1 100%; }
   .row2 { grid-template-columns: 1fr; }
   /* Stacked tables: each row becomes a short block, labelled from data-label */
   table.stack thead { display: none; }
@@ -113,4 +120,4 @@ pre.out { border: 1px solid var(--rule); padding: .75rem; overflow: auto; max-he
   table.facts td { border-top: 0; padding-top: .15rem; }
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
-@media print { .site-header nav, .controls, #map, .mini-map, .map-note, .btn, .linkbtn { display: none; } }
+@media print { .site-header nav, .controls, #map, .mini-map, .map-key, .map-hint, .btn, .linkbtn { display: none; } }
