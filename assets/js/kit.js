@@ -92,11 +92,11 @@
     if (pin) { map.removeLayer(pin); pin = null; }
     if (r.point) {
       pin = L.layerGroup([
-        L.marker(r.point, { icon: A.pinIcon(r.tier), alt: 'Draft public point' }),
+        L.marker(r.point, { icon: A.pinIcon(r.tier), alt: A.pinLabel('Draft public point', r.tier) }),
         r.radius ? A.zoneCircle(r.point, r.radius, r.tier) : null
       ].filter(Boolean)).addTo(map);
       map.setView(r.point, 11);
-      note.textContent = 'The pin shows the point the public would see (' + r.point.join(', ') + ').' + (r.radius ? ' The dashed circle shows it is generalised.' : '');
+      note.textContent = 'The marker shows the point the public would see (' + r.point.join(', ') + ').' + (r.radius ? ' The dashed circle around it shows the point is generalised.' : '');
     } else {
       note.textContent = 'No public point. That is the right choice for sensitive places.';
     }

@@ -74,6 +74,7 @@
       '<ul>' + s.open_questions.map(function (q) { return '<li>' + A.esc(q) + '</li>'; }).join('') + '</ul>' +
 
       (window.Library ? '<h2 id="research">Research</h2><div id="site-research"><p class="muted">Loading research&hellip;</p></div>' : '') +
+      (window.Media ? '<h2 id="media">Media</h2><div id="site-media"><p class="muted">Loading media&hellip;</p></div>' : '') +
 
       '<h2>Sources</h2><ol class="sources">' +
       usedIds.map(function (id) {
@@ -87,6 +88,7 @@
 
     if (window.Updates) window.Updates.renderSite(document.getElementById('site-updates'), s.id);
     if (window.Library) window.Library.renderSite(document.getElementById('site-research'), s.id);
+    if (window.Media) window.Media.renderSite(document.getElementById('site-media'), s.id);
 
     // The profile text is already on the page; a map problem must not replace it with an error.
     if (mapped) {
@@ -95,7 +97,7 @@
         var m = A.baseMap('mini', { center: ll, zoom: 10, limit: true });
         A.addStudyArea(m);
         if (s.location.radius_m) A.zoneCircle(ll, s.location.radius_m, s.tier).addTo(m);
-        L.marker(ll, { icon: A.pinIcon(s.tier), alt: s.name }).addTo(m);
+        L.marker(ll, { icon: A.pinIcon(s.tier), title: A.pinLabel(s.name, s.tier), alt: A.pinLabel(s.name, s.tier) }).addTo(m);
       } catch (e) { if (window.console) console.warn('Map not shown:', e.message); }
     }
   }

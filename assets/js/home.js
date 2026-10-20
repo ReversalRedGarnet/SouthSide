@@ -95,9 +95,10 @@
     data.sites.filter(isMapped).forEach(function (s) {
       var ll = [s.location.lat, s.location.lng];
       var zone = s.location.radius_m ? A.zoneCircle(ll, s.location.radius_m, s.tier).addTo(map) : null;
-      var pin = L.marker(ll, { icon: A.pinIcon(s.tier), title: s.name, alt: s.name, keyboard: true }).addTo(map);
+      var pin = L.marker(ll, { icon: A.pinIcon(s.tier), title: A.pinLabel(s.name, s.tier), alt: A.pinLabel(s.name, s.tier), keyboard: true }).addTo(map);
       pin.bindPopup('<p><strong>' + A.esc(s.name) + '</strong></p>' +
         '<p class="small">' + A.esc(s.constituency) + ' &middot; ' + A.tierTag(s.tier) + '</p>' +
+        '<p class="small">Location: ' + A.esc(A.LABELS.precision[s.location.precision] || s.location.precision) + (zone ? ' (dashed circle)' : '') + '</p>' +
         '<p class="small">' + A.statusText(s.verification_status) + '</p>' +
         '<p class="small"><em>' + A.esc(s.location.note) + '</em></p>' +
         '<a href="' + profileUrl(s) + '">Open profile</a>');

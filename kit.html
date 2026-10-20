@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://tile.openstreetmap.org; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://www.facebook.com https://player.vimeo.com; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <meta name="description" content="SouthSide: conservation sites in Southern Malaita, Solomon Islands. Teaching prototype, not reviewed by custodians.">
@@ -43,11 +44,11 @@
     <li><a href="assets/templates/consent-record-template.csv" download>Consent record (CSV)</a></li>
     <li><a href="assets/templates/site-profile-template.json" download>Blank site profile (JSON)</a></li>
   </ul>
-  <p class="callout callout-caution"><strong>Keep it private.</strong> Keep consent records and raw field notes in a private, backed-up location, never in the public repository.</p>
+  <p class="callout callout-caution"><strong>Keep it private.</strong> Keep consent records, permission records, original photo and video files and raw field notes in a private, backed-up location, never in the public repository.</p>
 
   <h2>3. Draft a profile</h2>
   <p>Fill in what you have. The tool produces a profile in the atlas's data format and applies the location-privacy rules for you. It runs entirely in your browser.</p>
-  <form id="builder" class="form-grid" onsubmit="return false">
+  <form id="builder" class="form-grid" data-no-submit>
     <label>Site name<input name="name" required placeholder="As the custodians call it"></label>
     <div class="row2">
       <label>Constituency<select name="constituency"><option>East Are'are</option><option>West Are'are</option><option>Small Malaita</option></select></label>
@@ -161,7 +162,7 @@
   <h3>Checklist before listing</h3>
   <ul>
     <li><strong>Rights:</strong> the author agrees in writing to be listed. Keep that agreement private; only <code>"rights_confirmed": true</code> goes in the file. Without it the entry stays hidden.</li>
-    <li><strong>Link out:</strong> <code>url</code> points to the published page or DOI. No full texts and no PDFs are stored in this repository.</li>
+    <li><strong>Link out:</strong> <code>url</code> points to the published page or DOI. No full texts, PDFs, photographs or videos are stored in this repository.</li>
     <li><strong>Summary:</strong> in your own words, 80 words at most. Never copy an abstract. Leave it out if unsure; the entry then shows its citation and link only.</li>
     <li><strong>No locations:</strong> never copy coordinates or a site location from a paper. An entry whose title, summary or citation contains coordinates is hidden everywhere.</li>
     <li><strong>Scope:</strong> <code>region_tags</code> needs at least one site ID (for example <code>SM-001</code>) or one of the three constituency names.</li>
@@ -191,6 +192,79 @@
   "rights_confirmed": true
 }</pre>
   <p><button type="button" class="btn" id="copy-research">Copy template</button></p>
+
+  <h2 id="media-intake">8. Add a photo or video</h2>
+  <p>Students prepare an entry here; only Aziel adds entries to <code>data/media.json</code>. Pick each item by hand. The form never visits the address you type, and nothing leaves your browser.</p>
+  <p class="callout callout-danger"><strong>Before you start.</strong> Only material posted publicly by an organisation, or our own photos. Never a post from a person&rsquo;s own account. No identifiable children: if you are unsure of someone&rsquo;s age, leave the item out. Identifiable adults only with a consent record. Never record a location, and never take a place from a post&rsquo;s geotag.</p>
+  <ul>
+    <li><strong>Posts by organisations</strong> (government, intergovernmental bodies, NGOs, community organisations, news outlets, including posts by their staff or page admins on their behalf): record who posted it and the address. Do not download or copy them. Posts from a person&rsquo;s own account cannot be used.</li>
+    <li><strong>Your own photos, or ones given to us with permission:</strong> never from a social media account. Run the file through &ldquo;Prepare a photo&rdquo;, put only the cleaned copy in the team folder and paste its link. They are never embedded, and photos and videos are never stored in this repository.</li>
+    <li><strong>Video:</strong> never held. YouTube, Facebook and Vimeo videos posted by organisations can be loaded on click; others link out.</li>
+  </ul>
+  <form id="media-form" class="form-grid" data-no-submit>
+    <fieldset><legend>1. Who posted it?</legend>
+      <div class="row2">
+        <label>Posted by<select name="poster_type"><option value="">Choose&hellip;</option><option value="government">Government</option><option value="intergovernmental">Intergovernmental organisation</option><option value="ngo">NGO</option><option value="community_org">Community organisation</option><option value="news_outlet">News outlet</option><option value="individual">A person&rsquo;s own account</option><option value="team">Nobody: our own photo, or one given to us with permission</option></select></label>
+        <label data-when="poster" hidden>Name of the organisation<input name="poster_name" placeholder="As named on its page or website"></label>
+      </div>
+      <label data-when="poster" hidden>Is this an organisation re-posting a photo taken by a private person?<select name="reposts_private_photo"><option value="">Choose&hellip;</option><option value="no">No</option><option value="yes">Yes</option><option value="unknown">Not sure</option></select></label>
+      <div class="row2" data-when="repost_ids" hidden>
+        <label>That person&rsquo;s consent record ID<input name="repost_consent_id" placeholder="e.g. C01"></label>
+        <label>or permission record ID<input name="repost_rights_id" placeholder="e.g. P01"></label>
+      </div>
+    </fieldset>
+    <fieldset><legend>2. The item</legend>
+      <div class="row2">
+        <label>Photo or video<select name="kind"><option value="">Choose&hellip;</option><option value="image">Photo</option><option value="video">Video</option></select></label>
+        <label>Source ID in data/sources.json<input name="source_id" placeholder="e.g. S33"></label>
+      </div>
+      <label>Address of the post or page (never embed code)<input name="source_url" type="url" placeholder="https://"></label>
+      <p class="small" id="media-embed-status" aria-live="polite"></p>
+      <div class="row2">
+        <label>Credit, as the original gives it<input name="creator" placeholder="e.g. Photo: J. Sample / Sample News"></label>
+        <label>Where it was posted, or who holds it<input name="publisher" placeholder="e.g. Facebook, or the organisation&rsquo;s website"></label>
+      </div>
+      <div class="row2">
+        <label>Date published<input name="date_published" placeholder="YYYY-MM-DD"></label>
+        <label>Date taken (leave empty if unknown)<input name="date_captured" placeholder="YYYY-MM-DD"></label>
+      </div>
+      <label>Caption in your own words (50 words at most)<textarea name="caption"></textarea></label>
+      <label>Alt text: what it shows, for someone who cannot see it<textarea name="alt" placeholder="e.g. Two adults kneeling in mud, planting mangrove seedlings"></textarea></label>
+      <fieldset><legend>Sites</legend><div id="media-sites"></div></fieldset>
+      <div class="row2" data-when="video" hidden>
+        <label>Length<input name="duration" placeholder="e.g. 2:40"></label>
+        <label>Captions available<select name="captions_available"><option value="unknown">Unknown</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+      </div>
+    </fieldset>
+    <fieldset><legend>3. Rights and people</legend>
+      <div class="row2">
+        <label>Rights status<select name="rights_status"><option value="">Choose&hellip;</option><option value="org_published_test_use">Published by an organisation; agreed with officials for test use only</option><option value="not_cleared">Not cleared</option><option value="open_licence">Open licence</option><option value="own_work">Own work</option><option value="permission_given">Permission given by the creator</option></select></label>
+        <label data-when="approval" hidden>Officials&rsquo; agreement record ID (kept private)<input name="approval_note_id" placeholder="e.g. A01"></label>
+        <label data-when="licence" hidden>Licence<input name="licence" placeholder="e.g. CC BY 4.0"></label>
+        <label data-when="rights_note" hidden>Permission record ID (kept private)<input name="rights_note_id" placeholder="e.g. P01"></label>
+      </div>
+      <div class="row2">
+        <label>Who is shown<select name="people_shown"><option value="">Choose&hellip;</option><option value="none">No people</option><option value="not_identifiable">People, not identifiable</option><option value="identifiable_adults">Identifiable adults</option><option value="identifiable_children">Identifiable children, or age uncertain</option></select></label>
+        <label data-when="consent" hidden>Consent record ID<input name="consent_note_id" placeholder="e.g. C01"></label>
+      </div>
+      <label>Location sensitivity<select name="location_sensitivity"><option value="">Choose&hellip;</option><option value="none">None</option><option value="generalise">Generalise</option><option value="withhold">Withhold</option></select></label>
+    </fieldset>
+    <fieldset data-when="held" hidden><legend>4. Team folder (own work or permission only)</legend>
+      <label>Prepare a photo: removes all metadata, including GPS, and shrinks it to 1600 px and 400 KB<input id="media-file" type="file" accept="image/jpeg,image/png,image/webp"></label>
+      <p class="small" id="media-file-note" aria-live="polite">The file stays in your browser.</p>
+      <div id="media-preview" class="media-preview"></div>
+      <p><a id="media-save" class="small" hidden>Save the cleaned copy</a></p>
+      <label>Address of the cleaned copy in the team folder<input name="folder_url" type="url" placeholder="https://"></label>
+    </fieldset>
+  </form>
+  <h3>Check</h3>
+  <ul id="media-need" aria-live="polite"></ul>
+  <h3>Entry for data/media.json</h3>
+  <pre id="media-out" class="out" tabindex="0"></pre>
+  <p>
+    <button type="button" class="btn" id="media-copy" disabled>Copy entry</button>
+    <button type="button" class="btn" id="media-dl" disabled>Download entry</button>
+  </p>
 </main>
 
 <footer><div class="wrap"><p>Prototype v0.2 &middot; Templates are starting points. Adapt them with your supervisor and the custodians.</p></div></footer>
@@ -199,6 +273,7 @@
 <script src="assets/js/common.js"></script>
 <script src="assets/js/updates.js"></script>
 <script src="assets/js/library.js"></script>
+<script src="assets/js/media.js"></script>
 <script src="assets/js/kit.js"></script>
 </body>
 </html>

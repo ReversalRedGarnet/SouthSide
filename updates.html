@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://tile.openstreetmap.org; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://www.facebook.com https://player.vimeo.com; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <meta name="description" content="SouthSide: dated updates about conservation sites in Southern Malaita, Solomon Islands. Teaching prototype, not reviewed by custodians.">
@@ -28,7 +29,7 @@
   </ul>
   <p>Dates are &ldquo;as of&rdquo; the day each note was written. Nothing on this page changes by itself.<span data-update-ask hidden> To ask for an update: <span data-update-contact></span>.</span></p>
 
-  <form class="controls" onsubmit="return false" aria-label="Filters">
+  <form class="controls" data-no-submit aria-label="Filters">
     <label>Kind<select id="u-tier"><option value="">All updates</option><option value="primary">Primary updates</option><option value="secondary">Community notes</option></select></label>
     <label>Site<select id="u-site"><option value="">All sites</option></select></label>
     <span class="count" id="u-count" aria-live="polite"></span>

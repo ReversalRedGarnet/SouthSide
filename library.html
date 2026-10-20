@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://tile.openstreetmap.org; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://www.facebook.com https://player.vimeo.com; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <meta name="description" content="SouthSide: research library for conservation sites in Southern Malaita, Solomon Islands. Teaching prototype, not reviewed by custodians.">
@@ -28,7 +29,7 @@
   </ul>
   <p>Each entry also states its kind of evidence in words. A listing is not an endorsement: the atlas has not checked any work&rsquo;s findings.<span data-update-ask hidden> To submit research: <span data-update-contact></span>.</span> See the <a href="kit.html#research">Field Kit</a> for how entries are added.</p>
 
-  <form class="filters" onsubmit="return false" aria-label="Filters">
+  <form class="filters" data-no-submit aria-label="Filters">
     <label>Search<input id="l-q" type="search" placeholder="Title, publisher, topic"></label>
     <label>Site<select id="l-site"><option value="">All sites</option></select></label>
     <label>Constituency<select id="l-constituency"><option value="">All three</option></select></label>

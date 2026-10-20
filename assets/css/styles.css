@@ -35,10 +35,10 @@
   --logo-ink-on-dark: #cfe08a;     /* reserved: logo ink on dark if the mark is ever inlined. The header <img> draws in green 4. */
   --focus-ring: var(--green-1);    /* dark ring, with a --glow halo outside it */
 
-  /* Kind of site: three hues, each paired with a shape */
-  --tier-legal: #1d4f91;     /* square */
-  --tier-area: #0b7076;      /* circle */
-  --tier-group: #a8660a;     /* diamond */
+  /* Kind of site: three hues, each paired with a fill pattern inside a circle */
+  --tier-legal: #1d4f91;     /* solid circle */
+  --tier-area: #0b7076;      /* ring */
+  --tier-group: #a8660a;     /* ring with a centre dot */
 
   /* Verification trust ramp: one slate-blue family, darker = more checked */
   --ver-draft-bg: #f4f6f9;     --ver-draft-border: #6b7d93;    --ver-draft-ink: #1e2b3a;
@@ -125,13 +125,17 @@ input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); ba
 .leaflet-tile-pane { filter: grayscale(1); }
 .mini-map { height: 240px; border: 1px solid var(--rule); background: var(--map-bg); margin-bottom: .5rem; }
 
-/* Kind of site: colour + shape. .mark is the small inline version, .pin the map marker. */
-.mark, .pin { display: inline-block; flex: none; }
-.mark { width: 11px; height: 11px; margin-right: .4rem; vertical-align: -1px; }
-.pin { width: 16px; height: 16px; border: 2px solid var(--bg); box-shadow: 0 0 0 1px var(--ink); }
-.shape-legal_pa { background: var(--tier-legal); border-radius: 0; }
-.shape-community_area { background: var(--tier-area); border-radius: 50%; }
-.shape-community_group { background: var(--tier-group); border-radius: 0; transform: rotate(45deg) scale(.85); }
+/* Kind of site: every kind is a circle; colour + fill pattern tell them apart (solid, ring, ring with a centre dot).
+   .mark is the small inline version, .pin the map marker (white halo and dark outer ring so it shows on any tile).
+   Ring and ring-with-dot share the same outer band, so the centre dot is the only difference between them. */
+.mark, .pin { display: inline-block; flex: none; border-radius: 50%; }
+.mark { width: 14px; height: 14px; margin-right: .4rem; vertical-align: -2px; }
+.pin { width: 20px; height: 20px; border: 2px solid var(--bg); box-shadow: 0 0 0 1px var(--ink); }
+.shape-legal_pa { background: var(--tier-legal); }
+.shape-community_area { background: radial-gradient(circle closest-side, var(--bg) 0 59%, var(--tier-area) 62%); }
+.shape-community_group { background: radial-gradient(circle closest-side, var(--tier-group) 0 34%, var(--bg) 37% 59%, var(--tier-group) 62%); }
+/* Windows high-contrast mode would otherwise drop the fills and patterns. */
+@media (forced-colors: active) { .mark, .pin { forced-color-adjust: none; } }
 
 /* Map legend: open on wide screens, collapsed on phones (home.js) */
 .map-hint { margin-top: .35rem; margin-bottom: .5rem; }
@@ -233,6 +237,26 @@ ul.callout li { margin-bottom: .2rem; }
 .filters { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: .5rem 1rem; margin: 0 0 .25rem; }
 .filters label { display: flex; flex-direction: column; gap: .15rem; font-size: .875rem; font-weight: 600; min-width: 0; }
 .filters input, .filters select { width: 100%; min-width: 0; height: 2.2rem; }
+/* Media: credited link-out cards. No image or video is loaded; the kind is a word, the test label a chip with an icon. */
+.media-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1rem 1.25rem; margin: .5rem 0 1rem; }
+.media-item { border-left: 4px solid var(--neutral-border); padding: .05rem 0 .05rem .85rem; min-width: 0; overflow-wrap: anywhere; }
+.media-item > p { margin: 0 0 .35rem; }
+.media-item > :last-child { margin-bottom: 0; }
+.media-kind { display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .5rem; font-size: .875rem; }
+.media-credit { font-size: .875rem; color: var(--muted); }
+/* Embeds are created only after a click on Load. Sizes come from classes (the CSP blocks inline style attributes). */
+.media-embed:empty { display: none; }
+.media-embed { margin: 0 0 .35rem; }
+.media-frame { display: block; width: 100%; border: 1px solid var(--rule); }
+.media-frame-video { aspect-ratio: 16 / 9; height: auto; }
+.media-frame-post { height: 36rem; }
+.media-preview canvas { display: block; max-width: 100%; height: auto; border: 1px solid var(--rule); margin: .25rem 0; }
+.form-grid label.check { flex-direction: row; align-items: flex-start; gap: .4rem; font-weight: 400; }
+.form-grid label.check input { margin-top: .35rem; flex: none; }
+.form-grid fieldset { border: 1px solid var(--rule); padding: .5rem .75rem .75rem; margin: 0; min-width: 0; }
+.form-grid legend { font-size: .9375rem; font-weight: 600; padding: 0 .25rem; }
+.form-grid [hidden] { display: none; }   /* fields that only apply to some answers; beats the grid and flex rules above */
+.btn:disabled { cursor: not-allowed; border-style: dashed; color: var(--muted); background: var(--bg); }
 pre.template { border: 1px solid var(--rule); padding: .75rem; overflow: auto; font-size: .8125rem; line-height: 1.45; margin: 0 0 .6rem; }
 
 /* Fact confidence: the word plus a mark with a different shape for each level */

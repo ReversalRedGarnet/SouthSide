@@ -1,7 +1,7 @@
 # SouthSide (prototype v0.2)
 
 Conservation sites in Southern Malaita (East Are'are, West Are'are and Small Malaita), Malaita Province, Solomon Islands.
-A teaching prototype for tourism students: https://reversalredgarnet.github.io/SouthSide/
+A teaching prototype for tourism students. The test link is shared privately with the test group; do not add it to any file in this repository.
 
 Static site. No build step. Upload the contents of this folder to a GitHub repo and enable Pages
 (Settings > Pages > deploy from branch, root). All paths are relative, and Leaflet is bundled, so it works under
@@ -44,12 +44,38 @@ Open through a web server, not by double-clicking: `python -m http.server`, then
 - Scope is southern Malaita only: each entry needs a site ID or one of the three constituencies. Entries out of scope,
   without `rights_confirmed: true` (researcher submissions), without a web `url`, or with coordinates in the title,
   summary or citation are hidden and listed in `updates-check.html`.
-- No full texts or PDFs in the repo: entries link out. Traditional knowledge, oral histories and custodian material
-  never go in the library; they go through consent and primary updates.
+- No full texts, PDFs, photographs or videos in the repo: entries link out. Traditional knowledge, oral histories and
+  custodian material never go in the library; they go through consent and primary updates.
+
+## Media (photos and videos)
+- `data/media.json` is a list of credited records. No photo or video file is ever stored in this repository. Items
+  posted publicly by an organisation (government, intergovernmental, NGO, community organisation, news outlet) may
+  be embedded on the test site, click-to-load only, from the platforms in `EMBED_PROVIDERS` (YouTube no-cookie,
+  Facebook posts and videos, Vimeo); everything else links out. Posts from an individual's own account are never
+  used. Images on organisations' own websites link out only. Own work and items given with permission are shown only
+  as a link to a cleaned copy in the private team folder: never from a social account, never embedded, never video.
+  Students prepare entries with Field Kit section 8; only Aziel adds them.
+- Every item cites a source in `data/sources.json` and needs `poster_type`, `poster_name`, `reposts_private_photo`
+  (for organisation posts), creator, publisher, an `https` address (never embed code), alt text and a rights status.
+  `org_published_test_use` needs `approval_note_id`; a re-posted private photo needs a consent or permission record
+  ID. No identifiable children (when age is uncertain, leave the item out); identifiable adults only with a consent
+  record ID; no location in any field; nothing marked location-sensitive on a site with a map point.
+- Release switch: `MEDIA_MODE` at the top of `assets/js/media.js`. Only the exact value `'test'` shows test-use items
+  (`not_cleared`, `org_published_test_use`), labelled "Test use only". Any other value hides them. The release gate
+  at the top of `updates-check.html` shows the current mode and lists every item to review before a public release.
+- Withdrawing: `status` `withdrawn` with `withdrawn_reason` `consent`, `sensitivity`, `rights` or `other`. For the
+  first three, empty `caption`, `alt`, `creator`, `source_url` and `folder_url`, and delete any team-folder copy.
+- Samples: `data/media.sample.json` (invented records) loads only with `?sample=1`. Do not upload it.
 
 ## Rules
-- Prototype only: profiles are desk-sourced and NOT reviewed by custodians. Pages carry `noindex`.
-- Never commit true coordinates of sensitive places, private contacts, consent records or raw notes. Git history keeps them.
+- Prototype only: profiles are desk-sourced and NOT reviewed by custodians. Pages carry `noindex`. `noindex` is not
+  access control: anyone with the address can open every page and data file.
+- Never commit true coordinates of sensitive places, private contacts, consent records, permission records, raw notes,
+  or photo and video files. Git history keeps them.
 - Do not copy Protected Planet / WDPA boundaries into this repo (its terms bar redistribution).
 - Base map: OpenStreetMap standard tiles, light use only (https://operations.osmfoundation.org/policies/tiles/).
-- Content and code licences: not yet chosen. `data/constituencies.geojson` keeps its CC BY-IGO licence.
+- No external requests on page load except OpenStreetMap map tiles. Embeds request nothing until a viewer presses
+  Load, and pages may only frame the hosts in `EMBED_PROVIDERS`, enforced by the Content-Security-Policy meta tag on
+  every page (keep the two in step; `updates-check.html` compares them). No inline scripts, event handlers or styles.
+- Content and code licences: not yet chosen. `data/constituencies.geojson` keeps its CC BY-IGO licence. Media belongs
+  to its credited creators; see each item's rights status.

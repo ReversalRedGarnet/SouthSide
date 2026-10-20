@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://tile.openstreetmap.org; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://www.facebook.com https://player.vimeo.com; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Update checks - SouthSide (prototype)</title>
@@ -20,10 +21,15 @@
 
 <main id="main" class="wrap">
   <h1>Update checks</h1>
-  <p>Checks every entry in <code>data/updates.json</code>, the trust fields and the research library fields in <code>data/sources.json</code>. Run it after every edit and before uploading. Add <code>?sample=1</code> to the address to include the local sample file.</p>
+  <p>Checks every entry in <code>data/updates.json</code> and <code>data/media.json</code>, the trust fields and the research library fields in <code>data/sources.json</code>. Run it after every edit and before uploading. Add <code>?sample=1</code> to the address to include the local sample files.</p>
+  <h2>Release gate</h2>
+  <div id="release-gate"><p class="muted">Checking&hellip;</p></div>
+  <h2>Updates</h2>
   <div id="updates-check"><p class="muted">Checking&hellip;</p></div>
   <h2>Research library</h2>
   <div id="library-check"><p class="muted">Checking&hellip;</p></div>
+  <h2>Media</h2>
+  <div id="media-check"><p class="muted">Checking&hellip;</p></div>
 </main>
 
 <footer><div class="wrap"><p>Prototype v0.2 &middot; Maintainer page.</p></div></footer>
@@ -31,5 +37,6 @@
 <script src="assets/js/common.js"></script>
 <script src="assets/js/updates.js"></script>
 <script src="assets/js/library.js"></script>
+<script src="assets/js/media.js"></script>
 </body>
 </html>

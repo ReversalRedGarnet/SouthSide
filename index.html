@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://tile.openstreetmap.org; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://www.facebook.com https://player.vimeo.com; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>SouthSide: conservation sites in Southern Malaita (prototype)</title>
@@ -25,7 +26,7 @@
   <p class="intro">Conservation sites in East Are'are, West Are'are and Small Malaita. Every statement links to a source and every gap is labelled. The map is a starting point for research, not a record of what exists.</p>
   <p class="coverage-line"><strong>Coverage:</strong> <span id="coverage-total"></span></p>
 
-  <form class="controls" onsubmit="return false" aria-label="Filters">
+  <form class="controls" data-no-submit aria-label="Filters">
     <label>Search by name<input id="f-q" type="search" placeholder="e.g. Kira"></label>
     <label>Constituency<select id="f-constituency"><option value="">All three</option></select></label>
     <span class="count" id="count" aria-live="polite"></span>
@@ -41,16 +42,16 @@
       <div>
         <h3>Kind of site</h3>
         <ul>
-          <li><span class="mark shape-legal_pa" aria-hidden="true"></span>Square: legally declared protected area</li>
-          <li><span class="mark shape-community_area" aria-hidden="true"></span>Circle: community-managed area</li>
-          <li><span class="mark shape-community_group" aria-hidden="true"></span>Diamond: community conservation group</li>
+          <li><span class="mark shape-legal_pa" aria-hidden="true"></span>Solid circle: legally declared protected area</li>
+          <li><span class="mark shape-community_area" aria-hidden="true"></span>Ring: community-managed area</li>
+          <li><span class="mark shape-community_group" aria-hidden="true"></span>Ring with a centre dot: community conservation group</li>
         </ul>
         <p class="small muted">A pin is a location, not a boundary. Sites with no map point are still listed below, with the same mark.</p>
       </div>
       <div>
         <h3>Places</h3>
         <ul>
-          <li><span class="swatch swatch-zone" aria-hidden="true"></span>Location only known to bay or village level</li>
+          <li><span class="swatch swatch-zone" aria-hidden="true"></span>Dashed circle: location only known to bay or village level</li>
           <li><span class="swatch swatch-area const-east" aria-hidden="true"></span>East Are'are</li>
           <li><span class="swatch swatch-area const-west" aria-hidden="true"></span>West Are'are</li>
           <li><span class="swatch swatch-area const-small" aria-hidden="true"></span>Small Malaita</li>

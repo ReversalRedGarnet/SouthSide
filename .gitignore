@@ -2,3 +2,5 @@
 data/updates.sample.json
 # Design references, logo contact sheet and generator: working files, not part of the site.
 _reference/
+# Invented sample media records for local testing only; never upload.
+data/media.sample.json

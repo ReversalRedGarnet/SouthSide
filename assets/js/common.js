@@ -57,7 +57,6 @@
 
   // Colours live in CSS tokens (assets/css/styles.css). Map layers that need a colour value read the token.
   function token(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
-  var TIER_TOKEN = { legal_pa: '--tier-legal', community_area: '--tier-area', community_group: '--tier-group' };
   // Boundary file names (ADM2_NAME) -> display name, colour token and legend class.
   var CONSTITUENCY_STYLE = {
     'East AreAre': { name: "East Are'are", token: '--const-east', cls: 'const-east' },
@@ -146,6 +145,33 @@
 
   var TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   var TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+  // Leaflet 1.9 points cancelled and removed tiles at a data: image, which the page's Content-Security-Policy (img-src)
+  // blocks. These two overrides keep Leaflet's own logic but remove the tile's src instead, so no data: image is used
+  // and the policy stays strict. The vendored leaflet.js is left untouched.
+  if (window.L && L.TileLayer && L.GridLayer) {
+    L.TileLayer.prototype._removeTile = function (key) {
+      var t = this._tiles[key];
+      if (!t) return;
+      t.el.removeAttribute('src');
+      return L.GridLayer.prototype._removeTile.call(this, key);
+    };
+    L.TileLayer.prototype._abortLoading = function () {
+      for (var key in this._tiles) {
+        var t = this._tiles[key];
+        if (t.coords.z === this._tileZoom) continue;
+        var tile = t.el;
+        tile.onload = L.Util.falseFn;
+        tile.onerror = L.Util.falseFn;
+        if (!tile.complete) {
+          tile.removeAttribute('src');
+          L.DomUtil.remove(tile);
+          delete this._tiles[key];
+          this.fire('tileabort', { tile: tile, coords: t.coords });
+        }
+      }
+    };
+  }
 
   // Extent of East Are'are, West Are'are and Small Malaita (south-west, north-east corners).
   var STUDY_BOUNDS = [[-9.74, 160.94], [-8.98, 161.59]];
@@ -259,23 +285,33 @@
     }).catch(function () {});
   }
 
-  // Map marker for a site: the kind-of-site shape and colour (square, circle or diamond).
+  // Map marker for a site: a circle in the kind colour, solid, ring or ring with a centre dot.
   function pinIcon(tier) {
-    return L.divIcon({ className: '', html: '<div class="pin shape-' + esc(tier) + '"></div>', iconSize: [16, 16], iconAnchor: [8, 8], popupAnchor: [0, -10] });
+    return L.divIcon({ className: '', html: '<div class="pin shape-' + esc(tier) + '"></div>', iconSize: [20, 20], iconAnchor: [10, 10], popupAnchor: [0, -12] });
   }
 
-  // Dashed circle for a location known only roughly (bay, village or generalised area), in the site's kind colour.
-  function zoneCircle(latlng, radius, tier) {
-    var c = token(TIER_TOKEN[tier] || '--neutral-border');
-    return L.circle(latlng, { radius: radius, color: c, weight: 2, dashArray: '6 6', fillColor: c, fillOpacity: 0.06, interactive: false });
+  // Short accessible name for a marker: the site name and its kind in words.
+  function pinLabel(name, tier) { return name + ' (' + (LABELS.tier[tier] || tier) + ')'; }
+
+  // Dashed circle for a location known only roughly (bay, village or generalised area). Always neutral grey, so dashed
+  // means "approximate" and colour means "kind of site". Callers may still pass the kind; it is not used.
+  function zoneCircle(latlng, radius) {
+    var c = token('--neutral-ink');
+    return L.circle(latlng, { radius: radius, color: c, weight: 2, dashArray: '6 6', fillColor: c, fillOpacity: 0.05, interactive: false });
   }
 
   window.Atlas = {
     LABELS: LABELS, CONSTITUENCIES: CONSTITUENCIES, esc: esc, loadAll: loadAll, loadJSON: loadJSON,
     showLoadError: showLoadError, srcLinks: srcLinks, statusWord: statusWord, statusText: statusText, fmtDate: fmtDate,
     badge: badge, tierTag: tierTag, chip: chip, confMark: confMark, token: token,
-    baseMap: baseMap, addStudyArea: addStudyArea, pinIcon: pinIcon, zoneCircle: zoneCircle
+    baseMap: baseMap, addStudyArea: addStudyArea, pinIcon: pinIcon, pinLabel: pinLabel, zoneCircle: zoneCircle
   };
+
+  // Forms on this site never submit (they filter or build entries in the page). This replaces inline onsubmit handlers,
+  // which the Content-Security-Policy blocks.
+  document.querySelectorAll('form[data-no-submit]').forEach(function (f) {
+    f.addEventListener('submit', function (e) { e.preventDefault(); });
+  });
 
   document.querySelectorAll('[data-site-date]').forEach(function (el) { el.textContent = ' · prepared ' + fmtDate(SITE_PREPARED); });
 })();

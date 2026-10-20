@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://tile.openstreetmap.org; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://www.facebook.com https://player.vimeo.com; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <meta name="description" content="SouthSide: conservation sites in Southern Malaita, Solomon Islands. Teaching prototype, not reviewed by custodians.">
@@ -22,7 +23,7 @@
 <main id="main" class="wrap">
   <h1>About and method</h1>
 
-  <p class="callout callout-caution"><strong>Status.</strong> This is a teaching prototype. Every profile was compiled from public web sources only, most recently updated on 19 October 2026. No custodian, tribe, association or government office has reviewed any of them, and several rest on a single source. Do not cite them as official records. Please do not share this link widely until custodians have been asked.</p>
+  <p class="callout callout-caution"><strong>Status.</strong> This is a teaching prototype. Every profile was compiled from public web sources only, most recently updated on 19 October 2026. No custodian, tribe, association or government office has reviewed any of them, and several rest on a single source. Do not cite them as official records. This test version is shared with a small group only. Do not forward the link, or download, screenshot or repost any photograph or video from it.</p>
 
   <h2>What this atlas is for</h2>
   <p>It maps conservation sites in East Are'are, West Are'are and Small Malaita and shows, for each, what is known, how we know it, and what is still missing. It is built so that students and community members can add careful, sourced, permitted information over time.</p>
@@ -43,10 +44,11 @@
   <h2>What counts as a site</h2>
   <p>Conservation in Solomon Islands mostly happens on customary land, so a legal designation is only one kind of site. The atlas separates three kinds so that nobody mistakes a community commitment for a legal protection:</p>
   <ul>
-    <li><span class="mark shape-legal_pa" aria-hidden="true"></span><strong>Legally declared protected area</strong> (square on the map): registered under the Protected Areas Act 2010. Kira is the only one found so far in these three constituencies.</li>
-    <li><span class="mark shape-community_area" aria-hidden="true"></span><strong>Community-managed area</strong> (circle): a defined area with community rules, such as a taboo or no-take zone, without national registration.</li>
-    <li><span class="mark shape-community_group" aria-hidden="true"></span><strong>Community conservation group</strong> (diamond): an association or initiative that works on conservation, where the area it looks after is not yet defined in published sources.</li>
+    <li><span class="mark shape-legal_pa" aria-hidden="true"></span><strong>Legally declared protected area</strong> (solid circle on the map): registered under the Protected Areas Act 2010. Kira is the only one found so far in these three constituencies.</li>
+    <li><span class="mark shape-community_area" aria-hidden="true"></span><strong>Community-managed area</strong> (ring): a defined area with community rules, such as a taboo or no-take zone, without national registration.</li>
+    <li><span class="mark shape-community_group" aria-hidden="true"></span><strong>Community conservation group</strong> (ring with a centre dot): an association or initiative that works on conservation, where the area it looks after is not yet defined in published sources.</li>
   </ul>
+  <p>A dashed circle around a marker means the location is only known roughly; a marker on its own is an exact point.</p>
   <p>Key Biodiversity Areas are scientific designations, not community sites, and are noted only for context.</p>
 
   <h2>Considered but outside the area</h2>
@@ -86,17 +88,19 @@
   <ul>
     <li>Sacred, taboo or tribal-secret places, and locations of threatened species, are generalised or withheld. Where a source mentions taboo sites (as at Puriasi), this atlas does not expand on them.</li>
     <li>True coordinates of sensitive places must never be committed to the public repository, because version history keeps them forever. Keep them in a private register.</li>
-    <li>Named individuals in sources (officials, coordinators, project officers) are not republished unless they agree to be listed.</li>
-    <li>Raw interviews, genealogies and community-held documents stay out of the public repository.</li>
+    <li>Named individuals in sources (officials, coordinators, project officers) are not republished unless they agree to be listed. Photographs and videos are credited as the original credits them, including photographers named by a news outlet or organisation, because credit is required.</li>
+    <li>Raw interviews, genealogies and community-held documents stay out of the public repository, and so do photograph and video files.</li>
+    <li>Photographs: location data is removed; no identifiable children; identifiable adults only with recorded consent; no place shown for sensitive sites.</li>
     <li>"Visitor access" defaults to <em>Unknown - ask first</em>. Publishing a place can increase visitor pressure, so a pin is never an invitation.</li>
   </ul>
 
   <h2>Data and licences</h2>
   <ul>
     <li>Base map &copy; OpenStreetMap contributors, via the standard tile server, used lightly under its <a href="https://operations.osmfoundation.org/policies/tiles/" rel="noopener">tile usage policy</a>. Do not add bulk or offline tile downloads on that server.</li>
+    <li>Embedded posts load from YouTube, Facebook or Vimeo only when you press Load; those services may then set cookies or record your visit. Until then the page requests nothing from them.</li>
     <li>Map library: Leaflet (BSD-2-Clause), included in <code>assets/vendor/leaflet</code>.</li>
     <li>Constituency boundaries: Solomon Islands National Statistics Office (SINSO), 2009 Census of Population and Housing, published by OCHA as <a href="https://data.humdata.org/dataset/cod-ab-slb" rel="noopener">Solomon Islands - Subnational Administrative Boundaries</a> on the Humanitarian Data Exchange, under <a href="https://creativecommons.org/licenses/by/3.0/igo/" rel="noopener">CC BY-IGO 3.0</a>. Stored in <code>data/constituencies.geojson</code>, which keeps that licence. See <a href="#boundaries">About the boundaries</a> for what was changed.</li>
-    <li>Content and code licences are still to be chosen with the custodians. Until then, treat all other content as <em>all rights reserved</em> and cite sources, not this prototype.</li>
+    <li>Content and code licences are still to be chosen with the custodians. Until then, treat the atlas&rsquo;s own text as <em>all rights reserved</em> and cite sources, not this prototype. Photographs and videos belong to their credited creators; each item states its rights status.</li>
   </ul>
 
   <h3 id="boundaries">About the boundaries</h3>
@@ -114,7 +118,7 @@
   <ul>
     <li>Only one site has a map point, and it is a bay-level point rather than a boundary.</li>
     <li>Constituency boundaries date from the 2009 census, and their inland lines are approximate. See <a href="#boundaries">About the boundaries</a>.</li>
-    <li>No photographs, because no permissions exist yet.</li>
+    <li>Photographs and videos are in private testing. Only material posted publicly by organisations is used, never an individual&rsquo;s own account. Each item is credited, links to its original, and some can be loaded in the page with a click. All are labelled &ldquo;Test use only&rdquo; and will not appear in a public release without review.</li>
     <li>No Solomon Pijin or Are'are-language summaries. These should be written by local reviewers.</li>
     <li>Most sources are news articles, NGO or funder pages and grant reports in which organisations describe their own work, and some are several years old.</li>
   </ul>
