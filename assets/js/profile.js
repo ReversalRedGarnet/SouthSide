@@ -34,8 +34,16 @@
     var custodianSupplied = usedIds.some(function (id) { return d.sources[id] && d.sources[id].authority_type === 'custodian'; });
 
     var mapped = s.location && s.location.lat != null && s.location.lng != null;
+    // Published sources and custodian-supplied ones are cited apart, by authority_type, so the citation never calls
+    // custodian material published.
+    var isCustodian = function (id) { return d.sources[id] && d.sources[id].authority_type === 'custodian'; };
+    var pubIds = usedIds.filter(function (id) { return !isCustodian(id); }), custIds = usedIds.filter(isCustodian);
     var cite = 'SouthSide (prototype). “' + s.name + '.” ' + A.statusWord(s.verification_status) + ' profile, last reviewed ' +
-      A.fmtDate(s.last_reviewed) + '. Based on published sources ' + usedIds.join(', ') + '. Not reviewed by custodians.';
+      A.fmtDate(s.last_reviewed) + '.' +
+      (pubIds.length ? ' Based on published sources ' + pubIds.join(', ') + '.' : '') +
+      (custIds.length ? (pubIds.length ? ' Also based on ' : ' Based on ') +
+        custIds.map(function (id) { return id + ' (custodian-supplied, not published)'; }).join(', ') + '.' : '') +
+      ' Not reviewed by custodians.';
 
     // The Key facts row that backs the kind of site (its confidence mark and sources are there), if the profile has one.
     var legal = -1;

@@ -93,8 +93,9 @@ never a new literal value.
   (not to be changed), the stacked map's height, and the drawing geometry of the confidence marks and legend swatches.
 
 ## Rules
-- Prototype only: profiles are desk-sourced and NOT reviewed by custodians. Pages carry `noindex`. `noindex` is not
-  access control: anyone with the address can open every page and data file.
+- Prototype only: most profiles are desk-sourced and one draws on custodian-supplied material; none has been
+  reviewed by custodians. Pages carry `noindex`. `noindex` is not access control: anyone with the address can open
+  every page and data file.
 - Never commit true coordinates of sensitive places, private contacts, consent records, permission records, raw notes,
   or photo and video files. Git history keeps them.
 - Do not copy Protected Planet / WDPA boundaries into this repo (its terms bar redistribution).
