@@ -84,6 +84,13 @@
   }
 
   // Badge plus what it means, e.g. [Desk-sourced] not reviewed by custodians.
+  // Empty state, shared by the profile's Updates, Research and Media sections: what is missing (plain text), then a
+  // next step (HTML with links, built by the caller).
+  function emptyState(what, next) {
+    return '<div class="empty-state"><p class="empty-state-what">' + esc(what) + '</p>' +
+      (next ? '<p class="empty-state-next">' + next + '</p>' : '') + '</div>';
+  }
+
   function statusText(code) {
     var s = STATUS[code];
     return s ? badge(code) + ' ' + esc(s[1]) : esc(code);
@@ -176,21 +183,47 @@
   // Extent of East Are'are, West Are'are and Small Malaita (south-west, north-east corners).
   var STUDY_BOUNDS = [[-9.74, 160.94], [-8.98, 161.59]];
 
+  // True when the operating system asks for less motion. Checked per call, so a change applies to later moves.
+  function reducedMotion() {
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+
+  // Frame the study area. opts.clearControls: also keep the outlines clear of the attribution along the bottom edge
+  // (two lines tall on phones), measured as it is now.
+  function fitStudy(map, opts) {
+    var pad = 8, bottom = pad;
+    if (opts && opts.clearControls && map.attributionControl) bottom += map.attributionControl.getContainer().offsetHeight;
+    map.fitBounds(L.latLngBounds(STUDY_BOUNDS), { paddingTopLeft: [pad, pad], paddingBottomRight: [pad, bottom], animate: false });
+  }
+
+  // Keep people near the study area: a minimum zoom one step below the one that frames it, and soft pan limits.
+  // Depends on the map's size, so a map that changes size calls it again.
+  function limitStudy(map) {
+    var study = L.latLngBounds(STUDY_BOUNDS);
+    map.setMinZoom(Math.floor(map.getBoundsZoom(study, false, L.point(16, 16))) - 1);
+    map.setMaxBounds(study.pad(0.5));
+  }
+
   // opts.center + opts.zoom: start there; otherwise frame the study area.
   // opts.limit: keep people near the study area (minimum zoom, and soft pan limits).
   function baseMap(id, opts) {
     opts = opts || {};
     var study = L.latLngBounds(STUDY_BOUNDS);
-    var map = L.map(id, { scrollWheelZoom: false, zoomSnap: 0.25, maxBoundsViscosity: 0.8 });
+    // With reduced motion, zooms, fades and pans jump instead of animating (read once, when the map is made).
+    var still = reducedMotion();
+    var map = L.map(id, { scrollWheelZoom: false, zoomSnap: 0.25, maxBoundsViscosity: 0.8,
+      zoomAnimation: !still, fadeAnimation: !still, markerZoomAnimation: !still, inertia: !still });
+    if (still) {
+      // Keyboard arrows and popups pan with panBy, which animates unless told not to.
+      var panBy = map.panBy;
+      map.panBy = function (offset, options) { return panBy.call(this, offset, L.extend({}, options, { animate: false })); };
+    }
     // A hidden map (e.g. print styles) has no size, so fitting or limiting the view would give NaN zooms.
     var size = map.getSize(), visible = size.x > 0 && size.y > 0;
     if (opts.center) map.setView(opts.center, opts.zoom);
-    else if (visible) map.fitBounds(study, { padding: [8, 8] });
+    else if (visible) fitStudy(map);
     else map.setView(study.getCenter(), 9);
-    if (opts.limit && visible) {
-      map.setMinZoom(Math.floor(map.getBoundsZoom(study, false, L.point(16, 16))) - 1);
-      map.setMaxBounds(study.pad(0.5));
-    }
+    if (opts.limit && visible) limitStudy(map);
     L.tileLayer(TILE_URL, { maxZoom: 17, attribution: TILE_ATTR }).addTo(map);
     // Enable wheel zoom only after the user clicks the map, so the page can still scroll.
     map.on('focus click', function () { map.scrollWheelZoom.enable(); });
@@ -259,6 +292,7 @@
         }
       }).addTo(map);
       // Name each constituency on the map, so the outline colours are never the only clue.
+      var replace = [];
       g.features.forEach(function (f) {
         var st = CONSTITUENCY_STYLE[f.properties.ADM2_NAME];
         if (!st) return;
@@ -271,23 +305,33 @@
           // Anchor on the easternmost coast point near the label's latitude and draw the label to its right.
           var band = biggest[0].filter(function (p) { return Math.abs(p[1] - at[0]) < 0.03; });
           var edge = band.reduce(function (a, p) { return p[0] > a[0] ? p : a; }, [at[1], at[0]]);
-          var tip = label(L.extend({}, opts, { direction: 'right', offset: [6, 0] }), [edge[1], edge[0]]);
-          // On a narrow map there may be no room offshore: then sit on the island, just below the base map's name.
-          var box = map.getContainer().getBoundingClientRect(), el = tip.getElement();
-          if (el && el.getBoundingClientRect().right > box.right - 4) {
-            map.removeLayer(tip);
-            label(L.extend({}, opts, { offset: [0, 20] }), at);
-          }
+          var tip = null;
+          var place = function () {
+            if (tip) map.removeLayer(tip);
+            tip = label(L.extend({}, opts, { direction: 'right', offset: [6, 0] }), [edge[1], edge[0]]);
+            // On a narrow map there may be no room offshore: then sit on the island, just below the base map's name.
+            var box = map.getContainer().getBoundingClientRect(), el = tip.getElement();
+            if (el && el.getBoundingClientRect().right > box.right - 4) {
+              map.removeLayer(tip);
+              tip = label(L.extend({}, opts, { offset: [0, 20] }), at);
+            }
+          };
+          place();
+          replace.push(place);
           return;
         }
         label(opts, at);
       });
+      // Resolves with a function that makes the offshore-or-on-island choice again, for a map that changed size.
+      return function () { replace.forEach(function (f) { f(); }); };
     }).catch(function () {});
   }
 
   // Map marker for a site: a circle in the kind colour, solid, ring or ring with a centre dot.
+  // The tappable box is 28px (--pin-hit in styles.css); the 20px marker is drawn in its centre.
+  var PIN_HIT = 28;
   function pinIcon(tier) {
-    return L.divIcon({ className: '', html: '<div class="pin shape-' + esc(tier) + '"></div>', iconSize: [20, 20], iconAnchor: [10, 10], popupAnchor: [0, -12] });
+    return L.divIcon({ className: 'pin-hit', html: '<div class="pin shape-' + esc(tier) + '"></div>', iconSize: [PIN_HIT, PIN_HIT], iconAnchor: [PIN_HIT / 2, PIN_HIT / 2], popupAnchor: [0, -PIN_HIT / 2] });
   }
 
   // Short accessible name for a marker: the site name and its kind in words.
@@ -303,8 +347,8 @@
   window.Atlas = {
     LABELS: LABELS, CONSTITUENCIES: CONSTITUENCIES, esc: esc, loadAll: loadAll, loadJSON: loadJSON,
     showLoadError: showLoadError, srcLinks: srcLinks, statusWord: statusWord, statusText: statusText, fmtDate: fmtDate,
-    badge: badge, tierTag: tierTag, chip: chip, confMark: confMark, token: token,
-    baseMap: baseMap, addStudyArea: addStudyArea, pinIcon: pinIcon, pinLabel: pinLabel, zoneCircle: zoneCircle
+    badge: badge, emptyState: emptyState, tierTag: tierTag, chip: chip, confMark: confMark, token: token,
+    baseMap: baseMap, fitStudy: fitStudy, limitStudy: limitStudy, reducedMotion: reducedMotion, addStudyArea: addStudyArea, pinIcon: pinIcon, pinLabel: pinLabel, zoneCircle: zoneCircle
   };
 
   // Forms on this site never submit (they filter or build entries in the page). This replaces inline onsubmit handlers,

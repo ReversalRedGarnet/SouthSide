@@ -244,7 +244,7 @@
     load().then(function (m) {
       var vs = visible(m).filter(function (v) { return (v.e.site_ids || []).indexOf(siteId) !== -1; })
         .sort(function (a, b) { return (a.tier === 'primary' ? 0 : 1) - (b.tier === 'primary' ? 0 : 1) || byDate(a, b); });
-      el.innerHTML = sampleNotice(m) + (vs.length ? list(vs, m, { h: 'h3', exceptSite: siteId }) : '<p>No updates yet for this site.</p>');
+      el.innerHTML = sampleNotice(m) + (vs.length ? list(vs, m, { h: 'h3', exceptSite: siteId }) : A.emptyState('No updates yet for this site.', 'Next step: see <a href="kit.html#publish">how to publish an update</a> in the Field Kit.'));
       keepSample();
     }).catch(function (err) { fail(el, err); });
   }

@@ -362,7 +362,7 @@
         .sort(function (a, b) { return String(b.e.date_published).localeCompare(String(a.e.date_published)); });
       el.innerHTML = notices(m) + (vs.length
         ? '<p class="small muted">Photos and videos are not stored here. Each one is credited and links to where it was published. Embedded posts load only when you press Load.</p><div class="media-list">' + vs.map(card).join('') + '</div>'
-        : '<p>No photos or videos for this site yet.</p>');
+        : A.emptyState('No photos or videos for this site yet.', 'Next step: see <a href="kit.html#media-intake">how to add a photo or video</a> in the Field Kit.'));
       el.addEventListener('click', function (ev) { var b = ev.target.closest('.media-load'); if (b) toggleEmbed(b); });
       if (U) U.keepSample();
     }).catch(function (err) { fail(el, err); });

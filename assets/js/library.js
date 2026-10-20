@@ -129,7 +129,8 @@
   function visible(m) { return m.entries.filter(function (v) { return !v.hidden; }); }
   function byTitle(a, b) { return String(a.src.title).localeCompare(String(b.src.title)); }
 
-  // One card. Origin is told by words and by the rule's shape (solid = published, dashed = submitted by the author);
+  // One card: title (with its byline), then origin and evidence tag, then summary and taxa, then "Cited for", then the
+  // link. Origin is told by words and by the rule's shape (solid = published, dashed = submitted by the author);
   // evidence kind is a separate outlined tag in words. No colour carries either.
   function card(v, m, opts) {
     var s = v.src, h = opts.h || 'h3', submitted = v.origin === 'researcher_submitted';
@@ -143,10 +144,10 @@
       return m.sites[t] ? '<a href="' + esc(link('site.html?id=' + encodeURIComponent(t))) + '">' + esc(siteLabel(m.sites[t])) + '</a>' : esc(t);
     });
     return '<article class="lib-entry ' + (submitted ? 'lib-submitted' : 'lib-published') + '">' +
-      '<p class="lib-kind"><strong>' + esc(ORIGINS[v.origin] || v.origin) + '</strong> <span class="lib-tag">Evidence: ' + esc(kind) + '</span>' +
-      (s.sample ? ' <span class="chip chip-neutral">Sample</span>' : '') + '</p>' +
       '<' + h + '>' + esc(s.title) + '</' + h + '>' +
       (meta ? '<p class="lib-meta">' + meta + ' &middot; ' + esc(v.id) + '</p>' : '<p class="lib-meta">' + esc(v.id) + '</p>') +
+      '<p class="lib-kind"><strong>' + esc(ORIGINS[v.origin] || v.origin) + '</strong> <span class="lib-tag">Evidence: ' + esc(kind) + '</span>' +
+      (s.sample ? ' <span class="chip chip-neutral">Sample</span>' : '') + '</p>' +
       (s.summary && v.summaryOk ? '<p>' + esc(s.summary) + '</p>' : '') +
       (taxa.length ? '<p class="small">Taxon groups: ' + esc(taxa.join(', ')) + '</p>' : '') +
       '<p class="small">' + (citedFor.length ? 'Cited for: ' + citedFor.join('; ') : 'Not yet cited for any site fact.') + '</p>' +
@@ -165,7 +166,7 @@
         .sort(function (a, b) { return (a.origin === 'published' ? 0 : 1) - (b.origin === 'published' ? 0 : 1) || byTitle(a, b); });
       el.innerHTML = vs.length
         ? '<p class="small muted">Works about this site, with what each is cited for. <a href="' + esc(link('library.html')) + '">Research library</a>.</p>' + cards(vs, m, { h: 'h3' })
-        : '<p>No research listed for this site yet. <a href="' + esc(link('library.html')) + '">Research library</a></p>';
+        : A.emptyState('No research listed for this site yet.', 'Next step: browse the <a href="' + esc(link('library.html')) + '">Research library</a>, or see <a href="kit.html#research">how to submit research</a> in the Field Kit.');
       keep();
     }).catch(function (err) { fail(el, err); });
   }
@@ -207,11 +208,20 @@
             (!f.origin.value || v.origin === f.origin.value) &&
             (!q || hay(v).indexOf(q) !== -1);
         });
-        count.textContent = vs.length + ' of ' + all.length + ' works';
+        // Results line: "24 works · sorted by evidence strength", or "3 of 24 works · …" while filters are set.
+        count.textContent = (vs.length === all.length ? '' : vs.length + ' of ') + all.length + (all.length === 1 ? ' work' : ' works') +
+          ' · sorted by ' + (f.sort.value === 'title' ? 'title' : 'evidence strength');
         el.innerHTML = (m.sampleLoaded ? '<p class="callout callout-info small"><strong>Sample mode.</strong> Fictional sample entries are mixed in because the address ends in ?sample=1. Each one carries a Sample label.</p>' : '') +
-          (vs.length ? cards(vs, m, { h: 'h2' }) : '<p>No works match these filters.</p>');
+          (vs.length ? cards(vs, m, { h: 'h2' })
+            : A.emptyState('No works match these filters.', 'Next step: <button type="button" class="linkbtn" data-clear-filters>Clear filters</button>'));
         keep();
       }
+      // Clear filters: every filter back to "all"; the sort order stays. From the empty state, whose button goes away,
+      // focus moves to the search field.
+      function clear() { FILTERS.forEach(function (k) { f[k].value = ''; }); draw(); }
+      var FILTERS = ['q', 'site', 'constituency', 'taxon', 'kind', 'origin'];
+      document.getElementById('l-clear').addEventListener('click', clear);
+      el.addEventListener('click', function (e) { if (e.target.closest('[data-clear-filters]')) { clear(); f.q.focus(); } });
       ['site', 'constituency', 'taxon', 'kind', 'origin'].forEach(function (k) { f[k].addEventListener('change', draw); });
       f.q.addEventListener('input', draw);
       draw();

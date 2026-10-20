@@ -67,91 +67,199 @@
 
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color-scheme: light;
+
+  /* ---- Spacing: one scale, used for every margin, padding and gap (rem, at a 16px root). ---- */
+  --space-1: .125rem;   /*  2px */
+  --space-2: .25rem;    /*  4px */
+  --space-3: .375rem;   /*  6px */
+  --space-4: .5rem;     /*  8px */
+  --space-5: .625rem;   /* 10px */
+  --space-6: .75rem;    /* 12px */
+  --space-7: 1rem;      /* 16px */
+  --space-8: 1.25rem;   /* 20px */
+  --space-9: 1.5rem;    /* 24px */
+  --space-10: 2rem;     /* 32px */
+  --space-11: 3rem;     /* 48px */
+
+  /* ---- Type: system fonts only; one size scale and three line heights. ---- */
+  --text-xs: .8125rem;  /* 13px: tags, badges, code blocks, narrow-screen notices */
+  --text-sm: .875rem;   /* 14px: secondary text, captions, filter labels */
+  --text-md: .9375rem;  /* 15px: tables, buttons, form labels, panel summaries */
+  --text-base: 1rem;    /* 16px: body text, h3 */
+  --text-lg: 1.125rem;  /* 18px: brand name, card titles */
+  --text-xl: 1.25rem;   /* 20px: h2 */
+  --text-2xl: 1.375rem; /* 22px: h1 on phones */
+  --text-3xl: 1.75rem;  /* 28px: h1 */
+  --text-code: .9em;    /* inline code, relative to its text */
+  --leading-body: 1.6;
+  --leading-heading: 1.25;
+  --leading-tag: 1.35;
+  --leading-code: 1.45;
+
+  /* ---- Borders, corners and rules ---- */
+  --border-1: 1px;      /* hairlines, control and tag borders */
+  --border-2: 2px;      /* marker halo, legend swatches */
+  --border-3: 3px;      /* current-page underline */
+  --rule-card: 4px;     /* the left rule on callouts, updates, research and media cards */
+  --radius-0: 0;        /* controls, boxes */
+  --radius-sm: 3px;     /* badges and chips */
+  --radius-round: 50%;  /* markers */
+
+  /* ---- Focus and targets ---- */
+  --focus-width: 3px;               /* dark ring and the glow halo outside it */
+  --focus-offset: 3px;
+  --target-outline: 2px;            /* a source jumped to from a fact (:target) */
+  --target-offset: 4px;
+
+  /* ---- Components ---- */
+  --wrap-max: 46rem;                /* text column */
+  --gutter: 16px;                   /* page side margin */
+  --wide-max: 64rem;                /* homepage map, panels and site list: wider than the text column, centred on it */
+  --nav-gap: var(--space-8);        /* gap between nav links; smaller on very narrow phones (see below) */
+  --control-h: 2.5rem;              /* inputs, selects and buttons; 44px on phones (see below) */
+  --target-min: 24px;               /* smallest tap or click target (WCAG 2.2 target size, minimum) */
+  --link-pad-y: 4px;                /* extra tap area above and below links; inline padding does not move text */
+  --check-size: 1.5rem;             /* checkboxes and radio buttons */
+  --pin-hit: 28px;                  /* tappable area around a map marker; assets/js/common.js uses the same number */
+  --scroll-pad: var(--space-3);     /* room inside scrolling tables so focus rings are not cut off */
+  --control-pad-y: var(--space-3);
+  --control-pad-x: var(--space-4);
+  --tag-pad-x: var(--space-3);
+  --card-pad-left: var(--space-6);  /* space between a card's left rule and its text */
+  --card-gap: var(--space-8);       /* space after a card */
+  --brand-mark: 56px;               /* header firefly */
+  --brand-mark-phone: 44px;
+  --mark-size: 14px;                /* kind-of-site mark in text */
+  --pin-size: 20px;                 /* kind-of-site marker on maps */
+  --map-mini-h: 240px;
+  --col-site-list: 24rem;           /* homepage site list beside the map (from 1100px) */
+  --map-side-min: 22.5rem;          /* homepage map height beside the list: the window height less --map-side-room, */
+  --map-side-max: 45rem;            /*   kept between these two */
+  --map-side-room: 9rem;            /* room left for the key panels and hint under the map, so the column fits the window */
+  --frame-post-h: 36rem;            /* a loaded Facebook post */
+  --textarea-min-h: 5rem;
+  --underline-offset: 2px;          /* links and text buttons */
+  --nav-underline-offset: 5px;      /* header nav links */
+  --col-filter: 13rem;              /* narrowest filter or control column */
+  --col-filter-max: 19rem;
+  --col-legend: 15rem;              /* narrowest map-key column */
+  --col-card: 16rem;                /* narrowest media card */
+  --col-map-status: 7.5rem;         /* the Map column in the site table */
+  --col-glance-label: 8.5rem;       /* labels in a profile's "At a glance" on phones, where each pair is one line */
+  --out-max-h: 420px;               /* generated JSON in the Field Kit */
 }
+/* Very narrow phones: the five nav links stay on one line at 360px. */
+@media (max-width: 380px) { :root { --nav-gap: var(--space-6); } }
+/* Phones: 44px controls and buttons for touch. */
+@media (max-width: 600px) { :root { --control-h: 44px; } }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--sans); }
-a { color: var(--brand); text-underline-offset: 2px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/var(--leading-body) var(--sans); }
+a { color: var(--brand); text-underline-offset: var(--underline-offset); }
 a:hover { color: var(--ink); }
+/* Links: a taller tap and click area without moving any text. Vertical padding on an inline link grows its hit area
+   (and its focus ring) but not the line spacing. The header nav and the map's zoom and close buttons are left alone. */
+main a, footer a, .leaflet-popup-content a, .leaflet-control-attribution a { padding-block: var(--link-pad-y); }
 /* Focus: a dark ring with a glow halo outside it. The ring carries the contrast on light pages, the halo on the green header. */
-:focus-visible { outline: 3px solid var(--glow); outline-offset: 3px; box-shadow: 0 0 0 3px var(--focus-ring); }
-h1, h2, h3 { line-height: 1.25; margin: 2rem 0 .6rem; }
-h1 { font-size: 1.75rem; margin-top: 1.5rem; }
-h2 { font-size: 1.25rem; }
-h3 { font-size: 1rem; margin-top: 1.5rem; }
-p, ul, ol { margin: 0 0 1rem; }
-li { margin-bottom: .3rem; }
-code { font-size: .9em; }
+:focus-visible { outline: var(--focus-width) solid var(--glow); outline-offset: var(--focus-offset); box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
+h1, h2, h3 { line-height: var(--leading-heading); margin: var(--space-10) 0 var(--space-5); }
+h1 { font-size: var(--text-3xl); margin-top: var(--space-9); }
+h2 { font-size: var(--text-xl); }
+h3 { font-size: var(--text-base); margin-top: var(--space-9); }
+/* Headings that links jump to (skip link, "On this page") stop a little below the top of the window. */
+h2[id], h3[id] { scroll-margin-top: var(--space-4); }
+p, ul, ol { margin: 0 0 var(--space-7); }
+li { margin-bottom: var(--space-2); }
+code { font-size: var(--text-code); }
 
-.wrap { max-width: 46rem; margin-inline: auto; padding-inline: 16px; }
-.skip { position: absolute; left: -999px; top: 0; background: var(--bg); padding: .5rem 1rem; z-index: 2000; }
-.skip:focus { left: 8px; top: 8px; }
+.wrap { max-width: var(--wrap-max); margin-inline: auto; padding-inline: var(--gutter); }
+.skip { position: absolute; left: -999px; top: 0; background: var(--bg); padding: var(--space-4) var(--space-7); z-index: 2000; }
+.skip:focus { left: var(--space-4); top: var(--space-4); }
+/* The homepage's second skip link sits just above the map and, when focused, shows over the map's top-left corner,
+   so nothing below it moves. The site list heading takes focus (tabindex="-1"), so the next Tab continues from there. */
+.skip-host { position: relative; height: 0; }
+.skip-map { border: var(--border-1) solid var(--rule); }
 .muted { color: var(--muted); }
-.small { font-size: .875rem; }
+/* "On this page": a plain list of the page's sections. Neutral rules, so it does not read as a callout. */
+.toc { border-block: var(--border-1) solid var(--rule); padding: var(--space-5) 0 var(--space-3); margin: 0 0 var(--space-7); }
+.toc-title { font-weight: 600; margin: 0 0 var(--space-3); }
+.toc ol, .toc ul { margin: 0; padding-left: var(--space-9); }
+@media (min-width: 768px) { .toc ol, .toc ul { columns: 2; column-gap: var(--space-10); } .toc li { break-inside: avoid; } }
+.small { font-size: var(--text-sm); }
 
 /* Prototype notice: one thin line */
-.proto { border-bottom: 1px solid var(--rule); font-size: .875rem; padding: .4rem 0; }
+.proto { border-bottom: var(--border-1) solid var(--rule); font-size: var(--text-sm); padding: var(--space-3) 0; }
 .proto p { margin: 0 auto; }
 
 /* Header and footer */
-.site-header { background: var(--chrome); color: var(--on-chrome); border-bottom: 1px solid var(--chrome-rule); padding: .75rem 0 .6rem; }
-.brand { display: inline-flex; align-items: center; gap: .5rem; vertical-align: middle; font-weight: 700; font-size: 1.15rem; color: var(--on-chrome); text-decoration: none; }
-.brand-mark { display: block; flex: none; width: 56px; height: 56px; }
+.site-header { background: var(--chrome); color: var(--on-chrome); border-bottom: var(--border-1) solid var(--chrome-rule); padding: var(--space-6) 0 var(--space-5); }
+.brand { display: inline-flex; align-items: center; gap: var(--space-4); vertical-align: middle; font-weight: 700; font-size: var(--text-lg); color: var(--on-chrome); text-decoration: none; }
+.brand-mark { display: block; flex: none; width: var(--brand-mark); height: var(--brand-mark); }
 .tagline { color: var(--on-chrome-muted); vertical-align: middle; }
 .site-header a:hover { color: var(--on-chrome); }
-.site-header nav { margin-top: .35rem; display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; }
-.site-header nav a { color: var(--on-chrome); text-decoration-color: var(--on-chrome-muted); text-underline-offset: 5px; }
-.site-header nav a[aria-current="page"] { font-weight: 600; text-decoration-color: var(--glow); text-decoration-thickness: 3px; }
-footer { border-top: 1px solid var(--rule); margin-top: 3rem; padding: 1rem 0 2rem; color: var(--muted); font-size: .875rem; }
+.site-header nav { margin-top: var(--space-3); display: flex; flex-wrap: wrap; gap: var(--space-2) var(--nav-gap); }
+.site-header nav a { color: var(--on-chrome); text-decoration-color: var(--on-chrome-muted); text-underline-offset: var(--nav-underline-offset); }
+.site-header nav a[aria-current="page"] { font-weight: 600; text-decoration-color: var(--glow); text-decoration-thickness: var(--border-3); }
+footer { border-top: var(--border-1) solid var(--rule); margin-top: var(--space-11); padding: var(--space-7) 0 var(--space-10); color: var(--muted); font-size: var(--text-sm); }
 
 /* Filters */
-.controls { display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: center; margin: 0 0 .5rem; }
-.controls label { display: flex; align-items: center; gap: .45rem; flex: 1 1 13rem; max-width: 19rem; font-size: .875rem; font-weight: 600; white-space: nowrap; }
-input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); background: var(--bg); border: 1px solid var(--field); border-radius: 0; padding: .35rem .5rem; }
-.controls input, .controls select { width: 100%; min-width: 0; height: 2.2rem; }
-.controls .count { font-size: .875rem; color: var(--muted); }
-.intro { margin-bottom: .5rem; }
-.coverage-line { font-size: .9375rem; margin-bottom: .75rem; }
-.coverage-details ul { margin: .25rem 0 .5rem; }
+.controls { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-7); align-items: center; margin: 0 0 var(--space-4); }
+.controls label { display: flex; align-items: center; gap: var(--space-4); flex: 1 1 var(--col-filter); max-width: var(--col-filter-max); font-size: var(--text-sm); font-weight: 600; white-space: nowrap; }
+input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); background: var(--bg); border: var(--border-1) solid var(--field); border-radius: var(--radius-0); padding: var(--control-pad-y) var(--control-pad-x); }
+/* One control height everywhere (text fields, selects, file pickers); textareas keep their own minimum. */
+input:not([type="checkbox"]):not([type="radio"]), select { min-height: var(--control-h); }
+input[type="checkbox"], input[type="radio"] { width: var(--check-size); height: var(--check-size); margin: 0; padding: 0; }
+.controls input, .controls select { width: 100%; min-width: 0; height: var(--control-h); }
+.controls .count { font-size: var(--text-sm); color: var(--muted); }
+.intro { margin-bottom: var(--space-4); }
+.coverage-line { font-size: var(--text-md); margin-bottom: var(--space-6); }
+.coverage-details ul { margin: var(--space-2) 0 var(--space-4); }
 
 /* Maps */
-/* The main map runs wider than the text column (up to 64rem), centred on it. */
-/* Map, its hint, the two panels and the site table share one width (up to 64rem), centred on the
+/* Map, its hint, the two panels and the site table share one width (up to --wide-max), centred on the
    narrow text column; prose stays in the column. */
-#map, .map-hint, .map-panels, #list .table-scroll { width: min(64rem, calc(100vw - 32px)); margin-left: calc(50% - min(32rem, 50vw - 16px)); }
-#map { height: clamp(320px, calc(100vh - 360px), 480px); border: 1px solid var(--rule); background: var(--map-bg); z-index: 1; }
+#map, .skip-host, .map-selected, .map-hint, .map-panels, #list .table-scroll { width: min(var(--wide-max), calc(100vw - 2 * var(--gutter))); margin-left: calc(50% - min(var(--wide-max) / 2, 50vw - var(--gutter))); }
+#map { height: clamp(320px, calc(100vh - 360px), 480px); border: var(--border-1) solid var(--rule); background: var(--map-bg); z-index: 1; }
 /* Greyscale base map on every map; site pins, circles, outlines and the fade keep their colour. */
 .leaflet-tile-pane { filter: grayscale(1); }
-.mini-map { height: 240px; border: 1px solid var(--rule); background: var(--map-bg); margin-bottom: .5rem; }
+.mini-map { height: var(--map-mini-h); border: var(--border-1) solid var(--rule); background: var(--map-bg); margin-bottom: var(--space-4); }
 
 /* Kind of site: every kind is a circle; colour + fill pattern tell them apart (solid, ring, ring with a centre dot).
    .mark is the small inline version, .pin the map marker (white halo and dark outer ring so it shows on any tile).
    Ring and ring-with-dot share the same outer band, so the centre dot is the only difference between them. */
-.mark, .pin { display: inline-block; flex: none; border-radius: 50%; }
-.mark { width: 14px; height: 14px; margin-right: .4rem; vertical-align: -2px; }
-.pin { width: 20px; height: 20px; border: 2px solid var(--bg); box-shadow: 0 0 0 1px var(--ink); }
+.mark, .pin { display: inline-block; flex: none; border-radius: var(--radius-round); }
+/* The marker's tappable box (--pin-hit) is larger than the drawn marker; the marker sits in its centre. */
+.pin-hit { display: grid; place-items: center; }
+.mark { width: var(--mark-size); height: var(--mark-size); margin-right: var(--space-3); vertical-align: -2px; }
+.pin { width: var(--pin-size); height: var(--pin-size); border: var(--border-2) solid var(--bg); box-shadow: 0 0 0 var(--border-1) var(--ink); }
 .shape-legal_pa { background: var(--tier-legal); }
 .shape-community_area { background: radial-gradient(circle closest-side, var(--bg) 0 59%, var(--tier-area) 62%); }
 .shape-community_group { background: radial-gradient(circle closest-side, var(--tier-group) 0 34%, var(--bg) 37% 59%, var(--tier-group) 62%); }
 /* Windows high-contrast mode would otherwise drop the fills and patterns. */
 @media (forced-colors: active) { .mark, .pin { forced-color-adjust: none; } }
 
+/* The selected site has a thicker ring (a class, so the marker's colour and pattern stay as they are). */
+.pin-hit.is-selected .pin { box-shadow: 0 0 0 var(--border-3) var(--ink); }
+/* "Selected: … — shown on the map" or "… — no map point yet" under the map. Empty (and taking no room) until a site is selected. */
+.map-selected { margin: var(--space-3) 0 0; font-size: var(--text-sm); font-weight: 600; }
+.map-selected:empty { margin: 0; }
+
 /* Map legend: open on wide screens, collapsed on phones (home.js) */
-.map-hint { margin-top: .35rem; margin-bottom: .5rem; }
+.map-hint { margin-top: var(--space-3); margin-bottom: var(--space-4); }
 
 /* Two independent collapsible panels under the map. align-items: start keeps an open panel
    from stretching its neighbour. Both summaries share one style so they read as a pair. */
-.map-panels { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem 1.5rem; align-items: start; margin-bottom: .5rem; }
-.panel { border-top: 1px solid var(--chrome-border); min-width: 0; }
-.panel > summary { cursor: pointer; font-weight: 600; font-size: .9375rem; padding: .45rem 0; }
-.legend { font-size: .875rem; }
-.legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .25rem 1.5rem; margin-top: .4rem; }
-.legend h3 { font-size: .875rem; margin: .5rem 0 .25rem; }
+.map-panels { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-9); align-items: start; margin-bottom: var(--space-4); }
+.panel { border-top: var(--border-1) solid var(--chrome-border); min-width: 0; }
+.panel > summary { cursor: pointer; font-weight: 600; font-size: var(--text-md); padding: var(--space-4) 0; }
+.legend { font-size: var(--text-sm); }
+.legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--col-legend), 1fr)); gap: var(--space-2) var(--space-9); margin-top: var(--space-3); }
+.legend h3 { font-size: var(--text-sm); margin: var(--space-4) 0 var(--space-2); }
 .legend ul { list-style: none; padding: 0; margin: 0; }
-.legend li { margin: 0 0 .3rem; }
-.swatch { display: inline-block; width: 16px; height: 11px; margin-right: .4rem; vertical-align: -1px; }
-.swatch-zone { width: 13px; height: 13px; border-radius: 50%; border: 2px dashed var(--neutral-border); }
+.legend li { margin: 0 0 var(--space-2); }
+.swatch { display: inline-block; width: 16px; height: 11px; margin-right: var(--space-3); vertical-align: -1px; }
+.swatch-zone { width: 13px; height: 13px; border-radius: var(--radius-round); border: var(--border-2) dashed var(--neutral-border); }
 .swatch-fade { background: var(--fade-swatch); border: 1px solid var(--fade-swatch-border); }
 .swatch-area { border: 2px solid; }
 .const-east { border-color: var(--const-east); }
@@ -169,27 +277,51 @@ input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); ba
 /* leaflet.css colours .leaflet-container a with its own blue. Popup and attribution links use the brand colour;
    scoped so the zoom buttons and popup close button keep Leaflet's defaults. */
 .leaflet-container .leaflet-popup-content a, .leaflet-container .leaflet-control-attribution a { color: var(--brand); }
-.leaflet-popup-content { margin: 10px 12px; }
-.leaflet-popup-content p { margin: 0 0 .4rem; }
+.leaflet-popup-content { margin: var(--space-5) var(--space-6); }
+.leaflet-popup-content p { margin: 0 0 var(--space-3); }
 
 /* Tables: rules, no boxes */
-table { border-collapse: collapse; width: 100%; margin: .5rem 0 1rem; font-size: .9375rem; }
-th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-top: 1px solid var(--rule); }
-thead th { border-top: 0; border-bottom: 1px solid var(--ink); font-size: .875rem; }
-tbody tr:last-child > * { border-bottom: 1px solid var(--rule); }
+table { border-collapse: collapse; width: 100%; margin: var(--space-4) 0 var(--space-7); font-size: var(--text-md); }
+th, td { text-align: left; vertical-align: top; padding: var(--space-4) var(--space-6) var(--space-4) 0; border-top: var(--border-1) solid var(--rule); }
+thead th { border-top: 0; border-bottom: var(--border-1) solid var(--ink); font-size: var(--text-sm); }
+tbody tr:last-child > * { border-bottom: var(--border-1) solid var(--rule); }
 tbody th { font-weight: 400; }
 table.facts th { width: 30%; font-weight: 600; }
-td[data-label="Map"] { min-width: 7.5rem; white-space: nowrap; }
+td[data-label="Map"] { min-width: var(--col-map-status); white-space: nowrap; }
 td[data-label="Status"] { white-space: nowrap; }
 td[data-label="Kind"] .tier, td[data-label="Constituency"] { white-space: nowrap; }
-td .note { display: block; margin-top: .2rem; font-size: .875rem; color: var(--muted); }
-.src { font-size: .875rem; white-space: nowrap; }
-tr.active > * { background: var(--brand-tint); }
-.table-scroll { overflow-x: auto; }
+td .note { display: block; margin-top: var(--space-2); font-size: var(--text-sm); color: var(--muted); }
+.src { font-size: var(--text-sm); white-space: nowrap; }
+/* The selected site in the list: a tint and, on compact rows, a rule on the left (shape as well as colour). */
+tr.is-selected > * { background: var(--brand-tint); }
+/* Scrolling tables clip anything outside them, so they get a little inner room (cancelled by a negative margin)
+   for focus rings on links at the table's edge. */
+.table-scroll { overflow-x: auto; padding: var(--scroll-pad); margin: calc(-1 * var(--scroll-pad)); }
+
+/* Homepage site list as compact rows (side by side, from 1100px): name, then kind and status, then constituency, map
+   status and the select button. Hidden below 1100px, where the table shows the same things. */
+.site-rows { display: none; list-style: none; padding: 0; margin: 0 0 var(--space-7); border-top: var(--border-1) solid var(--rule); font-size: var(--text-md); }
+.site-row { margin: 0; padding: var(--space-4) var(--space-4) var(--space-4) var(--space-6); border-bottom: var(--border-1) solid var(--rule); border-left: var(--rule-card) solid transparent; cursor: pointer; }
+.site-row > p { margin: 0; }
+.site-row-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-6); margin-top: var(--space-2); font-size: var(--text-sm); }
+.site-row.is-selected { background: var(--brand-tint); border-left-color: var(--brand); }
+
+/* Homepage from 1100px (home.js uses the same breakpoint): the map column is sticky and fits the window, and scrolls
+   on its own only if an open panel makes it taller; the site list sits beside it. Below 1100px .atlas is a plain block.
+   The column's padding, cancelled by a negative margin, keeps focus rings inside its scroll box. */
+@media (min-width: 1100px) {
+  .atlas { display: grid; grid-template-columns: minmax(0, 1fr) var(--col-site-list); gap: 0 var(--space-9); align-items: start; width: min(var(--wide-max), calc(100vw - 2 * var(--gutter))); margin-left: calc(50% - min(var(--wide-max) / 2, 50vw - var(--gutter))); }
+  .atlas-map { position: sticky; top: 0; max-height: 100vh; overflow-y: auto; padding: var(--scroll-pad); margin: calc(-1 * var(--scroll-pad)); }
+  .atlas #map, .atlas .skip-host, .atlas .map-selected, .atlas .map-hint, .atlas .map-panels { width: auto; margin-left: 0; }
+  .atlas #map { height: clamp(var(--map-side-min), calc(100vh - var(--map-side-room)), var(--map-side-max)); }
+  .atlas-list > h2 { margin-top: 0; }
+  #list .table-scroll { display: none; }
+  .site-rows { display: block; }
+}
 
 /* Verification badges: the trust ramp. The word is always shown; verified and disputed add an icon. */
-.badge { display: inline-block; font-size: .8125rem; font-weight: 600; line-height: 1.35; padding: 0 .4rem; border: 1px solid transparent; border-radius: 3px; white-space: nowrap; }
-.badge-draft { background: var(--ver-draft-bg); color: var(--ver-draft-ink); border: 1px dashed var(--ver-draft-border); }
+.badge { display: inline-block; font-size: var(--text-xs); font-weight: 600; line-height: var(--leading-tag); padding: 0 var(--tag-pad-x); border: var(--border-1) solid transparent; border-radius: var(--radius-sm); white-space: nowrap; }
+.badge-draft { background: var(--ver-draft-bg); color: var(--ver-draft-ink); border: var(--border-1) dashed var(--ver-draft-border); }
 .badge-desk_sourced { background: var(--ver-desk-bg); color: var(--ver-desk-ink); border-color: var(--ver-desk-border); }
 .badge-community_checked { background: var(--ver-checked-bg); color: var(--ver-checked-ink); }
 .badge-source_verified { background: var(--ver-verified-bg); color: var(--ver-verified-ink); }
@@ -198,128 +330,167 @@ tr.active > * { background: var(--brand-tint); }
 .badge-disputed::before { content: "\26A0\FE0E\00a0"; content: "\26A0\FE0E\00a0" / ""; }
 
 /* Chips: visitor access and consent. The chip text is the label. */
-.chip { display: inline-block; font-size: .875rem; font-weight: 600; line-height: 1.35; padding: 0 .45rem; border: 1px solid; border-radius: 3px; }
+/* Chips share the tag size, padding and corners with badges and the research evidence tag. */
+.chip { display: inline-block; font-size: var(--text-xs); font-weight: 600; line-height: var(--leading-tag); padding: 0 var(--tag-pad-x); border: var(--border-1) solid; border-radius: var(--radius-sm); }
 .chip-neutral { background: var(--neutral-bg); color: var(--neutral-ink); border-color: var(--neutral-border); }
 .chip-caution { background: var(--caution-bg); color: var(--caution-ink); border-color: var(--caution-border); }
 .chip-info { background: var(--info-bg); color: var(--info-ink); border-color: var(--info-border); }
 .chip-danger { background: var(--danger-bg); color: var(--danger-ink); border-color: var(--danger-border); }
 
 /* Callouts: one component, three meanings. Each starts with a bold word. */
-.callout { border-left: 4px solid; padding: .55rem .85rem; margin: 0 0 1rem; color: var(--ink); }
+.callout { border-left: var(--rule-card) solid; padding: var(--space-4) var(--space-6); margin: 0 0 var(--space-7); color: var(--ink); }
 .callout > :last-child { margin-bottom: 0; }
 .callout-danger { background: var(--danger-bg); border-color: var(--danger-border); }
 .callout-caution { background: var(--caution-bg); border-color: var(--caution-border); }
 .callout-info { background: var(--info-bg); border-color: var(--info-border); }
 ul.callout { list-style: none; }
-ul.callout li { margin-bottom: .2rem; }
+ul.callout li { margin-bottom: var(--space-2); }
 
 /* Site updates. The tier is told by words and by the rule's shape: solid for a primary update,
    dashed for a community note (as on the Draft badge, dashed = less checked). Never green, never glow. */
-.update { border-left: 4px solid var(--ink); padding: .05rem 0 .05rem .85rem; margin: 0 0 1.25rem; }
+.update { border-left: var(--rule-card) solid var(--ink); padding: 0 0 0 var(--card-pad-left); margin: 0 0 var(--card-gap); }
 .update-secondary { border-left-style: dashed; border-left-color: var(--neutral-border); }
 .update > :last-child { margin-bottom: 0; }
-.update-kind { display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .5rem; margin: 0; font-size: .875rem; }
-.update h2, .update h3 { font-size: 1.05rem; margin: .2rem 0 .15rem; }
-.update-meta { margin: 0 0 .4rem; font-size: .875rem; color: var(--muted); }
-.update-body { margin: 0 0 .6rem; }
-.update-body > summary { cursor: pointer; font-size: .875rem; font-weight: 600; margin-bottom: .4rem; }
+.update-kind { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); margin: 0; font-size: var(--text-sm); }
+.update h2, .update h3 { font-size: var(--text-lg); margin: var(--space-2) 0 var(--space-1); }
+.update-meta { margin: 0 0 var(--space-3); font-size: var(--text-sm); color: var(--muted); }
+.update-body { margin: 0 0 var(--space-5); }
+.update-body > summary { cursor: pointer; font-size: var(--text-sm); font-weight: 600; margin-bottom: var(--space-3); padding-block: var(--space-1); }
 .chip-check::before { content: "\26A0\FE0E\00a0"; content: "\26A0\FE0E\00a0" / ""; }
 /* Research library. Origin is told by words and the rule's shape: solid for a published source, dashed for a work
    submitted by its author. Evidence kind is a separate outlined tag in words. Never green, never glow. */
-.lib-entry { border-left: 4px solid var(--ink); padding: .05rem 0 .05rem .85rem; margin: 0 0 1.25rem; }
+.lib-entry { border-left: var(--rule-card) solid var(--ink); padding: 0 0 0 var(--card-pad-left); margin: 0 0 var(--card-gap); }
 .lib-submitted { border-left-style: dashed; border-left-color: var(--neutral-border); }
+.lib-entry > :first-child { margin-top: 0; }
 .lib-entry > :last-child { margin-bottom: 0; }
-.lib-entry p.small { margin-bottom: .3rem; }
-.lib-kind { display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .5rem; margin: 0; font-size: .875rem; }
-.lib-entry h2, .lib-entry h3 { font-size: 1.05rem; margin: .2rem 0 .15rem; }
-.lib-meta { margin: 0 0 .4rem; font-size: .875rem; color: var(--muted); overflow-wrap: anywhere; }
-.lib-tag { display: inline-block; font-size: .8125rem; font-weight: 600; line-height: 1.35; padding: 0 .4rem; border: 1px solid var(--neutral-border); border-radius: 0; color: var(--neutral-ink); }
-.filters { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: .5rem 1rem; margin: 0 0 .25rem; }
-.filters label { display: flex; flex-direction: column; gap: .15rem; font-size: .875rem; font-weight: 600; min-width: 0; }
-.filters input, .filters select { width: 100%; min-width: 0; height: 2.2rem; }
+.lib-entry p.small { margin-bottom: var(--space-2); }
+.lib-kind { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); margin: 0 0 var(--space-3); font-size: var(--text-sm); }
+.lib-entry h2, .lib-entry h3 { font-size: var(--text-lg); margin: var(--space-2) 0 var(--space-1); }
+.lib-meta { margin: 0 0 var(--space-3); font-size: var(--text-sm); color: var(--muted); overflow-wrap: anywhere; }
+.lib-tag { display: inline-block; font-size: var(--text-xs); font-weight: 600; line-height: var(--leading-tag); padding: 0 var(--tag-pad-x); border: var(--border-1) solid var(--neutral-border); border-radius: var(--radius-sm); color: var(--neutral-ink); }
+/* Research filters: one labelled group with its Clear button, then the results line and the sort order (not a filter). */
+.filter-set { border: var(--border-1) solid var(--rule); padding: var(--space-4) var(--space-6) var(--space-6); margin: 0 0 var(--space-6); min-width: 0; }
+.filter-set legend { font-size: var(--text-md); font-weight: 600; padding: 0 var(--space-2); }
+.filters { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--col-filter), 1fr)); gap: var(--space-4) var(--space-7); margin: 0; }
+.filter-clear { align-self: end; justify-self: start; }
+.results-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4) var(--space-7); margin: 0 0 var(--space-7); }
+.results-line { margin: 0; font-size: var(--text-md); font-weight: 600; }
+.sort-by { display: flex; align-items: center; gap: var(--space-4); font-size: var(--text-sm); font-weight: 600; min-width: 0; }
+.sort-by select { height: var(--control-h); min-width: 0; max-width: 100%; }
+.filters label { display: flex; flex-direction: column; gap: var(--space-1); font-size: var(--text-sm); font-weight: 600; min-width: 0; }
+.filters input, .filters select { width: 100%; min-width: 0; height: var(--control-h); }
 /* Media: credited link-out cards. No image or video is loaded; the kind is a word, the test label a chip with an icon. */
-.media-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1rem 1.25rem; margin: .5rem 0 1rem; }
-.media-item { border-left: 4px solid var(--neutral-border); padding: .05rem 0 .05rem .85rem; min-width: 0; overflow-wrap: anywhere; }
-.media-item > p { margin: 0 0 .35rem; }
+.media-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--col-card), 1fr)); gap: var(--space-7) var(--space-8); margin: var(--space-4) 0 var(--space-7); }
+.media-item { border-left: var(--rule-card) solid var(--neutral-border); padding: 0 0 0 var(--card-pad-left); min-width: 0; overflow-wrap: anywhere; }
+.media-item > p { margin: 0 0 var(--space-3); }
 .media-item > :last-child { margin-bottom: 0; }
-.media-kind { display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .5rem; font-size: .875rem; }
-.media-credit { font-size: .875rem; color: var(--muted); }
+.media-kind { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); font-size: var(--text-sm); }
+.media-credit { font-size: var(--text-sm); color: var(--muted); }
 /* Embeds are created only after a click on Load. Sizes come from classes (the CSP blocks inline style attributes). */
 .media-embed:empty { display: none; }
-.media-embed { margin: 0 0 .35rem; }
-.media-frame { display: block; width: 100%; border: 1px solid var(--rule); }
+.media-embed { margin: 0 0 var(--space-3); }
+.media-frame { display: block; width: 100%; border: var(--border-1) solid var(--rule); }
 .media-frame-video { aspect-ratio: 16 / 9; height: auto; }
-.media-frame-post { height: 36rem; }
-.media-preview canvas { display: block; max-width: 100%; height: auto; border: 1px solid var(--rule); margin: .25rem 0; }
-.form-grid label.check { flex-direction: row; align-items: flex-start; gap: .4rem; font-weight: 400; }
-.form-grid label.check input { margin-top: .35rem; flex: none; }
-.form-grid fieldset { border: 1px solid var(--rule); padding: .5rem .75rem .75rem; margin: 0; min-width: 0; }
-.form-grid legend { font-size: .9375rem; font-weight: 600; padding: 0 .25rem; }
+.media-frame-post { height: var(--frame-post-h); }
+.media-preview canvas { display: block; max-width: 100%; height: auto; border: var(--border-1) solid var(--rule); margin: var(--space-2) 0; }
+.form-grid label.check { flex-direction: row; align-items: flex-start; gap: var(--space-3); font-weight: 400; }
+.form-grid label.check input { margin-top: 0; flex: none; }
+.form-grid fieldset { border: var(--border-1) solid var(--rule); padding: var(--space-4) var(--space-6) var(--space-6); margin: 0; min-width: 0; }
+.form-grid legend { font-size: var(--text-md); font-weight: 600; padding: 0 var(--space-2); }
 .form-grid [hidden] { display: none; }   /* fields that only apply to some answers; beats the grid and flex rules above */
 .btn:disabled { cursor: not-allowed; border-style: dashed; color: var(--muted); background: var(--bg); }
-pre.template { border: 1px solid var(--rule); padding: .75rem; overflow: auto; font-size: .8125rem; line-height: 1.45; margin: 0 0 .6rem; }
+pre.template { border: var(--border-1) solid var(--rule); padding: var(--space-6); overflow: auto; font-size: var(--text-xs); line-height: var(--leading-code); margin: 0 0 var(--space-5); }
 
-/* Fact confidence: the word plus a mark with a different shape for each level */
+/* Fact confidence: the word plus a mark with a different shape for each level.
+   The mark sizes and the triangle's border widths are drawing geometry, not spacing, so they stay as pixel values. */
 .conf { font-weight: 700; }
-.conf-mark { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: .35rem; vertical-align: 1px; }
+.conf-mark { display: inline-block; width: 9px; height: 9px; border-radius: var(--radius-round); margin-right: var(--space-3); vertical-align: 1px; }
 .conf-reported .conf-mark { background: var(--conf-reported); }
 .conf-corroborated .conf-mark { background: var(--conf-corroborated); box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--conf-corroborated); margin-left: 3px; }
 .conf-unknown .conf-mark { border: 1.5px solid var(--conf-unknown); }
-.conf-conflicting .conf-mark { width: 0; height: 0; border-radius: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 10px solid var(--conf-conflicting); vertical-align: 0; }
+.conf-conflicting .conf-mark { width: 0; height: 0; border-radius: var(--radius-0); border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 10px solid var(--conf-conflicting); vertical-align: 0; }
 .conf-conflicting { color: var(--danger-ink); }
 tr.flag-conflicting > * { background: var(--caution-bg); }
-tr.flag-conflicting > th { box-shadow: inset 4px 0 0 var(--conf-conflicting); padding-left: .6rem; }
+tr.flag-conflicting > th { box-shadow: inset var(--rule-card) 0 0 var(--conf-conflicting); padding-left: var(--space-5); }
 
 /* Form states (Field Kit) */
-input[aria-invalid="true"], input:user-invalid { border-color: var(--danger-border); box-shadow: 0 0 0 1px var(--danger-border); }
+input[aria-invalid="true"], input:user-invalid { border-color: var(--danger-border); box-shadow: 0 0 0 var(--border-1) var(--danger-border); }
 
-/* Buttons: plain */
+/* Buttons: one plain style (outlined, square corners) at the control height, and a text-button variant. */
 .btn, .linkbtn { font: inherit; cursor: pointer; }
-.btn { font-size: .9375rem; padding: .3rem .8rem; border: 1px solid var(--chrome-border); background: var(--bg); color: var(--brand); }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: var(--control-h); font-size: var(--text-md); line-height: var(--leading-heading); padding: var(--space-2) var(--space-6); border: var(--border-1) solid var(--chrome-border); border-radius: var(--radius-0); background: var(--bg); color: var(--brand); text-align: center; }
 .btn:hover { background: var(--brand); color: var(--on-brand); }
-.linkbtn { border: 0; padding: 0; text-align: left; white-space: nowrap; background: none; color: var(--brand); text-decoration: underline; text-underline-offset: 2px; font-size: .875rem; }
+.linkbtn { border: 0; padding: var(--link-pad-y) 0; text-align: left; white-space: nowrap; background: none; color: var(--brand); text-decoration: underline; text-underline-offset: var(--underline-offset); font-size: var(--text-sm); }
 .linkbtn:hover { color: var(--ink); }
 
 /* Profile */
-.crumbs { margin: 1.25rem 0 0; font-size: .9375rem; }
-.profile-id { margin: 1rem 0 0; color: var(--muted); font-size: .875rem; }
-.profile-id + h1 { margin-top: .25rem; }
-ol.sources { padding-left: 1.4rem; }
-ol.sources li { margin-bottom: .8rem; overflow-wrap: anywhere; }
-ol.sources li:target { outline: 2px solid var(--brand); outline-offset: 4px; }
+.crumbs { margin: var(--space-8) 0 0; font-size: var(--text-md); }
+.profile-id { margin: var(--space-7) 0 0; color: var(--muted); font-size: var(--text-sm); }
+.profile-id + h1 { margin-top: var(--space-2); }
+/* "At a glance": the profile's key values in the same frame as "On this page"; the pairs flow into columns when there
+   is room. */
+.glance { border-block: var(--border-1) solid var(--rule); padding: var(--space-5) 0 var(--space-6); margin: 0 0 var(--space-7); }
+.glance-title { font-size: var(--text-base); font-weight: 600; margin: 0 0 var(--space-4); }
+.glance dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--col-filter), 1fr)); gap: var(--space-5) var(--space-9); margin: 0; }
+.glance dt { font-size: var(--text-sm); color: var(--muted); }
+.glance dd { margin: 0; }
+.glance-more { font-size: var(--text-sm); white-space: nowrap; }
+/* A row that "At a glance" links to: stops a little below the top of the window and is outlined while targeted. */
+table.facts tr[id] { scroll-margin-top: var(--space-4); }
+table.facts tr:target { outline: var(--target-outline) solid var(--brand); outline-offset: calc(-1 * var(--target-outline)); }
+/* Profile sections: the same space before every section, whatever the one above ends with. */
+.profile-section { margin-top: var(--space-10); }
+.profile-section > h2 { margin-top: 0; }
+.profile-section > :last-child { margin-bottom: 0; }
+.to-top { margin: var(--space-6) 0 0; font-size: var(--text-sm); }
+/* An Updates, Research or Media section holding only its empty state is short, so it needs no "Back to top". */
+.profile-section:has(.empty-state) > .to-top { display: none; }
+/* Empty state (profile Updates, Research and Media): what is missing, then a next step. A pale rule, like a card with
+   nothing in it; neutral, never a callout colour. */
+.empty-state { border-left: var(--rule-card) solid var(--rule); padding: var(--space-1) 0 var(--space-1) var(--card-pad-left); margin: 0 0 var(--space-7); }
+.empty-state > p { margin: 0; }
+.empty-state > .empty-state-next { margin-top: var(--space-2); font-size: var(--text-sm); color: var(--muted); }
+ol.sources { padding-left: var(--space-9); }
+ol.sources li { margin-bottom: var(--space-6); overflow-wrap: anywhere; }
+ol.sources li:target { outline: var(--target-outline) solid var(--brand); outline-offset: var(--target-offset); }
 
 /* Field Kit builder */
-.form-grid { display: grid; gap: .8rem; }
-.form-grid label { display: flex; flex-direction: column; gap: .2rem; font-size: .9375rem; font-weight: 600; }
-.form-grid textarea { min-height: 5rem; resize: vertical; }
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
-pre.out { border: 1px solid var(--rule); padding: .75rem; overflow: auto; max-height: 420px; font-size: .8125rem; line-height: 1.45; margin: 0 0 .6rem; white-space: pre-wrap; word-break: break-word; }
+.form-grid { display: grid; gap: var(--space-6); }
+.form-grid label { display: flex; flex-direction: column; gap: var(--space-2); font-size: var(--text-md); font-weight: 600; }
+.form-grid textarea { min-height: var(--textarea-min-h); resize: vertical; }
+/* Selects fill their column instead of sizing to their longest option, which pushed the page wider than a phone. */
+.form-grid select { width: 100%; min-width: 0; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+pre.out { border: var(--border-1) solid var(--rule); padding: var(--space-6); overflow: auto; max-height: var(--out-max-h); font-size: var(--text-xs); line-height: var(--leading-code); margin: 0 0 var(--space-5); white-space: pre-wrap; word-break: break-word; }
 
 @media (max-width: 600px) {
   #map { height: 320px; }
   .map-panels { grid-template-columns: 1fr; gap: 0; }
   /* Phones: keep the map near the top. Both fields and the count share one row. */
-  .proto { font-size: .8125rem; }
-  .site-header { padding: .5rem 0 .4rem; }
-  .brand-mark { width: 44px; height: 44px; }
-  h1 { font-size: 1.375rem; margin-top: 1rem; }
-  .controls { gap: .3rem .6rem; flex-wrap: nowrap; align-items: flex-end; }
-  .controls label { flex-direction: column; align-items: stretch; gap: .1rem; flex: 1 1 0; min-width: 0; font-size: .8125rem; }
-  .controls .count { font-size: .8125rem; white-space: nowrap; padding-bottom: .5rem; }
+  .proto { font-size: var(--text-xs); }
+  .site-header { padding: var(--space-4) 0 var(--space-3); }
+  .brand-mark { width: var(--brand-mark-phone); height: var(--brand-mark-phone); }
+  h1 { font-size: var(--text-2xl); margin-top: var(--space-7); }
+  .controls { gap: var(--space-2) var(--space-5); flex-wrap: nowrap; align-items: flex-end; }
+  .controls label { flex-direction: column; align-items: stretch; gap: var(--space-1); flex: 1 1 0; min-width: 0; font-size: var(--text-xs); }
+  .controls .count { font-size: var(--text-xs); white-space: nowrap; padding-bottom: var(--space-4); }
   .row2 { grid-template-columns: 1fr; }
+  /* Profile "At a glance" on phones: label and value side by side, so the summary stays short. */
+  .glance dl { gap: var(--space-3); }
+  .glance dl > div { display: grid; grid-template-columns: var(--col-glance-label) minmax(0, 1fr); gap: var(--space-4); align-items: baseline; }
   /* Stacked tables: each row becomes a short block, labelled from data-label */
   table.stack thead { display: none; }
-  table.stack tr { display: block; border-top: 1px solid var(--rule); padding: .5rem 0; }
-  table.stack tbody tr:last-child { border-bottom: 1px solid var(--rule); }
-  table.stack td, table.stack th { display: block; border: 0 !important; padding: .1rem 0; }
+  table.stack tr { display: block; border-top: var(--border-1) solid var(--rule); padding: var(--space-4) 0; }
+  table.stack tbody tr:last-child { border-bottom: var(--border-1) solid var(--rule); }
+  table.stack td, table.stack th { display: block; border: 0 !important; padding: var(--space-1) 0; }
   table.stack td[data-label]::before { content: attr(data-label) ": "; font-weight: 600; }
   table.facts th, table.facts td { display: block; width: 100%; padding-right: 0; }
   table.facts th { padding-bottom: 0; }
-  table.facts td { border-top: 0; padding-top: .15rem; }
+  table.facts td { border-top: 0; padding-top: var(--space-1); }
 }
-@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
 @media print {
-  .site-header nav, .controls, #map, .mini-map, .legend, .map-hint, .btn, .linkbtn, .brand-mark { display: none; }
+  .site-header nav, .controls, .skip-host, .toc, .to-top, #map, .mini-map, .legend, .map-hint, .btn, .linkbtn, .brand-mark { display: none; }
   /* Browsers drop background colours when printing, so the header prints as dark text on paper. */
   .site-header { background: none; border-color: var(--rule); }
   .brand, .tagline { color: var(--ink); }

@@ -445,6 +445,17 @@
       "taxon_groups": [
         "reptiles_amphibians"
       ]
+    },
+    {
+      "id": "S33",
+      "title": "Photographs of the Ohe'ohe Conservation Foundation sign and location screenshots, supplied by a custodian",
+      "publisher": "Custodian-supplied",
+      "type": "custodian",
+      "authority_type": "custodian",
+      "organisation": "Ohe'ohe custodian",
+      "trusted": false,
+      "date": "Supplied 20 Oct 2026",
+      "notes": "Supplied explicitly for SouthSide. Not public: there is no link, and the photographs and screenshots are not held in this repository. Not listed in the research library."
     }
   ]
 }

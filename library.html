@@ -29,16 +29,24 @@
   </ul>
   <p>Each entry also states its kind of evidence in words. A listing is not an endorsement: the atlas has not checked any work&rsquo;s findings.<span data-update-ask hidden> To submit research: <span data-update-contact></span>.</span> See the <a href="kit.html#research">Field Kit</a> for how entries are added.</p>
 
-  <form class="filters" data-no-submit aria-label="Filters">
-    <label>Search<input id="l-q" type="search" placeholder="Title, publisher, topic"></label>
-    <label>Site<select id="l-site"><option value="">All sites</option></select></label>
-    <label>Constituency<select id="l-constituency"><option value="">All three</option></select></label>
-    <label>Taxon group<select id="l-taxon"><option value="">All groups</option></select></label>
-    <label>Evidence kind<select id="l-kind"><option value="">All kinds</option></select></label>
-    <label>Origin<select id="l-origin"><option value="">Published and submitted</option></select></label>
-    <label>Sort by<select id="l-sort"><option value="strength">Evidence strength (default)</option><option value="title">Title</option></select></label>
+  <form class="library-tools" data-no-submit>
+    <fieldset class="filter-set">
+      <legend>Filters</legend>
+      <div class="filters">
+        <label>Search<input id="l-q" type="search" placeholder="Title, publisher, topic"></label>
+        <label>Site<select id="l-site"><option value="">All sites</option></select></label>
+        <label>Constituency<select id="l-constituency"><option value="">All three</option></select></label>
+        <label>Taxon group<select id="l-taxon"><option value="">All groups</option></select></label>
+        <label>Evidence kind<select id="l-kind"><option value="">All kinds</option></select></label>
+        <label>Origin<select id="l-origin"><option value="">Published and submitted</option></select></label>
+        <button type="button" class="btn filter-clear" id="l-clear">Clear filters</button>
+      </div>
+    </fieldset>
+    <div class="results-bar">
+      <p class="results-line" id="l-count" aria-live="polite"></p>
+      <label class="sort-by">Sort by<select id="l-sort"><option value="strength">Evidence strength (default)</option><option value="title">Title</option></select></label>
+    </div>
   </form>
-  <p class="small muted" id="l-count" aria-live="polite"></p>
 
   <div id="library"><p class="muted">Loading the library&hellip;</p></div>
 </main>

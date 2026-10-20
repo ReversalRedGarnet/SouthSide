@@ -67,6 +67,31 @@ Open through a web server, not by double-clicking: `python -m http.server`, then
   first three, empty `caption`, `alt`, `creator`, `source_url` and `folder_url`, and delete any team-folder copy.
 - Samples: `data/media.sample.json` (invented records) loads only with `?sample=1`. Do not upload it.
 
+## Design tokens
+All values live as CSS custom properties in the `:root` block at the top of `assets/css/styles.css`. Use a token,
+never a new literal value.
+- Colour: neutrals, the four greens (`--green-1` to `--green-4`) and `--glow`, then role tokens (`--brand`,
+  `--chrome`, `--on-chrome` and so on), the trust ramp, the semantic states and the map colours. Brand green is
+  chrome only; the glow is decoration only.
+- Spacing: `--space-1` to `--space-11` (2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 48 px).
+- Type: `--text-xs` to `--text-3xl` (13, 14, 15, 16, 18, 20, 22, 28 px), `--text-code`, and line heights
+  `--leading-body`, `--leading-heading`, `--leading-tag`, `--leading-code`. System fonts only (`--sans`).
+- Borders and corners: `--border-1` to `--border-3`, `--rule-card` (card and callout rules), `--radius-0`,
+  `--radius-sm`, `--radius-round`.
+- Focus: `--focus-width`, `--focus-offset` (dark ring with a glow halo), `--target-outline`, `--target-offset`.
+- Components: `--wrap-max`, `--gutter`, `--nav-gap` (narrower at 380px and below so the nav fits on one line at
+  360px), `--control-h` (2.5rem, 44px on phones) and control padding, `--tag-pad-x`, `--card-pad-left`, `--card-gap`,
+  mark and pin sizes, and column minimums.
+- Targets: `--target-min` (24px), `--link-pad-y` (taller tap area on links without moving text), `--check-size`,
+  `--pin-hit` (28px tappable box around a map marker; `assets/js/common.js` uses the same number) and `--scroll-pad`
+  (room inside scrolling tables so focus rings are not cut off).
+- Homepage layout: `--wide-max` (map, panels and site list, wider than the text column). From 1100px the map sits in
+  a sticky column beside the site list (`--col-site-list`), with its height set by `--map-side-min`, `--map-side-max`
+  and `--map-side-room`. The 1100px breakpoint is written in both `assets/css/styles.css` and `assets/js/home.js`;
+  keep them the same.
+- Left as fixed values on purpose: the constituency outline, label and swatch rules and the attribution link rule
+  (not to be changed), the stacked map's height, and the drawing geometry of the confidence marks and legend swatches.
+
 ## Rules
 - Prototype only: profiles are desk-sourced and NOT reviewed by custodians. Pages carry `noindex`. `noindex` is not
   access control: anyone with the address can open every page and data file.

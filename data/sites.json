@@ -3,7 +3,7 @@
     "schema_version": "0.2",
     "prepared": "2026-10-19",
     "status": "Desk-sourced and draft profiles from published material only. None has been reviewed by any custodian or community. Not an official record.",
-    "coordinate_note": "Only one site has a sourced location, and it is a bay-level point, not a boundary. Others are deliberately left unmapped until someone records a location with permission."
+    "coordinate_note": "Two sites have a location, each a bay-level point, not a boundary: one from published sources, and one from custodian-supplied material, generalised with the Field Kit's rule. Others are deliberately left unmapped until someone records a location with permission."
   },
   "sites": [
     {
@@ -318,6 +318,46 @@
       "verification_status": "draft",
       "last_reviewed": "2026-10-19",
       "public_visibility": "withheld"
+    },
+    {
+      "id": "SM-008",
+      "name": "Ohe'ohe Conservation Foundation",
+      "alt_names": ["Ohe'ohe Conservation Centre"],
+      "constituency": "East Are'are",
+      "place_text": "East coast of southern Malaita, near Raeao",
+      "tier": "community_group",
+      "realm": "land",
+      "location": {
+        "lat": -9.15,
+        "lng": 161.21,
+        "precision": "bay",
+        "radius_m": 4000,
+        "note": "Point is the bay near Raeao, where custodian-supplied material places the Ohe'ohe Conservation Centre. Generalised to about 1 km; the exact location is held privately. It is NOT a boundary.",
+        "source_ids": ["S33"]
+      },
+      "summary_en": "A community conservation foundation on the east coast of southern Malaita, near Raeao. Its sign asks people to protect mangroves, fauna and flora, and names Global GreenGrants Fund as its funder. Prepared from custodian-supplied material; little else is recorded yet.",
+      "summary_pijin": null,
+      "facts": [
+        {"key": "sign", "label": "Sign", "value": "\"Conservation Matters: Protect our mangroves, fauna & flora\"", "confidence": "reported", "source_ids": ["S33"]},
+        {"key": "sign_why", "label": "Sign: \"Why it matters\"", "value": "mangroves protect our shores; fauna and flora sustain our eco-systems; biodiversity is our natural wealth", "confidence": "reported", "source_ids": ["S33"]},
+        {"key": "sign_role", "label": "Sign: your role", "value": "\"Your role: Preserve, Respect, Protect\"", "confidence": "reported", "source_ids": ["S33"]},
+        {"key": "funding", "label": "Funding reported", "value": "\"Funded by: Global GreenGrants Fund\"", "confidence": "reported", "source_ids": ["S33"]},
+        {"key": "area", "label": "Area", "value": "Not stated.", "confidence": "unknown", "source_ids": ["S33"]},
+        {"key": "legal", "label": "Legal status", "value": "Not stated.", "confidence": "unknown", "source_ids": ["S33"]},
+        {"key": "management", "label": "Management", "value": "Not stated.", "confidence": "unknown", "source_ids": ["S33"]}
+      ],
+      "visitor": {"access": "unknown", "note": "No visitor arrangements are recorded. Ask first."},
+      "contact": {"public": null, "note": "None published."},
+      "consent": {"status": "not_yet_sought", "note": "The material was supplied by a custodian for SouthSide. Consent for this profile is not yet recorded."},
+      "open_questions": [
+        "What land, mangrove and sea area does the foundation look after, and who holds it?",
+        "When was the foundation formed, and is it registered?",
+        "What does the Global GreenGrants Fund support, and for how long?",
+        "What would the foundation want visitors and students to know, or not to do?"
+      ],
+      "verification_status": "draft",
+      "last_reviewed": "2026-10-20",
+      "public_visibility": "generalised"
     }
   ]
 }

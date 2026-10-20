@@ -32,7 +32,13 @@
     <span class="count" id="count" aria-live="polite"></span>
   </form>
 
-  <div id="map" role="region" aria-label="Map of conservation sites. The site list below is an equivalent alternative."></div>
+  <!-- From 1100px: map, key and panels in a sticky left column, the site list beside it (styles.css, home.js).
+       Below that, one column in this order. -->
+  <div class="atlas">
+  <div class="atlas-map">
+  <div class="skip-host"><a class="skip skip-map" href="#sites">Skip the map, go to the site list</a></div>
+  <div id="map" role="region" aria-label="Map of conservation sites. The site list is an equivalent alternative."></div>
+  <p class="map-selected" id="map-selected" aria-live="polite"></p>
   <p class="small muted map-hint">Click the map once to enable scroll-zoom.</p>
   <!-- Two independent collapsible panels, side by side on wide screens, stacked on phones. -->
   <div class="map-panels">
@@ -46,7 +52,7 @@
           <li><span class="mark shape-community_area" aria-hidden="true"></span>Ring: community-managed area</li>
           <li><span class="mark shape-community_group" aria-hidden="true"></span>Ring with a centre dot: community conservation group</li>
         </ul>
-        <p class="small muted">A pin is a location, not a boundary. Sites with no map point are still listed below, with the same mark.</p>
+        <p class="small muted">A pin is a location, not a boundary. Sites with no map point are still in the site list, with the same mark.</p>
       </div>
       <div>
         <h3>Places</h3>
@@ -77,15 +83,19 @@
     <ul id="coverage"></ul>
   </details>
   </div>
+  </div>
+
+  <section class="atlas-list" aria-labelledby="sites">
+  <h2 id="sites" tabindex="-1">Sites</h2>
+  <div id="list"><p class="muted">Loading sites&hellip;</p></div>
+  </section>
+  </div>
 
   <section aria-labelledby="updates-h">
     <h2 id="updates-h">Updates</h2>
     <div id="updates-home"><p class="muted">Loading updates&hellip;</p></div>
     <p class="small muted"><a href="updates.html">All updates</a>. Each is dated &ldquo;as of&rdquo; the day it was written and says who it comes from.<span data-update-ask hidden> To ask for an update: <span data-update-contact></span>.</span></p>
   </section>
-
-  <h2 id="sites">Sites</h2>
-  <div id="list"><p class="muted">Loading sites&hellip;</p></div>
 </main>
 
 <footer><div class="wrap">
