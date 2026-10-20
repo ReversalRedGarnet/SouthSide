@@ -30,6 +30,8 @@
     s.facts.forEach(function (f) { (f.source_ids || []).forEach(function (id) { used[id] = true; }); });
     ((s.location && s.location.source_ids) || []).forEach(function (id) { used[id] = true; });
     var usedIds = d.sourceList.map(function (x) { return x.id; }).filter(function (id) { return used[id]; });
+    // Whether the profile rests on custodian-supplied material, judged by its sources' authority_type (not by site id).
+    var custodianSupplied = usedIds.some(function (id) { return d.sources[id] && d.sources[id].authority_type === 'custodian'; });
 
     var mapped = s.location && s.location.lat != null && s.location.lng != null;
     var cite = 'SouthSide (prototype). “' + s.name + '.” ' + A.statusWord(s.verification_status) + ' profile, last reviewed ' +
@@ -111,7 +113,10 @@
           return '<div><dt>' + A.esc(g[0]) + '</dt><dd>' + g[1] +
             (g[2] ? ' <a class="glance-more" href="#' + g[2] + '" aria-label="' + A.esc(g[0]) + ': details">details</a>' : '') + '</dd></div>';
         }).join('') + '</dl></section>' +
-      '<p>Status: ' + A.statusText(s.verification_status) + '. This profile is desk-sourced from published material, not from the custodians. Updates are listed separately, each labelled with who it comes from. Items marked <strong>Unknown</strong> are gaps, not guesses.</p>' +
+      '<p>Status: ' + A.statusText(s.verification_status) + '. ' + (custodianSupplied
+        ? 'This profile draws on material supplied by a custodian. The custodians have not yet reviewed it.'
+        : 'This profile is desk-sourced from published material, not from the custodians.') +
+      ' Updates are listed separately, each labelled with who it comes from. Items marked <strong>Unknown</strong> are gaps, not guesses.</p>' +
       '<nav class="toc" aria-labelledby="toc-title"><p class="toc-title" id="toc-title">On this page</p><ul>' +
         sections.map(function (x) { return '<li><a href="#' + x[0] + '">' + x[1] + '</a></li>'; }).join('') + '</ul></nav>' +
       sections.map(function (x) {

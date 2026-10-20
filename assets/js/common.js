@@ -1,7 +1,7 @@
 /* Shared helpers: data loading, labels, small HTML utilities. No frameworks. */
 (function () {
   // Footer "prepared" date (YYYY-MM-DD). Edit it here only; it fills every [data-site-date].
-  var SITE_PREPARED = '2026-10-19';
+  var SITE_PREPARED = '2026-10-21';
 
   // Verification status as plain text: a bold word, then what it means. Never colour alone.
   var STATUS = {
